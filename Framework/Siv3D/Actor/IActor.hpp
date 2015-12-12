@@ -5,7 +5,8 @@
 # include "ActorPtr.hpp"
 # include "IWorld.hpp"
 
-# include "Shape/Box.hpp"
+# include "Shape/IShape.hpp"
+# include "Shape/SharePtr.hpp"
 
 namespace Graphics
 {
@@ -38,8 +39,8 @@ namespace Actor
 
 		Transform::Pose Local() const;
 		Transform::Pose World() const;
-		Shape::Box LocalShape() const;
-		Shape::Box WorldShape() const;
+		Shape::ShapePtr const LocalShape() const;
+		Shape::ShapePtr const WorldShape() const;
 
 	public:
 
@@ -79,5 +80,7 @@ namespace Actor
 
 		std::wstring m_name;
 		bool m_isDead;
+
+		Shape::ShapePtr m_shape;
 	};
 }

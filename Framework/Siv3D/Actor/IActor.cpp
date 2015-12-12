@@ -16,6 +16,7 @@ namespace Actor
 		, m_transform(transform)
 		, m_name(name)
 		, m_isDead(false)
+		, m_shape(std::make_shared<Shape::IShape>(Transform::Pose::Identity()))
 	{
 
 	}
@@ -35,21 +36,18 @@ namespace Actor
 		return transform * m_parent.lock()->World();
 	}
 
-	Shape::Box IActor::LocalShape() const
+	Shape::ShapePtr const IActor::LocalShape() const
 	{
-		return { m_transform, Transform::Vector3::One() };
+		return m_shape;
 	}
-
-	Shape::Box IActor::WorldShape() const
+	Shape::ShapePtr const IActor::WorldShape() const
 	{
-		auto&& world = World();
-
-		return { world, Transform::Vector3::One() };
+		return LocalShape()->Reshape(World());
 	}
 
 	bool IActor::IsCollide(ActorPtr const& actor) const
 	{
-		return WorldShape().Intersects(actor->WorldShape());
+		return WorldShape()->Intersects(*actor->WorldShape());
 	}
 
 	void IActor::Update(float deltaTime)
@@ -97,11 +95,12 @@ namespace Actor
 
 	void IActor::OnUpdate(float deltaTime)
 	{
-
+		(void)deltaTime;
 	}
 
 	void IActor::OnCollide(ActorPtr const& actor)
 	{
+		(void)actor;
 	}
 
 	void IActor::OnRender(Graphics::Renderer const& renderer) const

@@ -1,6 +1,6 @@
 # pragma once
 
-# include "Shape/Box.hpp"
+# include "Shape/IShape.hpp"
 
 namespace Graphics
 {
@@ -8,6 +8,6 @@ namespace Graphics
 	{
 	public:
 
-		void Render(Shape::Box const& shape, Transform::Pose const& pose) const;
+		void Render(Shape::ShapePtr const& shape, Transform::Pose const& pose) const;
 	};
 }

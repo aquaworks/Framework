@@ -4,11 +4,11 @@
 
 namespace Shape
 {
-	class Capsule : public IShape
+	class Segment : public IShape
 	{
 	public:
 
-		Capsule(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end, float radius);
+		Segment(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end);
 
 	public:
 
@@ -20,6 +20,5 @@ namespace Shape
 
 		Transform::Vector3 begin;
 		Transform::Vector3 end;
-		float radius;
 	};
 }

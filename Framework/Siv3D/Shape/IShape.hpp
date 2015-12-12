@@ -2,25 +2,26 @@
 
 # include "Transform/Pose.hpp"
 
+# include "SharePtr.hpp"
+
 namespace Shape
 {
-	template <typename ShapeType>
 	class IShape
 	{
 	public:
 
-		IShape(Transform::Pose const& origin)
-			: origin(origin)
-		{
-
-		}
+		static ShapePtr Empty();
 
 	public:
 
-		virtual bool Intersects(IShape const& shape) const = 0;
+		IShape(Transform::Pose const& origin);
 
-		virtual ShapeType Reshape(Transform::Pose const& transform) const = 0;
+	public:
 
+		virtual bool Intersects(IShape const& shape) const;
+		virtual ShapePtr Reshape(Transform::Pose const& pose) const;
+		virtual void Render() const;
+		
 	public:
 
 		Transform::Pose origin;

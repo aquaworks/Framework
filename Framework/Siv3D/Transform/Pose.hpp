@@ -49,7 +49,7 @@ namespace Transform
 
 	public:
 
-		Pose operator * (Pose const& other);
+		Pose operator * (Pose const& other) const;
 
 	public:
 

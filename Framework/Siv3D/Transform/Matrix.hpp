@@ -1,5 +1,8 @@
 # pragma once
 
+# pragma warning (push)
+# pragma warning (disable : 4201)
+
 # include "Vector4.hpp"
 # include "Quaternion.hpp"
 
@@ -290,3 +293,5 @@ namespace Transform
 
 	Vector4& operator *= (Vector4& v, Matrix const& m);
 }
+
+# pragma warning (pop)

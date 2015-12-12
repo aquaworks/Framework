@@ -93,7 +93,7 @@ namespace Transform
 		return Matrix::Scaling(scaling) * Quaternion::ToMatrix(rotation) * Matrix::Translation(position);
 	}
 
-	Pose Pose::operator * (Pose const& other)
+	Pose Pose::operator * (Pose const& other) const
 	{
 		return { this->position + other.position, this->rotation * other.rotation, this->scaling * other.scaling };
 	}

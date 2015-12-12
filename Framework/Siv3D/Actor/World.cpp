@@ -1,7 +1,6 @@
 # include "World.hpp"
 
 # include "IActor.hpp"
-# include "Empty.hpp"
 
 namespace Actor
 {
@@ -12,11 +11,11 @@ namespace Actor
 
 		// Layer
 		m_layers.insert(std::make_pair(Layer::None,
-			m_root->Add(IActor::Create<Empty>())));
+			m_root->Add(IActor::Create<IActor>(L"", Transform::Pose::Identity()))));
 		m_layers.insert(std::make_pair(Layer::Player,
-			m_root->Add(IActor::Create<Empty>())));
+			m_root->Add(IActor::Create<IActor>(L"", Transform::Pose::Identity()))));
 		m_layers.insert(std::make_pair(Layer::Obstacle,
-			m_root->Add(IActor::Create<Empty>())));
+			m_root->Add(IActor::Create<IActor>(L"", Transform::Pose::Identity()))));
 	}
 
 	WorldPtr World::Create()

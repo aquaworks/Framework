@@ -1,5 +1,8 @@
 # pragma once
 
+# pragma warning (push)
+# pragma warning (disable : 4201)
+
 # include <string>
 
 namespace Transform
@@ -136,3 +139,5 @@ namespace Transform
 
 	Point4 operator / (Point4 const& v, int s);
 }
+
+# pragma warning (pop)

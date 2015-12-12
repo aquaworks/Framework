@@ -13,8 +13,14 @@
   <ItemGroup>
     <ClCompile Include="Actor\IActor.cpp" />
     <ClCompile Include="Actor\World.cpp" />
+    <ClCompile Include="Physics\Collision.cpp" />
     <ClCompile Include="Graphics\Renderer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Shape\Capsule.cpp" />
+    <ClCompile Include="Shape\IShape.cpp" />
+    <ClCompile Include="Shape\Mesh.cpp" />
+    <ClCompile Include="Shape\Segment.cpp" />
+    <ClCompile Include="Shape\Sphere.cpp" />
     <ClCompile Include="Transform\Matrix.cpp" />
     <ClCompile Include="Transform\Point2.cpp" />
     <ClCompile Include="Transform\Point3.cpp" />
@@ -26,6 +32,7 @@
     <ClCompile Include="Transform\Vector4.cpp" />
     <ClCompile Include="Utility\Easing.cpp" />
     <ClCompile Include="Utility\Math.cpp" />
+    <ClCompile Include="Utility\Optional.cpp" />
     <ClCompile Include="Utility\String.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +186,6 @@
   <ItemGroup>
     <ClInclude Include="Actor\ActorPtr.hpp" />
     <ClInclude Include="Actor\Collision.hpp" />
-    <ClInclude Include="Actor\Empty.hpp" />
     <ClInclude Include="Actor\IActor.hpp" />
     <ClInclude Include="Actor\IWorld.hpp" />
     <ClInclude Include="Actor\Layer.hpp" />
@@ -197,13 +203,13 @@
     <ClInclude Include="Behavior\Task\ITask.hpp" />
     <ClInclude Include="Behavior\Task\Success.hpp" />
     <ClInclude Include="Behavior\Task\Wait.hpp" />
+    <ClInclude Include="Physics\Collision.hpp" />
     <ClInclude Include="Graphics\Renderer.hpp" />
-    <ClInclude Include="Shape\Box.hpp" />
     <ClInclude Include="Shape\Capsule.hpp" />
     <ClInclude Include="Shape\IShape.hpp" />
-    <ClInclude Include="Shape\Line.hpp" />
-    <ClInclude Include="Shape\Plane.hpp" />
-    <ClInclude Include="Shape\Polygon.hpp" />
+    <ClInclude Include="Shape\Segment.hpp" />
+    <ClInclude Include="Shape\Mesh.hpp" />
+    <ClInclude Include="Shape\SharePtr.hpp" />
     <ClInclude Include="Shape\Sphere.hpp" />
     <ClInclude Include="Transform\Matrix.hpp" />
     <ClInclude Include="Transform\Point2.hpp" />
@@ -218,6 +224,8 @@
     <ClInclude Include="Utility\Easing.hpp" />
     <ClInclude Include="Utility\Math.hpp" />
     <ClInclude Include="Utility\MemoryCast.hpp" />
+    <ClInclude Include="Utility\Optional.hpp" />
+    <ClInclude Include="Utility\Range.hpp" />
     <ClInclude Include="Utility\String.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -270,6 +278,10 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -289,6 +301,9 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -1,5 +1,8 @@
 # pragma once
 
+# pragma warning (push)
+# pragma warning (disable : 4201)
+
 # include <string>
 
 namespace Transform
@@ -198,3 +201,5 @@ namespace Transform
 
 	Vector2 operator / (Vector2 const& v, float s);
 }
+
+# pragma warning (pop)
