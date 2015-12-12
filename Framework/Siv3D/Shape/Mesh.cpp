@@ -14,6 +14,44 @@ namespace Shape
 
 	ShapePtr Mesh::Box(Transform::Vector3 const& size)
 	{
+		std::vector<Transform::Vector3> vertices
+		{
+			{ -size.x, -size.y, -size.z },
+			{ -size.x, size.y, -size.z },
+			{ size.x, size.y, -size.z },
+			{ size.x, -size.y, -size.z },
+			{ size.x, -size.y, size.z },
+			{ size.x, size.y, size.z },
+			{ -size.x, size.y, size.z },
+			{ -size.x, -size.y, size.z },
+		};
+		std::vector<size_t> indices
+		{
+			// 前面
+			0, 1, 2,
+			3, 0, 2,
+			// 背面
+			4, 5, 6,
+			7, 4, 6,
+			// 左面
+			7, 6, 1,
+			0, 7, 1,
+			// 右面
+			3, 2, 5,
+			4, 3, 5,
+			// 上面
+			1, 6, 5,
+			2, 1, 5,
+			// 下面
+			7, 0, 3,
+			4, 7, 3,
+		};
+
+		return std::make_shared<Mesh>(Transform::Pose::Empty(), vertices, indices);
+	}
+
+	ShapePtr Mesh::BoxNormal(Transform::Vector3 const& size)
+	{
 		Transform::Vector3 const normal = Transform::Vector3::Zero();
 		std::vector<Transform::Vector3> position
 		{
@@ -100,41 +138,103 @@ namespace Shape
 		shape->ComputeNormal();
 
 		return shape;
-		/*
-		std::vector<Transform::Vector3> vertices
+	}
+
+	ShapePtr Mesh::BoxCompositeNormal(Transform::Vector3 const& size)
+	{
+		// 座標と法線のみを持つ頂点
+		struct SimpleVertex
+		{
+			Transform::Vector3 position;
+			Transform::Vector3 normal;
+			SimpleVertex(Transform::Vector3 const& position, Transform::Vector3 const& normal)
+				: position(position)
+				, normal(normal)
+			{
+
+			}
+		};
+
+		// デフォルト法線
+		Transform::Vector3 const Normal = Transform::Vector3::Zero();
+
+		// 頂点座標
+		std::vector<Transform::Vector3> positions
 		{
 			{ -size.x, -size.y, -size.z },
-			{ -size.x, size.y, -size.z },
-			{ size.x, size.y, -size.z },
-			{ size.x, -size.y, -size.z },
-			{ size.x, -size.y, size.z },
-			{ size.x, size.y, size.z },
-			{ -size.x, size.y, size.z },
-			{ -size.x, -size.y, size.z },
+			{ -size.x, +size.y, -size.z },
+			{ +size.x, +size.y, -size.z },
+			{ +size.x, -size.y, -size.z },
+			{ +size.x, -size.y, +size.z },
+			{ +size.x, +size.y, +size.z },
+			{ -size.x, +size.y, +size.z },
+			{ -size.x, -size.y, +size.z },
 		};
+
+		// 頂点を構築
+		std::vector<SimpleVertex> simpleVertices;
+		simpleVertices.reserve(positions.size());
+		for (auto&& position : positions)
+		{
+			simpleVertices.emplace_back(position, Normal);
+		}
+
+		// 頂点のみを考慮した添字
 		std::vector<size_t> indices
 		{
-			// 前面
 			0, 1, 2,
 			3, 0, 2,
-			// 背面
 			4, 5, 6,
 			7, 4, 6,
-			// 左面
 			7, 6, 1,
 			0, 7, 1,
-			// 右面
 			3, 2, 5,
 			4, 3, 5,
-			// 上面
 			1, 6, 5,
 			2, 1, 5,
-			// 下面
 			7, 0, 3,
 			4, 7, 3,
 		};
 
-		return std::make_shared<Mesh>(Transform::Pose::Empty(), vertices, indices);*/
+		// 法線の構築
+		for (size_t i = 0; i < indices.size();)
+		{
+			SimpleVertex& v1 = simpleVertices.at(indices.at(i++));
+			SimpleVertex& v2 = simpleVertices.at(indices.at(i++));
+			SimpleVertex& v3 = simpleVertices.at(indices.at(i++));
+			Transform::Vector3 normal = Transform::Vector3::Normalize(
+				Transform::Vector3::Cross(v2.position - v1.position, v3.position - v1.position));
+			v1.normal = Transform::Vector3::Normalize(v1.normal + normal);
+			v2.normal = Transform::Vector3::Normalize(v2.normal + normal);
+			v3.normal = Transform::Vector3::Normalize(v3.normal + normal);
+		}
+
+		// テクスチャ座標
+		std::vector<Transform::Vector2> texcoord
+		{
+			{ 0.0f, 1.0f },
+			{ 0.0f, 0.0f },
+			{ 1.0f, 1.0f },
+			{ -.0f, 1.0f },
+		};
+
+		// テクスチャ座標を加える
+		std::vector<Vertex> vertices;
+		vertices.reserve(indices.size());
+		for (size_t i = 0; i < indices.size();)
+		{
+			SimpleVertex& v1 = simpleVertices.at(indices.at(i++));
+			SimpleVertex& v2 = simpleVertices.at(indices.at(i++));
+			SimpleVertex& v3 = simpleVertices.at(indices.at(i++));
+			SimpleVertex& v4 = simpleVertices.at(indices.at(i++));
+			i += 2;
+			vertices.emplace_back(v1.position, v1.normal, texcoord[0]);
+			vertices.emplace_back(v2.position, v2.normal, texcoord[1]);
+			vertices.emplace_back(v3.position, v3.normal, texcoord[2]);
+			vertices.emplace_back(v4.position, v4.normal, texcoord[3]);
+		}
+
+		return std::make_shared<Mesh>(Transform::Pose::Identity(), vertices, indices);
 	}
 
 	ShapePtr Mesh::Plane(Transform::Vector2 const& size)
@@ -186,21 +286,25 @@ namespace Shape
 		return std::make_shared<Mesh>(origin * pose, vertices, indices);
 	}
 
-	void Mesh::Render() const
+	void Mesh::Render(Transform::Vector4 const& color) const
 	{
 		s3d::MeshData data;
 		data.vertices.resize(vertices.size());
 		int i = 0;
+		s3d::Quaternion rotate { origin.rotation.x, origin.rotation.y, origin.rotation.z, origin.rotation.w };
+		s3d::Vec3 pos { origin.position.x, origin.position.y, origin.position.z };
 		for (auto&& vertex : vertices)
 		{
 			s3d::Vec3 position;
 			position.x = vertex.position.x;
 			position.y = vertex.position.y;
 			position.z = vertex.position.z;
+			position = rotate * position + pos;
 			s3d::Vec3 normal;
 			normal.x = vertex.normal.x;
 			normal.y = vertex.normal.y;
 			normal.z = vertex.normal.z;
+			normal = rotate * normal;
 			s3d::Vec2 texcoord;
 			texcoord.x = vertex.texcoord.x;
 			texcoord.y = vertex.texcoord.y;
@@ -211,8 +315,9 @@ namespace Shape
 			++i;
 		}
 		data.indices = indices;
+		s3d::ColorF col { color.r, color.g, color.b, color.a };
 
-		s3d::DynamicMesh(data).draw();
+		s3d::DynamicMesh(data).draw(col);
 	}
 
 	void Mesh::ComputeNormal()

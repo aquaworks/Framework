@@ -20,7 +20,8 @@ namespace Shape
 
 		virtual bool Intersects(IShape const& shape) const;
 		virtual ShapePtr Reshape(Transform::Pose const& pose) const;
-		virtual void Render() const;
+		virtual void Render(Transform::Vector4 const& color = Transform::Vector4::One()) const;
+		virtual ShapePtr BoundingSphere() const;
 		
 	public:
 

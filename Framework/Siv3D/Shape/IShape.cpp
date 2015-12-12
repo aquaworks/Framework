@@ -1,5 +1,7 @@
 # include "IShape.hpp"
 
+# include "Sphere.hpp"
+
 namespace Shape
 {
 	ShapePtr IShape::Empty()
@@ -24,8 +26,15 @@ namespace Shape
 		return std::make_shared<IShape>(origin * pose);
 	}
 
-	void IShape::Render() const
+	void IShape::Render(Transform::Vector4 const& color) const
 	{
-		
+		(void)color;
+	}
+
+	ShapePtr IShape::BoundingSphere() const
+	{
+		Transform::Pose pose;
+		pose.Move(origin.position);
+		return std::make_shared<Sphere>(pose, 0.0f);
 	}
 }

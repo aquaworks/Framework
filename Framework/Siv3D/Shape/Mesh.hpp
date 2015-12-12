@@ -21,6 +21,8 @@ namespace Shape
 	public:
 
 		static ShapePtr Box(Transform::Vector3 const& size);
+		static ShapePtr BoxNormal(Transform::Vector3 const& size);
+		static ShapePtr BoxCompositeNormal(Transform::Vector3 const& size);
 		static ShapePtr Plane(Transform::Vector2 const& size);
 
 	public:
@@ -32,7 +34,7 @@ namespace Shape
 
 		virtual bool Intersects(IShape const& shape) const override;
 		virtual ShapePtr Reshape(Transform::Pose const& pose) const override;
-		virtual void Render() const override;
+		virtual void Render(Transform::Vector4 const& color) const override;
 
 
 		void ComputeNormal();

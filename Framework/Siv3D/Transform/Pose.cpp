@@ -80,7 +80,7 @@ namespace Transform
 
 	Pose Pose::Rotated(Quaternion const& rotation) const
 	{
-		return { position, rotation * rotation, scaling };
+		return { position, this->rotation * rotation, scaling };
 	}
 
 	Pose Pose::Scaled(Vector3 const& scaling) const

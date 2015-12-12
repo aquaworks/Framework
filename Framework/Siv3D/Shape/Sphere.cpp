@@ -22,7 +22,7 @@ namespace Shape
 		return std::make_shared<Sphere>(origin * pose, radius);
 	}
 
-	void Sphere::Render() const
+	void Sphere::Render(Transform::Vector4 const& color) const
 	{
 		s3d::Vec3 pos;
 		pos.x = origin.position.x;
@@ -34,7 +34,15 @@ namespace Shape
 		rotation.component.fv.y = origin.rotation.y;
 		rotation.component.fv.z = origin.rotation.z;
 		rotation.component.fv.w = origin.rotation.w;
+		s3d::ColorF col { color.r, color.g, color.b, color.a };
 
-		s3d::Sphere(pos, r, rotation).draw();
+		s3d::Sphere(pos, r, rotation).draw(col);
+	}
+
+	ShapePtr Sphere::BoundingSphere() const
+	{
+		Transform::Pose pose;
+		pose.Move(origin.position);
+		return std::make_shared<Sphere>(pose, radius * origin.scaling.x);
 	}
 }

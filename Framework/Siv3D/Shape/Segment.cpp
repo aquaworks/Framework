@@ -24,8 +24,13 @@ namespace Shape
 		return std::make_shared<Segment>(origin * pose, begin, end);
 	}
 
-	void Segment::Render() const
+	void Segment::Render(Transform::Vector4 const& color) const
 	{
-		Capsule(origin, begin, end, 0.01f).Render();
+		Capsule(origin, begin, end, 0.01f).Render(color);
+	}
+
+	ShapePtr Segment::BoundingSphere() const
+	{
+		return Capsule(origin, begin, end, 0.01f).BoundingSphere();
 	}
 }

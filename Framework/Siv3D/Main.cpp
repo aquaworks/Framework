@@ -5,6 +5,9 @@
 # include "Shape/Segment.hpp"
 # include "Shape/Capsule.hpp"
 
+# include "Utility/Math.hpp"
+# include "Utility/Easing.hpp"
+
 template <typename Type>
 Type Lerp(Type const& begin, Type const& end, double t)
 {
@@ -14,7 +17,7 @@ Type Lerp(Type const& begin, Type const& end, double t)
 void Main()
 {
 	Shape::ShapePtr capsule = std::make_shared<Shape::Capsule>(
-		Transform::Pose::Identity(), Transform::Vector3(0.0f, 1.0f, 0.0f), Transform::Vector3(0.0f, -1.0f, 0.0f), 1.0f);
+		Transform::Pose::Identity(), Transform::Vector3(0.0f, 0.0f, 0.0f), Transform::Vector3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	Shape::ShapePtr sphere = std::make_shared<Shape::Sphere>(
 		Transform::Pose::Identity(), 1.0f);
@@ -39,14 +42,25 @@ void Main()
 
 	Shape::ShapePtr empty = Shape::IShape::Empty();
 
-	Shape::ShapePtr box = Shape::Mesh::Box({ 1.0f, 1.0f, 1.0f });
+	Shape::ShapePtr box = Shape::Mesh::BoxNormal({ 1.0f, 1.0f, 1.0f });
 
 	Shape::ShapePtr plane = Shape::Mesh::Plane({ 1.0f, 1.0f });
 
 	Shape::ShapePtr shape = empty;
 
+	Transform::Pose pose = Transform::Pose::Identity();
+
+	double t = 0.0;
+	double delta = 0.0166667;
+
 	while (s3d::System::Update())
 	{
+		// Update
+
+		// camera
+		s3d::Graphics3D::FreeCamera();
+
+		// shape
 		if (s3d::Input::Key1.clicked)
 		{
 			shape = capsule;
@@ -76,8 +90,43 @@ void Main()
 			shape = empty;
 		}
 
-		s3d::Graphics3D::FreeCamera();
+		// pose
+		pose.Rotate(Transform::Quaternion::Rotation(Transform::Vector3::Right(), Utility::Math::ToRadian(1.0)));
+		Transform::Vector3 begin { -3.0f, 0.0f, 0.0f };
+		Transform::Vector3 end { +3.0f, 0.0f, 0.0f };
+		Transform::Vector3 pos = begin + (end - begin) * (float)Utility::EaseSine::InOut(t);
+		Transform::Pose origin = pose.Moved(pos);
+		origin = pose;
 
-		shape->Render();
+		// timer
+		t += delta;
+		if (t > 1.0)
+		{
+			t = 1.0;
+			delta *= -1.0;
+		}
+		if (0.0 < t)
+		{
+			t = 0.0;
+			delta *= -1.0;
+		}
+
+		// Render
+		// shape
+		auto reshape = shape->Reshape(origin);
+		auto rasterizer = s3d::Graphics3D::GetRasterizerState();
+		rasterizer = s3d::RasterizerState::WireframeNone;
+		s3d::Graphics3D::SetRasterizerState(rasterizer);
+		reshape->Render();
+		rasterizer = s3d::RasterizerState::Default3D;
+		s3d::Graphics3D::SetRasterizerState(rasterizer);
+
+		// bounding sphere
+		rasterizer = s3d::Graphics3D::GetRasterizerState();
+		rasterizer = s3d::RasterizerState::WireframeNone;
+		s3d::Graphics3D::SetRasterizerState(rasterizer);
+		reshape->BoundingSphere()->Render(Transform::Vector4(0.0f, 1.0f, 0.0f, 0.5f));
+		rasterizer = s3d::RasterizerState::Default3D;
+		s3d::Graphics3D::SetRasterizerState(rasterizer);
 	}
 }
