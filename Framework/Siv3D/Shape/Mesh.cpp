@@ -1,5 +1,9 @@
 # include "Mesh.hpp"
 
+# include "Utility/Math.hpp"
+
+# include "Sphere.hpp"
+
 # include <Siv3D.hpp>
 
 namespace Shape
@@ -318,6 +322,23 @@ namespace Shape
 		s3d::ColorF col { color.r, color.g, color.b, color.a };
 
 		s3d::DynamicMesh(data).draw(col);
+	}
+
+	ShapePtr Mesh::BoundingSphere() const
+	{
+		auto value = std::minmax_element(vertices.begin(), vertices.end(), [] (Vertex const& v1, Vertex const& v2)
+		{ return (v1.position.x + v1.position.y + v1.position.z) < (v2.position.x + v2.position.y + v2.position.z); });
+		Transform::Vector3 const& min = value.first->position;
+		Transform::Vector3 const& max = value.second->position;
+
+		Transform::Vector3 center = max + min;
+
+		Transform::Pose pose;
+		pose.Move(origin.position + center);
+
+		float r = Transform::Vector3::Length(max - center);
+		
+		return std::make_shared<Sphere>(pose, r);
 	}
 
 	void Mesh::ComputeNormal()

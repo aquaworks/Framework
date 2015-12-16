@@ -35,10 +35,11 @@ namespace Shape
 		virtual bool Intersects(IShape const& shape) const override;
 		virtual ShapePtr Reshape(Transform::Pose const& pose) const override;
 		virtual void Render(Transform::Vector4 const& color) const override;
+		virtual ShapePtr BoundingSphere() const override;
 
+	private:
 
 		void ComputeNormal();
-	private:
 
 	public:
 

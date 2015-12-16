@@ -42,21 +42,21 @@ namespace Shape
 		double r = radius;
 		s3d::ColorF col { color.r, color.g, color.b, color.a };
 
-		s3d::Cylinder(from, to, r).draw(col);
-		s3d::Sphere(from, r).draw(col);
-		s3d::Sphere(to, r).draw(col);
+		s3d::Cylinder(from, to, r).draw(s3d::Palette::Red);
+		s3d::Sphere(from, r, rotate).draw(s3d::Palette::Green);
+		s3d::Sphere(to, r, rotate).draw(s3d::Palette::Blue);
 	}
 
 	ShapePtr Capsule::BoundingSphere() const
 	{
 		Transform::Pose pose;
-		pose.Move(origin.position);
 
-		Transform::Vector3 v = end - begin;
-		v *= Transform::Quaternion::ToMatrix(origin.rotation);
-		pose.Move(v / 2.0f);
+		Transform::Matrix rotate = Transform::Quaternion::ToMatrix(origin.rotation);
 
-		float r = Transform::Vector3::Length(v) * 2.0f;
+		Transform::Vector3 center = origin.position + (begin + end) / 2.0f;
+		pose.Move(center * rotate);
+
+		float r = Transform::Vector3::Length(end - begin) / 2.0f + radius;
 
 		return std::make_shared<Sphere>(pose, r);
 	}
