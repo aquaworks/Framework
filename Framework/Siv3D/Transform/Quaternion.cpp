@@ -122,4 +122,20 @@ namespace Transform
 	{
 		return q1 = q1 * q2;
 	}
+
+	Vector3 operator * (Vector3 const& v, Quaternion const& q)
+	{
+		Quaternion result = -q * Quaternion(v.x, v.y, v.z, 0.0f) * q;
+		return { result.x, result.y, result.z };
+	}
+
+	Vector3& operator *= (Vector3& v, Quaternion const& q)
+	{
+		return v = v * q;
+	}
+
+	Quaternion operator - (Quaternion const& q)
+	{
+		return { -q.x, -q.y, -q.z, -q.w };
+	}
 }

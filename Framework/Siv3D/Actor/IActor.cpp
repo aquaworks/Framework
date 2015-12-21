@@ -8,7 +8,31 @@ namespace Actor
 {
 	double const IActor::Gravity = 0.02;
 
+	IActor::IActor(std::wstring const& name)
+		: IActor(name, Transform::Pose::Identity(), Shape::IShape::Empty())
+	{
+
+	}
+
+	IActor::IActor(Transform::Pose const& transform)
+		: IActor(L"", transform, Shape::IShape::Empty())
+	{
+
+	}
+
+	IActor::IActor(Shape::ShapePtr const& shape)
+		: IActor(L"", Transform::Pose::Identity(), shape)
+	{
+
+	}
+
 	IActor::IActor(std::wstring const& name, Transform::Pose const& transform)
+		: IActor(name, transform, Shape::IShape::Empty())
+	{
+
+	}
+
+	IActor::IActor(std::wstring const& name, Transform::Pose const& transform, Shape::ShapePtr const& shape)
 		: m_children()
 		, m_parent()
 		, m_self()
@@ -16,9 +40,15 @@ namespace Actor
 		, m_transform(transform)
 		, m_name(name)
 		, m_isDead(false)
-		, m_shape(std::make_shared<Shape::IShape>(Transform::Pose::Identity()))
+		, m_shape(shape)
 	{
 
+	}
+
+	IActor& IActor::ChangeShape(Shape::ShapePtr const& shape)
+	{
+		m_shape = shape;
+		return *this;
 	}
 
 	Transform::Pose IActor::Local() const

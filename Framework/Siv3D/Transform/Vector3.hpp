@@ -74,42 +74,6 @@ namespace Transform
 	public:
 
 		/// <summary>文字列に変換して返す</summary>
-		std::wstring ToString() const;
-
-		/// <summary>内積を返す</summary>
-		/// <param name="v">ベクトル</param>
-		float dot(Vector3 const& v) const;
-
-		/// <summary>外積を返す</summary>
-		/// <param name="v">ベクトル</param>
-		Vector3 cross(Vector3 const& v) const;
-
-		/// <summary>長さの二乗を返す</summary>
-		/// <param name="v">ベクトル</param>
-		float lengthSquared() const;
-
-		/// <summary>長さを返す</summary>
-		/// <param name="v">ベクトル</param>
-		float length() const;
-
-		/// <summary>正規化する</summary>
-		Vector3& normalize();
-
-		/// <summary>任意軸で回転する</summary>
-		/// <param name="axis">回転軸</param>
-		/// <param name="angle">回転量</param>
-		Vector3& rotate(Vector3 const& axis, double angle);
-
-		/// <summary>ベクトルに射影する</summary>
-		/// <param name="v">対象のベクトル</param>
-		Vector3& projection(Vector3 const& v);
-
-		/// <summary>ベクトルのなす角を返す</summary>
-		float angle(Vector3 const& v) const;
-
-	public:
-
-		/// <summary>文字列に変換して返す</summary>
 		/// <param name="v">ベクトル</param>
 		static std::wstring toString(Vector3 const& v);
 
@@ -143,12 +107,6 @@ namespace Transform
 		/// <param name="v">ベクトル</param>
 		/// <param name="target">対象のベクトル</param>
 		static Vector3 Projection(Vector3 const& v, Vector3 const& target);
-
-		/// <summary>線形補間したベクトルを返す</summary>
-		/// <param name="start">開始ベクトル</param>
-		/// <param name="end">終了ベクトル</param>
-		/// <param name="t">遷移率</param>
-		static Vector3 Lerp(Vector3 const& start, Vector3 const& end, float t);
 
 		/// <summary>ベクトルのなす角を返す</summary>
 		static float Angle(Vector3 const& v1, Vector3 const& v2);

@@ -76,26 +76,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Point4::toString() const
-	{
-		return ToString(*this);
-	}
-
-	int Point4::dot(Point4 const& v) const
-	{
-		return Dot(*this, v);
-	}
-
-	int Point4::lengthSquared() const
-	{
-		return LengthSquared(*this);
-	}
-
-	float Point4::length() const
-	{
-		return Length(*this);
-	}
-
 	int Point4::Dot(Point4 const& v1, Point4 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;

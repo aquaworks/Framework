@@ -4,9 +4,7 @@
 
 namespace Utility
 {
-	using EasingFunction = double(double);
-
-	template <EasingFunction easing>
+	template <double easing(double)>
 	class Easing
 	{
 	public:

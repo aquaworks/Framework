@@ -77,39 +77,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Vector4::toString() const
-	{
-		return ToString(*this);
-	}
-
-	float Vector4::dot(Vector4 const& v) const
-	{
-		return Dot(*this, v);
-	}
-
-	float Vector4::lengthSquared() const
-	{
-		return LengthSquared(*this);
-	}
-
-	float Vector4::length() const
-	{
-		return Length(*this);
-	}
-
-	Vector4& Vector4::normalize()
-	{
-		*this = Normalize(*this);
-		return *this;
-	}
-
-	Vector4& Vector4::projection(Vector4 const& v)
-	{
-		*this = Projection(*this, v);
-		return *this;
-	}
-
-
 	float Vector4::Dot(Vector4 const& v1, Vector4 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
@@ -140,11 +107,6 @@ namespace Transform
 	{
 		Vector4 normal = Normalize(target);
 		return Dot(v, normal) * normal;
-	}
-
-	Vector4 Vector4::Lerp(Vector4 const& start, Vector4 const& end, float t)
-	{
-		return start + (end - start) * t;
 	}
 
 	std::wstring Vector4::ToString(Vector4 const& v)

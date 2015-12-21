@@ -34,20 +34,20 @@ namespace Transform
 {
 	using namespace Utility;
 
-	Matrix const& Matrix::zero()
+	Matrix const& Matrix::Zero()
 	{
 		static Matrix zero { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		return zero;
 	}
 
-	Matrix const& Matrix::identity()
+	Matrix const& Matrix::Identity()
 	{
 		static Matrix identity { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
 		return identity;
 	}
 
 	Matrix::Matrix()
-		: Matrix(identity())
+		: Matrix(Identity())
 	{
 
 	}
@@ -122,154 +122,14 @@ namespace Transform
 		return elm;
 	}
 
-	bool Matrix::isIdentity() const
-	{
-		return IsIdentity(*this);
-	}
-
-	bool Matrix::isZero() const
-	{
-		return IsZero(*this);
-	}
-
-	bool Matrix::canInverse() const
-	{
-		return CanInverse(*this);
-	}
-
-	bool Matrix::isInverse(Matrix const& matrix) const
-	{
-		return IsInverse(*this, matrix);
-	}
-
-	float Matrix::determinant() const
-	{
-		return Determinant(*this);
-	}
-
-	std::wstring Matrix::toString() const
-	{
-		return ToString(*this);
-	}
-
-	Matrix& Matrix::Translate(Vector3 const& translation)
-	{
-		return Translate(*this, translation);
-	}
-
-	Matrix& Matrix::rotate(Vector3 const& axis, double angle)
-	{
-		return Rotate(*this, axis, angle);
-	}
-
-	Matrix& Matrix::scale(Vector3 const& scaling)
-	{
-		return Scale(*this, scaling);
-	}
-
-	Matrix& Matrix::transform(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling)
-	{
-		return Transform(*this, translation, axis, angle, scaling);
-	}
-
-	Matrix& Matrix::transpose()
-	{
-		return Transpose(*this);
-	}
-
-	Matrix& Matrix::inverse()
-	{
-		return Inverse(*this);
-	}
-
-	Matrix Matrix::translated(Vector3 const& translation) const
-	{
-		return Translated(*this, translation);
-	}
-
-	Matrix Matrix::rotated(Vector3 const& axis, double angle) const
-	{
-		return Rotated(*this, axis, angle);
-	}
-
-	Matrix Matrix::scaled(Vector3 const& scaling) const
-	{
-		return Scaled(*this, scaling);
-	}
-
-	Matrix Matrix::transformed(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling) const
-	{
-		return Transformed(*this, translation, axis, angle, scaling);
-	}
-
-	Matrix Matrix::transposed() const
-	{
-		return Transposed(*this);
-	}
-
-	Matrix Matrix::inversed() const
-	{
-		return Inversed(*this);
-	}
-
-	Quaternion Matrix::ToQuaternion() const
-	{
-		double x = m11 - m22 - m33 + 1.0;
-		double y = m22 - m33 - m11 + 1.0;
-		double z = m33 - m11 - m22 + 1.0;
-		double w = m11 + m22 + m33 + 1.0;
-
-		int index;
-		double max;
-		std::tie(index, max) = Math::MaxData({ x, y, z, w });
-
-		if (max < 0.0)
-		{
-			return Quaternion::Identity();
-		}
-		
-		float v = (float)Math::Sqrt(max) / 2.0f;
-		float m = v * 4.0f;
-
-		float const table[4][4] =
-		{
-			v, (m12 + m21) * m, (m31 + m13) * m, (m23 - m32) * m,
-			(m12 + m21) * m, v, (m23 + m32) * m, (m31 - m13) * m,
-			(m31 + m13) * m, (m23 + m32) * m, v, (m12 - m21) * m,
-			(m23 - m32) * m, (m31 - m13) * m, (m12 - m21) * m, v,
-		};
-
-		return Quaternion(
-			table[index][0],
-			table[index][1],
-			table[index][2],
-			table[index][3]);
-		
-	}
-
-	Vector4 Matrix::up() const
-	{
-		return Up(*this);
-	}
-
-	Vector4 Matrix::right() const
-	{
-		return Right(*this);
-	}
-
-	Vector4 Matrix::forward() const
-	{
-		return Forward(*this);
-	}
-
 	bool Matrix::IsIdentity(Matrix const& m)
 	{
-		return m == identity();
+		return m == Identity();
 	}
 
 	bool Matrix::IsZero(Matrix const& m)
 	{
-		return m == zero();
+		return m == Zero();
 	}
 
 	bool Matrix::CanInverse(Matrix const& m)
@@ -315,30 +175,40 @@ namespace Transform
 	std::wstring Matrix::ToString(Matrix const& m)
 	{
 		return String::Create(
-			"f[0] : ", MemoryCast<Vector4>(m.mat[0])->toString(), "\n",
-			"f[1] : ", MemoryCast<Vector4>(m.mat[1])->toString(), "\n",
-			"f[2] : ", MemoryCast<Vector4>(m.mat[2])->toString(), "\n",
-			"f[3] : ", MemoryCast<Vector4>(m.mat[3])->toString());
+			"f[0] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[0])), "\n",
+			"f[1] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[1])), "\n",
+			"f[2] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[2])), "\n",
+			"f[3] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[3])));
 	}
 
 	Matrix Matrix::Translation(Vector3 const& translation)
 	{
-		return Translated(identity(), translation);
+		return Translated(Identity(), translation);
 	}
 
 	Matrix Matrix::Rotation(Vector3 const& axis, double angle)
 	{
-		return Rotated(identity(), axis, angle);
+		return Rotated(Identity(), axis, angle);
+	}
+
+	Matrix Matrix::Rotation(Quaternion const& rotation)
+	{
+		return Rotated(Identity(), rotation);
 	}
 
 	Matrix Matrix::Scaling(Vector3 const& scaling)
 	{
-		return Scaled(identity(), scaling);
+		return Scaled(Identity(), scaling);
 	}
 
 	Matrix Matrix::Transformation(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling)
 	{
-		return Transformed(identity(), translation, axis, angle, scaling);
+		return Transformed(Identity(), translation, axis, angle, scaling);
+	}
+
+	Matrix Matrix::Transformation(Vector3 const & translation, Quaternion const & rotation, Vector3 const & scaling)
+	{
+		return Matrix();
 	}
 
 	Matrix& Matrix::Translate(Matrix& matrix, Vector3 const& translation)
@@ -351,14 +221,26 @@ namespace Transform
 
 	Matrix& Matrix::Rotate(Matrix& matrix, Vector3 const& axis, double angle)
 	{
-		Vector4 X = Vector4(Vector3(matrix.m11, matrix.m12, matrix.m13).rotate(axis, angle), 0.0f);
-		Vector4 Y = Vector4(Vector3(matrix.m21, matrix.m22, matrix.m23).rotate(axis, angle), 0.0f);
-		Vector4 Z = Vector4(Vector3(matrix.m31, matrix.m32, matrix.m33).rotate(axis, angle), 0.0f);
+		Vector4 X = Vector4(Vector3::Rotate(Vector3(matrix.m11, matrix.m12, matrix.m13), axis, angle), 0.0f);
+		Vector4 Y = Vector4(Vector3::Rotate(Vector3(matrix.m21, matrix.m22, matrix.m23), axis, angle), 0.0f);
+		Vector4 Z = Vector4(Vector3::Rotate(Vector3(matrix.m31, matrix.m32, matrix.m33), axis, angle), 0.0f);
 		matrix.m11 = X.x; matrix.m12 = X.y; matrix.m13 = X.z;
 		matrix.m21 = Y.x; matrix.m22 = Y.y; matrix.m23 = Y.z;
 		matrix.m31 = Z.x; matrix.m32 = Z.y; matrix.m33 = Z.z;
 		return matrix;
 	}
+
+	Matrix & Matrix::Rotate(Matrix& matrix, Quaternion const& rotation)
+	{
+		Vector3 X = Vector3(matrix.m11, matrix.m12, matrix.m13) * rotation;
+		Vector3 Y = Vector3(matrix.m21, matrix.m22, matrix.m23) * rotation;
+		Vector3 Z = Vector3(matrix.m31, matrix.m32, matrix.m33) * rotation;
+		matrix.m11 = X.x; matrix.m12 = X.y; matrix.m13 = X.z;
+		matrix.m21 = Y.x; matrix.m22 = Y.y; matrix.m23 = Y.z;
+		matrix.m31 = Z.x; matrix.m32 = Z.y; matrix.m33 = Z.z;
+		return matrix;
+	}
+
 	Matrix& Matrix::Scale(Matrix& matrix, Vector3 const& scaling)
 	{
 		matrix.m11 *= scaling.x; matrix.m12 *= scaling.x; matrix.m13 *= scaling.x;
@@ -372,6 +254,11 @@ namespace Transform
 		return Translate(Rotate(Scale(matrix, scaling), axis, angle), translation);
 	}
 
+	Matrix & Matrix::Transform(Matrix& matrix, Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling)
+	{
+		return Translate(Rotate(Scale(matrix, scaling), rotation), translation);
+	}
+
 	Matrix& Matrix::Transpose(Matrix& matrix)
 	{
 		return matrix = Transposed(matrix);
@@ -380,6 +267,52 @@ namespace Transform
 	Matrix& Matrix::Inverse(Matrix& matrix)
 	{
 		return matrix = Inversed(matrix);
+	}
+
+	Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
+	{
+		double m11 = matrix.m11;
+		double m12 = matrix.m12;
+		double m13 = matrix.m13;
+		double m21 = matrix.m21;
+		double m22 = matrix.m22;
+		double m23 = matrix.m23;
+		double m31 = matrix.m31;
+		double m32 = matrix.m32;
+		double m33 = matrix.m33;
+
+		double x = m11 - m22 - m33 + 1.0;
+		double y = m22 - m33 - m11 + 1.0;
+		double z = m33 - m11 - m22 + 1.0;
+		double w = m11 + m22 + m33 + 1.0;
+
+		int index;
+		double max;
+		std::tie(index, max) = Math::MaxData({ x, y, z, w });
+
+		if (max < 0.0)
+		{
+			return Quaternion::Identity();
+		}
+
+		float v = (float)Math::Sqrt(max) / 2.0f;
+		float m = v * 4.0f;
+
+		float const table[4][4] =
+		{
+			v, (m12 + m21) * m, (m31 + m13) * m, (m23 - m32) * m,
+			(m12 + m21) * m, v, (m23 + m32) * m, (m31 - m13) * m,
+			(m31 + m13) * m, (m23 + m32) * m, v, (m12 - m21) * m,
+			(m23 - m32) * m, (m31 - m13) * m, (m12 - m21) * m, v,
+		};
+
+		return Quaternion
+		{
+			table[index][0],
+			table[index][1],
+			table[index][2],
+			table[index][3]
+		};
 	}
 
 	Matrix Matrix::Translated(Matrix const& matrix, Vector3 const& translation)
@@ -394,6 +327,12 @@ namespace Transform
 		return Rotate(m, axis, angle);
 	}
 
+	Matrix Transform::Matrix::Rotated(Matrix const& matrix, Quaternion const& rotation)
+	{
+		Matrix m = matrix;
+		return Rotate(m, rotation);
+	}
+
 	Matrix Matrix::Scaled(Matrix const& matrix, Vector3 const& scaling)
 	{
 		Matrix m = matrix;
@@ -404,6 +343,12 @@ namespace Transform
 	{
 		Matrix m = matrix;
 		return Transform(m, translation, axis, angle, scaling);
+	}
+
+	Matrix Transform::Matrix::Transformed(Matrix const& matrix, Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling)
+	{
+		Matrix m = matrix;
+		return Transform(m, translation, rotation, scaling);
 	}
 
 	Matrix Matrix::Transposed(Matrix const& matrix)
@@ -421,7 +366,7 @@ namespace Transform
 
 		if (det == 0.0f)
 		{
-			return zero();
+			return Zero();
 		}
 
 		double m11 = (
@@ -592,9 +537,9 @@ namespace Transform
 	Vector3 Matrix::Scaling(Matrix const& matrix)
 	{
 		return Vector3(
-			MemoryCast<Vector4>(matrix.mat[0])->length(),
-			MemoryCast<Vector4>(matrix.mat[1])->length(),
-			MemoryCast<Vector4>(matrix.mat[2])->length());
+			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[0])),
+			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[1])),
+			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[2])));
 	}
 
 	Matrix Matrix::LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up)
@@ -637,22 +582,6 @@ namespace Transform
 			w, h, 0, 1);
 	}
 
-	Matrix Matrix::Lerp(Matrix const& m1, Matrix const& m2, float t)
-	{
-		Matrix r1 = Matrix::Rotation(m1);
-		Matrix r2 = Matrix::Rotation(m2);
-		Vector3 translate = Vector3::Lerp(Matrix::Translation(m1), Matrix::Translation(m2), t);
-		Vector3 xAxis = Vector3::Slerp(Vector3(Matrix::Right(r1)), Vector3(Matrix::Right(r2)), t);
-		Vector3 yAxis = Vector3::Slerp(Vector3(Matrix::Up(r1)), Vector3(Matrix::Up(r2)), t);
-		Vector3 zAxis = Vector3::Slerp(Vector3(Matrix::Forward(r1)), Vector3(Matrix::Forward(r2)), t);
-		Vector3 scale = Vector3::Lerp(Matrix::Scaling(m1), Matrix::Scaling(m2), t);
-		return Matrix(
-			xAxis.x * scale.x, xAxis.y * scale.x, xAxis.z * scale.x, 0.0f,
-			xAxis.x * scale.y, xAxis.y * scale.y, xAxis.z * scale.y, 0.0f,
-			xAxis.x * scale.z, xAxis.y * scale.z, xAxis.z * scale.z, 0.0f,
-			translate.x, translate.y, translate.z, 1.0f);
-	}
-
 	bool operator == (Matrix const& m1, Matrix const& m2)
 	{
 		for (int i = 0; i < 16; ++i)
@@ -672,7 +601,7 @@ namespace Transform
 
 	Matrix operator * (Matrix const& m1, Matrix const& m2)
 	{
-		Matrix m = Matrix::zero();
+		Matrix m = Matrix::Zero();
 
 		Multiply(m, 4, 4, 4, m1, m2);
 

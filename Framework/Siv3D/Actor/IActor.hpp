@@ -33,7 +33,15 @@ namespace Actor
 
 	public:
 
+		explicit IActor(std::wstring const& name);
+		explicit IActor(Transform::Pose const& transform);
+		explicit IActor(Shape::ShapePtr const& shape);
 		IActor(std::wstring const& name, Transform::Pose const& transform);
+		IActor(std::wstring const& name, Transform::Pose const& transform, Shape::ShapePtr const& shape);
+
+	public:
+
+		IActor& ChangeShape(Shape::ShapePtr const& shape);
 
 	public:
 

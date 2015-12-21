@@ -56,21 +56,6 @@ namespace Transform
 	public:
 
 		/// <summary>•¶š—ñ‚É•ÏŠ·‚µ‚Ä•Ô‚·</summary>
-		std::wstring toString() const;
-
-		/// <summary>“àÏ‚ğ•Ô‚·</summary>
-		/// <param name="v">“_</param>
-		int dot(Point4 const& v) const;
-
-		/// <summary>’·‚³‚Ì“ñæ‚ğ•Ô‚·</summary>
-		int lengthSquared() const;
-
-		/// <summary>’·‚³‚ğ•Ô‚·</summary>
-		float length() const;
-
-	public:
-
-		/// <summary>•¶š—ñ‚É•ÏŠ·‚µ‚Ä•Ô‚·</summary>
 		/// <param name="v">“_</param>
 		static std::wstring ToString(Point4 const& v);
 

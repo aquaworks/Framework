@@ -67,27 +67,6 @@ namespace Transform
 	public:
 
 		/// <summary>文字列に変換して返す</summary>
-		std::wstring toString() const;
-
-		/// <summary>内積を返す</summary>
-		/// <param name="v">点</param>
-		int dot(Point2 const& v) const;
-
-		/// <summary>外積を返す</summary>
-		/// <param name="v">点</param>
-		int cross(Point2 const& v) const;
-
-		/// <summary>長さの二乗を返す</summary>
-		/// <param name="v">点</param>
-		int lengthSquared() const;
-
-		/// <summary>長さを返す</summary>
-		/// <param name="v">点</param>
-		float length() const;
-
-	public:
-
-		/// <summary>文字列に変換して返す</summary>
 		/// <param name="v">点</param>
 		static std::wstring ToString(Point2 const& v);
 

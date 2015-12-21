@@ -95,31 +95,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Point2::toString() const
-	{
-		return ToString(*this);
-	}
-
-	int Point2::dot(Point2 const& v) const
-	{
-		return Dot(*this, v);
-	}
-
-	int Point2::cross(Point2 const& v) const
-	{
-		return Cross(*this, v);
-	}
-
-	int Point2::lengthSquared() const
-	{
-		return LengthSquared(*this);
-	}
-
-	float Point2::length() const
-	{
-		return Length(*this);
-	}
-
 	std::wstring Point2::ToString(Point2 const& v)
 	{
 		return String::Create("(", v.x, ", ", v.y, ")");

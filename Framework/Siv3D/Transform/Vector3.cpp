@@ -110,54 +110,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Vector3::ToString() const
-	{
-		return toString(*this);
-	}
-
-	float Vector3::dot(Vector3 const& v) const
-	{
-		return Dot(*this, v);
-	}
-
-	Vector3 Vector3::cross(Vector3 const& v) const
-	{
-		return Cross(*this, v);
-	}
-
-	float Vector3::lengthSquared() const
-	{
-		return LengthSquared(*this);
-	}
-
-	float Vector3::length() const
-	{
-		return Length(*this);
-	}
-
-	Vector3& Vector3::normalize()
-	{
-		*this = Normalize(*this);
-		return *this;
-	}
-
-	Vector3& Vector3::rotate(Vector3 const& axis, double angle)
-	{
-		*this = Rotate(*this, axis, angle);
-		return *this;
-	}
-
-	Vector3& Vector3::projection(Vector3 const& v)
-	{
-		*this = Projection(*this, v);
-		return *this;
-	}
-
-	float Vector3::angle(Vector3 const& v) const
-	{
-		return Angle(*this, v);
-	}
-
 	std::wstring Vector3::toString(Vector3 const& v)
 	{
 		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ")");
@@ -210,11 +162,6 @@ namespace Transform
 	{
 		Vector3 normal = Normalize(target);
 		return Dot(v, normal) * normal;
-	}
-
-	Vector3 Vector3::Lerp(Vector3 const& start, Vector3 const& end, float t)
-	{
-		return start + (end - start) * t;
 	}
 
 	float Vector3::Angle(Vector3 const& v1, Vector3 const& v2)

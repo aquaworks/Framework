@@ -20,10 +20,10 @@ namespace Transform
 	public:
 
 		/// <summary>—ës—ñ‚ğ•Ô‚·</summary>
-		static Matrix const& zero();
+		static Matrix const& Zero();
 
 		/// <summary>’PˆÊs—ñ‚ğ•Ô‚·</summary>
-		static Matrix const& identity();
+		static Matrix const& Identity();
 
 	public:
 
@@ -50,92 +50,6 @@ namespace Transform
 
 		/// <summary>”z—ñ‚É•ÏŠ·‚·‚é</summary>
 		operator float const* () const;
-
-	public:
-
-		/// <summary>’PˆÊs—ñ‚©‚Ç‚¤‚©‚ğ•Ô‚·</summary>
-		bool isIdentity() const;
-
-		/// <summary>—ës—ñ‚©‚Ç‚¤‚©‚ğ•Ô‚·</summary>
-		bool isZero() const;
-
-		/// <summary>‹ts—ñ‚ªì‚ê‚é‚©‚ğ•Ô‚·</summary>
-		bool canInverse() const;
-
-		/// <summary>‹ts—ñ‚©‚Ç‚¤‚©‚ğ•Ô‚·</summary>
-		bool isInverse(Matrix const& matrix) const;
-
-		/// <summary>s—ñ®‚ğ•Ô‚·</summary>
-		float determinant() const;
-
-		/// <summary>•¶š—ñ‚É•ÏŠ·‚·‚é</summary>
-		std::wstring toString() const;
-
-	public:
-
-		/// <summary>•½sˆÚ“®‚·‚é</summary>
-		/// <param name="translation">•½sˆÚ“®—Ê</param>
-		Matrix& Translate(Vector3 const& translation);
-
-		/// <summary>‰ñ“]‚·‚é</summary>
-		/// <param name="axis">‰ñ“]²</param>
-		/// <param name="angle">‰ñ“]—Ê</param>
-		Matrix& rotate(Vector3 const& axis, double angle);
-
-		/// <summary>Šg‘åk¬‚·‚é</summary>
-		/// <param name="scaling">Šg‘åk¬—¦</param>
-		Matrix& scale(Vector3 const& scaling);
-
-		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚·‚é</summary>
-		/// <param name="translation">•½sˆÚ“®—Ê</param>
-		/// <param name="axis">‰ñ“]²</param>
-		/// <param name="angle">‰ñ“]—Ê</param>
-		/// <param name="scaling">Šg‘åk¬—¦</param>
-		Matrix& transform(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
-
-		/// <summary>“]’us—ñ‚É‚·‚é</summary>
-		Matrix& transpose();
-
-		/// <summary>‹ts—ñ‚É‚·‚é</summary>
-		Matrix& inverse();
-
-	public:
-
-		/// <summary>•½sˆÚ“®‚µ‚½s—ñ‚ğ•Ô‚·</summary>
-		/// <param name="translation">•½sˆÚ“®—Ê</param>
-		Matrix translated(Vector3 const& translation) const;
-
-		/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
-		/// <param name="axis">‰ñ“]²</param>
-		/// <param name="angle">‰ñ“]—Ê</param>
-		Matrix rotated(Vector3 const& axis, double angle) const;
-
-		/// <summary>Šg‘åk¬‚µ‚½s—ñ‚ğ•Ô‚·</summary>
-		/// <param name="scaling">Šg‘åk¬—¦</param>
-		Matrix scaled(Vector3 const& scaling) const;
-
-		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚µ‚½s—ñ‚ğ•Ô‚·</summary>
-		/// <param name="translation">•½sˆÚ“®—Ê</param>
-		/// <param name="axis">‰ñ“]²</param>
-		/// <param name="angle">‰ñ“]—Ê</param>
-		/// <param name="scaling">Šg‘åk¬—¦</param>
-		Matrix transformed(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling) const;
-
-		/// <summary>“]’us—ñ‚ğ•Ô‚·</summary>
-		Matrix transposed() const;
-
-		/// <summary>‹ts—ñ‚ğ•Ô‚·</summary>
-		Matrix inversed() const;
-
-		Quaternion ToQuaternion() const;
-
-	public:
-
-		Vector4 up() const;
-
-		Vector4 right() const;
-
-		Vector4 forward() const;
 
 	public:
 
@@ -168,6 +82,10 @@ namespace Transform
 		/// <param name="angle">‰ñ“]—Ê</param>
 		static Matrix Rotation(Vector3 const& axis, double angle);
 
+		/// <summary>‰ñ“]s—ñ‚ğ•Ô‚·</summary>
+		/// <param name="rotation">‰ñ“]</param>
+		static Matrix Rotation(Quaternion const& rotation);
+
 		/// <summary>Šg‘åk¬s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix Scaling(Vector3 const& scaling);
@@ -178,6 +96,12 @@ namespace Transform
 		/// <param name="angle">‰ñ“]—Ê</param>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix Transformation(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
+
+		/// <summary>ƒAƒtƒBƒ“•ÏŠ·s—ñ‚ğ•Ô‚·</summary>
+		/// <param name="translation">•½sˆÚ“®—Ê</param>
+		/// <param name="rotation">‰ñ“]</param>
+		/// <param name="scaling">Šg‘åk¬—¦</param>
+		static Matrix Transformation(Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling);
 
 	public:
 
@@ -190,6 +114,10 @@ namespace Transform
 		/// <param name="angle">‰ñ“]—Ê</param>
 		static Matrix& Rotate(Matrix& matrix, Vector3 const& axis, double angle);
 
+		/// <summary>‰ñ“]‚·‚é</summary>
+		/// <param name="rotation">‰ñ“]</param>
+		static Matrix& Rotate(Matrix& matrix, Quaternion const& rotation);
+
 		/// <summary>Šg‘åk¬‚·‚é</summary>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix& Scale(Matrix& matrix, Vector3 const& scaling);
@@ -201,11 +129,20 @@ namespace Transform
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
 
+		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚·‚é</summary>
+		/// <param name="translation">•½sˆÚ“®—Ê</param>
+		/// <param name="rotation">‰ñ“]</param>
+		/// <param name="scaling">Šg‘åk¬—¦</param>
+		static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling);
+
 		/// <summary>“]’us—ñ‚É‚·‚é</summary>
 		static Matrix& Transpose(Matrix& matrix);
 
 		/// <summary>‹ts—ñ‚É‚·‚é</summary>
 		static Matrix& Inverse(Matrix& matrix);
+
+		/// <summary>ƒNƒH[ƒ^ƒjƒIƒ“‚É•ÏŠ·‚·‚é</summary>
+		static Quaternion ToQuaternion(Matrix const& matrix);
 
 	public:
 
@@ -218,6 +155,10 @@ namespace Transform
 		/// <param name="angle">‰ñ“]—Ê</param>
 		static Matrix Rotated(Matrix const& matrix, Vector3 const& axis, double angle);
 
+		/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
+		/// <param name="rotation">‰ñ“]</param>
+		static Matrix Rotated(Matrix const& matrix, Quaternion const& rotation);
+
 		/// <summary>Šg‘åk¬‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix Scaled(Matrix const& matrix, Vector3 const& scaling);
@@ -228,6 +169,12 @@ namespace Transform
 		/// <param name="angle">‰ñ“]—Ê</param>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
 		static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
+
+		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚µ‚½s—ñ‚ğ•Ô‚·</summary>
+		/// <param name="translation">•½sˆÚ“®—Ê</param>
+		/// <param name="rotation">‰ñ“]</param>
+		/// <param name="scaling">Šg‘åk¬—¦</param>
+		static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling);
 
 		/// <summary>“]’us—ñ‚ğ•Ô‚·</summary>
 		static Matrix Transposed(Matrix const& matrix);
@@ -256,8 +203,6 @@ namespace Transform
 		static Matrix Perspective(double fov, float aspect, float nearclip, float farclip);
 
 		static Matrix Viewport(int width, int height);
-
-		static Matrix Lerp(Matrix const& m1, Matrix const& m2, float t);
 
 	public:
 
