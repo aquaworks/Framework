@@ -4,7 +4,6 @@
 # pragma warning (disable : 4201)
 
 # include "Vector4.hpp"
-# include "Quaternion.hpp"
 
 namespace Transform
 {
@@ -13,6 +12,7 @@ namespace Transform
 	// -------------------------------------------------------------------
 	class Vector3;
 	class Quaternion;
+	class Pose;
 
 	/// <summary>çsóÒ</summary>
 	class Matrix
@@ -192,9 +192,11 @@ namespace Transform
 
 		static Vector3 Translation(Matrix const& matrix);
 
-		static Matrix Rotation(Matrix const& matrix);
+		static Quaternion Rotation(Matrix const& matrix);
 
 		static Vector3 Scaling(Matrix const& matrix);
+
+		static Pose Decompose(Matrix const& matrix);
 
 	public:
 

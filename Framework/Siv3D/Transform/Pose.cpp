@@ -88,9 +88,9 @@ namespace Transform
 		return { position, rotation, scaling * scaling };
 	}
 
-	Matrix Pose::ToMatrix() const
+	Matrix Pose::ToMatrix(Pose const& pose)
 	{
-		return Matrix::Scaling(scaling) * Quaternion::ToMatrix(rotation) * Matrix::Translation(position);
+		return Matrix::Transformation(pose.position, pose.rotation, pose.scaling);
 	}
 
 	Pose Pose::operator * (Pose const& other) const

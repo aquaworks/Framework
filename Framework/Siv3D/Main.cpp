@@ -123,26 +123,47 @@ public:
 			}
 		}
 
-		float t = m_elapsedTime / m_perSecond;
+		double t = m_elapsedTime / m_perSecond;
 		t = Utility::EaseSine::InOut(t);
 
 		if (0)
 		{
 			static Vector3 const Begin = Vector3(-10.0f, 0.0f, 0.0f);
 			static Vector3 const End = Vector3(10.0f, 0.0f, 0.0f);
-			m_transform.position = Lerp(Begin, End, m_isReversed ? 1.0f - t : t);
+			m_transform.position = Lerp(Begin, End, GetProgress(t));
 		}
 
-		if (1)
+		if (0)
 		{
 			static Vector3 Axis = Vector3::Up();
 			static Quaternion const Begin = Quaternion::Rotation(Vector3::Up(), 90.0f);
 			static Quaternion const End = Quaternion::Rotation(Vector3::Forward(), Utility::Math::ToRadian(-90.0));
-			m_transform.rotation = Lerp(Begin, End, m_isReversed ? 1.0f - t : t);
+			m_transform.rotation = Lerp(Begin, End, GetProgress(t));
+		}
+
+		if (0)
+		{
+			static Matrix const Begin = Matrix::Transformation({ -10.0f, 0.0f, 0.0f }, Quaternion::Rotation(Vector3::Up(), Utility::Math::ToRadian(90.0)), Vector3::One());
+			static Matrix const End = Matrix::Transformation({ 10.0f, 0.0f, 0.0f }, Quaternion::Rotation(Vector3::Forward(), Utility::Math::ToRadian(90.0)), Vector3::One());
+			Matrix lerp = Lerp(Begin, End, GetProgress(t));
+			m_transform = Matrix::Decompose(lerp);
+		}
+
+		if (1)
+		{
+			static Matrix const Begin = Matrix::Rotation(Quaternion::Rotation(Vector3::Up(), Utility::Math::ToRadian(0.0)));
+			static Matrix const End = Matrix::Rotation(Quaternion::Rotation(Vector3::Up(), Utility::Math::ToRadian(90.0)));
+			Matrix lerp = Lerp(Begin, End, GetProgress(t));
+			m_transform = Matrix::Decompose(lerp);
 		}
 
 		IActor::OnUpdate(deltaTime);
 	}
+	double GetProgress(double t)
+	{
+		return m_isReversed ? 1.0f - t : t;
+	}
+
 	void OnRender(Graphics::Renderer const& renderer) const override
 	{
 		if (WireFrame wire { })
@@ -160,20 +181,32 @@ private:
 
 void Main()
 {
-	Shape::ShapePtr sphere = std::make_shared<Shape::Sphere>(Transform::Pose::Identity(), 5.0f);
-	Shape::ShapePtr capsule = std::make_shared<Shape::Capsule>(
-		Transform::Pose::Identity(), Transform::Vector3(-2.0f, 0.0f, 0.0f), Transform::Vector3(2.0f, 0.0f, 0.0f), 1.0f);
-
-	Actor::ActorPtr actor = Actor::IActor::Create<ShapeActor>(capsule);
+	using namespace Utility;
+	using namespace Transform;
 
 	Graphics::Renderer renderer;
 
 	double const DeltaTime = 0.016666666;
 
+	auto q = Quaternion::Rotation(Vector3::Up(), Math::ToRadian(90.0));
+	auto m = Matrix::Rotation(q);
+	auto mq = Matrix::ToQuaternion(m);
+
+	Shape::Capsule capsule =
+		Shape::Capsule(Matrix::Decompose(Matrix::Rotation(q)), { 3.0f, 0.0, 0.0f }, { -3.0f, 0.0f, 0.0f }, 1.0f);
+
+	double elapsedTime = 0.0;
+
 	while (s3d::System::Update())
 	{
-		s3d::Graphics3D::FreeCamera();
-		actor->Update(DeltaTime);
-		actor->Render(renderer);
+		auto t = Lerp(q, mq, elapsedTime);
+
+		capsule.Reshape(Pose::Affine(Vector3::Zero(), t, Vector3::One()))->Render(Vector4::One());
+
+		elapsedTime += DeltaTime;
+		if (1.0 < elapsedTime)
+		{
+			elapsedTime -= 1.0;
+		}
 	}
 }

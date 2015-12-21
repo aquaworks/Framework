@@ -41,6 +41,8 @@ namespace Transform
 
 		static Matrix ToMatrix(Quaternion const& q);
 
+		static Quaternion Conjugate(Quaternion const& q);
+
 	public:
 
 		float x, y, z, w;
@@ -51,6 +53,4 @@ namespace Transform
 
 	Vector3 operator * (Vector3 const& v, Quaternion const& q);
 	Vector3& operator *= (Vector3 & v, Quaternion const& q);
-
-	Quaternion operator - (Quaternion const& q);
 }

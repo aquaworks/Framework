@@ -2,6 +2,8 @@
 # include "Vector3.hpp"
 # include "Vector4.hpp"
 # include "Point3.hpp"
+# include "Quaternion.hpp"
+# include "Pose.hpp"
 
 # include "Utility/String.hpp"
 # include "Utility/Math.hpp"
@@ -206,9 +208,9 @@ namespace Transform
 		return Transformed(Identity(), translation, axis, angle, scaling);
 	}
 
-	Matrix Matrix::Transformation(Vector3 const & translation, Quaternion const & rotation, Vector3 const & scaling)
+	Matrix Matrix::Transformation(Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling)
 	{
-		return Matrix();
+		return Transformed(Identity(), translation, rotation, scaling);
 	}
 
 	Matrix& Matrix::Translate(Matrix& matrix, Vector3 const& translation)
@@ -281,6 +283,54 @@ namespace Transform
 		double m32 = matrix.m32;
 		double m33 = matrix.m33;
 
+		double q0 = (m11 + m22 + m33 + 1.0) / 4.0;
+		double q1 = (m11 - m22 - m33 + 1.0) / 4.0;
+		double q2 = (m22 - m33 - m11 + 1.0) / 4.0;
+		double q3 = (m33 - m11 - m22 + 1.0) / 4.0;
+
+		q0 = q0 < 0.0 ? 0.0 : q0;
+		q1 = q1 < 0.0 ? 0.0 : q1;
+		q2 = q2 < 0.0 ? 0.0 : q2;
+		q3 = q3 < 0.0 ? 0.0 : q3;
+
+		q0 = Math::Sqrt(q0);
+		q1 = Math::Sqrt(q1);
+		q2 = Math::Sqrt(q2);
+		q3 = Math::Sqrt(q3);
+
+		int index;
+		double max;
+		std::tie(index, max) = Math::MaxData({ q0, q1, q2, q3 });
+
+		float const table[4][4] =
+		{
+			q0, q1 * Math::Sign(m32 - m23), q2 * Math::Sign(m13 - m31), q3 * Math::Sign(m32 - m12),
+			q0 * Math::Sign(m32 - m23), q1, q2 * Math::Sign(m21 + m12), q3 * Math::Sign(m13 + m31),
+			q0 * Math::Sign(m13 - m31), q1 * Math::Sign(m21 + m12), q2, q3 * Math::Sign(m32 + m23),
+			q0 * Math::Sign(m21 - m12), q1 * Math::Sign(m31 + m13), q2 * Math::Sign(m32 + m23), q3,
+		};
+
+		Vector4 res { table[index][0], table[index][1], table[index][2], table[index][3] };
+
+		float length = Vector4::Length(res);
+
+		res /= length;
+
+		return MemoryCast<Quaternion>(res);
+	}
+
+	/*Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
+	{
+		double m11 = matrix.m11;
+		double m12 = matrix.m12;
+		double m13 = matrix.m13;
+		double m21 = matrix.m21;
+		double m22 = matrix.m22;
+		double m23 = matrix.m23;
+		double m31 = matrix.m31;
+		double m32 = matrix.m32;
+		double m33 = matrix.m33;
+
 		double x = m11 - m22 - m33 + 1.0;
 		double y = m22 - m33 - m11 + 1.0;
 		double z = m33 - m11 - m22 + 1.0;
@@ -295,8 +345,8 @@ namespace Transform
 			return Quaternion::Identity();
 		}
 
-		float v = (float)Math::Sqrt(max) / 2.0f;
-		float m = v * 4.0f;
+		float v = (float)Math::Sqrt(max) * 0.5f;
+		float m = 0.25f / v;
 
 		float const table[4][4] =
 		{
@@ -313,7 +363,7 @@ namespace Transform
 			table[index][2],
 			table[index][3]
 		};
-	}
+	}*/
 
 	Matrix Matrix::Translated(Matrix const& matrix, Vector3 const& translation)
 	{
@@ -524,14 +574,15 @@ namespace Transform
 		return Vector3(matrix.m41, matrix.m42, matrix.m43);
 	}
 
-	Matrix Matrix::Rotation(Matrix const& matrix)
+	Quaternion Matrix::Rotation(Matrix const& matrix)
 	{
-		Vector3 scale = Scaling(matrix);
+		return ToQuaternion(matrix);
+		/*Vector3 scale = Scaling(matrix);
 		return Matrix(
 			matrix.m11 / scale.x, matrix.m12 / scale.x, matrix.m13 / scale.x, 0.0f,
 			matrix.m21 / scale.y, matrix.m22 / scale.y, matrix.m23 / scale.y, 0.0f,
 			matrix.m31 / scale.z, matrix.m32 / scale.z, matrix.m33 / scale.z, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f);
+			0.0f, 0.0f, 0.0f, 1.0f);*/
 	}
 
 	Vector3 Matrix::Scaling(Matrix const& matrix)
@@ -540,6 +591,11 @@ namespace Transform
 			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[0])),
 			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[1])),
 			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[2])));
+	}
+
+	Pose Transform::Matrix::Decompose(Matrix const& matrix)
+	{
+		return Pose::Affine(Matrix::Translation(matrix), Matrix::Rotation(matrix), Matrix::Scaling(matrix));
 	}
 
 	Matrix Matrix::LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up)

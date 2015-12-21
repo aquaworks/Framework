@@ -101,14 +101,19 @@ namespace Transform
 			0, 0, 0, 1);
 	}
 
+	Quaternion Quaternion::Conjugate(Quaternion const& q)
+	{
+		return { -q.x, -q.y, -q.z, q.w };
+	}
+
 	Quaternion operator * (Quaternion const& q1, Quaternion const& q2)
 	{
 		Quaternion result;
-		Vector3& v = *MemoryCast<Vector3>(&result.x);
+		Vector3& v = MemoryCast<Vector3>(result);
 		float& t = result.w;
 
-		Vector3 v1 = *MemoryCast<Vector3>(&q1.x);
-		Vector3 v2 = *MemoryCast<Vector3>(&q2.x);
+		Vector3 v1 = MemoryCast<Vector3>(q1);
+		Vector3 v2 = MemoryCast<Vector3>(q2);
 		float t1 = q1.w;
 		float t2 = q2.w;
 
@@ -125,17 +130,12 @@ namespace Transform
 
 	Vector3 operator * (Vector3 const& v, Quaternion const& q)
 	{
-		Quaternion result = -q * Quaternion(v.x, v.y, v.z, 0.0f) * q;
+		Quaternion result = Quaternion::Conjugate(q) * Quaternion(v.x, v.y, v.z, 0.0f) * q;
 		return { result.x, result.y, result.z };
 	}
 
 	Vector3& operator *= (Vector3& v, Quaternion const& q)
 	{
 		return v = v * q;
-	}
-
-	Quaternion operator - (Quaternion const& q)
-	{
-		return { -q.x, -q.y, -q.z, -q.w };
 	}
 }

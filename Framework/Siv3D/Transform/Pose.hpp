@@ -45,7 +45,7 @@ namespace Transform
 
 	public:
 
-		Matrix ToMatrix() const;
+		static Matrix ToMatrix(Pose const& pose);
 
 	public:
 
