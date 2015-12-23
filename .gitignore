@@ -196,3 +196,4 @@ FakesAssemblies/
 *.opt
 *.opendb
 /Framework/Siv3D/Siv3D_log.html
+*.db

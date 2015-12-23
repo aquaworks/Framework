@@ -30,6 +30,7 @@
     <ClCompile Include="Transform\Vector2.cpp" />
     <ClCompile Include="Transform\Vector3.cpp" />
     <ClCompile Include="Transform\Vector4.cpp" />
+    <ClCompile Include="Utility\Console.cpp" />
     <ClCompile Include="Utility\Easing.cpp" />
     <ClCompile Include="Utility\Math.cpp" />
     <ClCompile Include="Utility\Optional.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Transform\Vector2.hpp" />
     <ClInclude Include="Transform\Vector3.hpp" />
     <ClInclude Include="Transform\Vector4.hpp" />
+    <ClInclude Include="Utility\Console.hpp" />
     <ClInclude Include="Utility\Easing.hpp" />
     <ClInclude Include="Utility\Math.hpp" />
     <ClInclude Include="Utility\MemoryCast.hpp" />

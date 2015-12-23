@@ -189,6 +189,8 @@ void Main()
 	double const DeltaTime = 0.016666666;
 
 	auto q = Quaternion::Rotation(Vector3::Up(), Math::ToRadian(90.0));
+	auto r = Quaternion::Rotation(Vector3::Right(), Math::ToRadian(0.0));
+	auto s = Quaternion::Rotation(Vector3::Right(), Math::ToRadian(180.0));
 	auto m = Matrix::Rotation(q);
 	auto mq = Matrix::ToQuaternion(m);
 
