@@ -1,11 +1,28 @@
 # include "String.hpp"
 
+# include "MemoryCast.hpp"
+
+# include "Transform/Point2.hpp"
+# include "Transform/Point3.hpp"
+# include "Transform/Point4.hpp"
+# include "Transform/Vector2.hpp"
+# include "Transform/Vector3.hpp"
+# include "Transform/Vector4.hpp"
+# include "Transform/Matrix.hpp"
+# include "Transform/Quaternion.hpp"
+# include "Transform/Pose.hpp"
+
 # include <Windows.h>
 
 namespace Utility
 {
 	namespace String
 	{
+		std::wstring Create()
+		{
+			return L"";
+		}
+
 		std::wstring Create(char const* value)
 		{
 			return ToWide(value);
@@ -69,6 +86,58 @@ namespace Utility
 		std::wstring Create(int value)
 		{
 			return std::to_wstring(value);
+		}
+
+		std::wstring Create(Transform::Point2 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L")");
+		}
+
+		std::wstring Create(Transform::Point3 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L")");
+		}
+
+		std::wstring Create(Transform::Point4 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L")");
+		}
+
+		std::wstring Create(Transform::Vector2 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L")");
+		}
+
+		std::wstring Create(Transform::Vector3 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L")");
+		}
+
+		std::wstring Create(Transform::Vector4 const& value)
+		{
+			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L")");
+		}
+
+		std::wstring Create(Transform::Matrix const& value)
+		{
+			return String::Create(
+				MemoryCast<Transform::Vector4>(value.m11), L"\n",
+				MemoryCast<Transform::Vector4>(value.m21), L"\n",
+				MemoryCast<Transform::Vector4>(value.m31), L"\n",
+				MemoryCast<Transform::Vector4>(value.m41));
+		}
+
+		std::wstring Create(Transform::Quaternion const& value)
+		{
+			return String::Create(MemoryCast<Transform::Vector4>(value));
+		}
+
+		std::wstring Create(Transform::Pose const& value)
+		{
+			return Utility::String::Create(
+				L"position : ", MemoryCast<Transform::Vector3>(value.position), L"\n",
+				L"rotate   : ", MemoryCast<Transform::Quaternion>(value.rotation), L"\n",
+				L"scale    : ", MemoryCast<Transform::Vector3>(value.scaling));
 		}
 
 		std::vector<std::string> Split(std::string const& str, char delim)

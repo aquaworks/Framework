@@ -177,10 +177,10 @@ namespace Transform
 	std::wstring Matrix::ToString(Matrix const& m)
 	{
 		return String::Create(
-			"f[0] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[0])), "\n",
-			"f[1] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[1])), "\n",
-			"f[2] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[2])), "\n",
-			"f[3] : ", Vector4::ToString(MemoryCast<Vector4>(*m.mat[3])));
+			Vector4::ToString(MemoryCast<Vector4>(*m.mat[0])), "\n",
+			Vector4::ToString(MemoryCast<Vector4>(*m.mat[1])), "\n",
+			Vector4::ToString(MemoryCast<Vector4>(*m.mat[2])), "\n",
+			Vector4::ToString(MemoryCast<Vector4>(*m.mat[3])));
 	}
 
 	Matrix Matrix::Translation(Vector3 const& translation)

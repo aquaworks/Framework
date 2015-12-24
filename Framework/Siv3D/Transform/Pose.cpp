@@ -1,4 +1,6 @@
-#include "Pose.hpp"
+# include "Pose.hpp"
+
+# include "Utility/String.hpp"
 
 namespace Transform
 {
@@ -86,6 +88,14 @@ namespace Transform
 	Pose Pose::Scaled(Vector3 const& scaling) const
 	{
 		return { position, rotation, scaling * scaling };
+	}
+
+	std::wstring Pose::ToString(Pose const& pose)
+	{
+		return Utility::String::Create(
+			L"position : ", Vector3::ToString(pose.position), L"\n",
+			L"rotate   : ", Quaternion::ToString(pose.rotation), L"\n",
+			L"scale    : ", Vector3::ToString(pose.scaling));
 	}
 
 	Matrix Pose::ToMatrix(Pose const& pose)

@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{29E51C4C-9FEF-4AAB-9AD5-666A352A1B42}</ProjectGuid>
+    <ProjectGuid>{50E69D48-0A64-40B7-888E-352A9318F55F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Console</RootNamespace>
+    <RootNamespace>Matrix</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -148,23 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Siv3D\Transform\Matrix.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point2.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point3.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point4.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Pose.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Quaternion.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector2.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector3.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector4.cpp" />
-    <ClCompile Include="..\Siv3D\Utility\Console.cpp" />
     <ClCompile Include="..\Siv3D\Utility\Math.cpp" />
-    <ClCompile Include="..\Siv3D\Utility\String.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Siv3D\Utility\Console.hpp" />
-    <ClInclude Include="..\Siv3D\Utility\String.hpp" />
+    <ClInclude Include="..\Siv3D\Utility\Math.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

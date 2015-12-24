@@ -75,7 +75,7 @@ namespace Transform
 
 		/// <summary>文字列に変換して返す</summary>
 		/// <param name="v">ベクトル</param>
-		static std::wstring toString(Vector3 const& v);
+		static std::wstring ToString(Vector3 const& v);
 
 		/// <summary>内積を返す</summary>
 		/// <param name="v1">ベクトル</param>

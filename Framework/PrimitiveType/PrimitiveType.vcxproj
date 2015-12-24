@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{29E51C4C-9FEF-4AAB-9AD5-666A352A1B42}</ProjectGuid>
+    <ProjectGuid>{ECF0D933-0E7E-4EA4-A38B-F2018A67F228}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Console</RootNamespace>
+    <RootNamespace>PrimitiveType</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -85,7 +85,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
@@ -112,7 +112,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
@@ -148,23 +148,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Siv3D\Transform\Matrix.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point2.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point3.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Point4.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Pose.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Quaternion.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector2.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector3.cpp" />
-    <ClCompile Include="..\Siv3D\Transform\Vector4.cpp" />
-    <ClCompile Include="..\Siv3D\Utility\Console.cpp" />
     <ClCompile Include="..\Siv3D\Utility\Math.cpp" />
-    <ClCompile Include="..\Siv3D\Utility\String.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Siv3D\Utility\Console.hpp" />
-    <ClInclude Include="..\Siv3D\Utility\String.hpp" />
+    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="Vector4.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

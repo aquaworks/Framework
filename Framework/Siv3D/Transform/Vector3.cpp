@@ -110,7 +110,7 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Vector3::toString(Vector3 const& v)
+	std::wstring Vector3::ToString(Vector3 const& v)
 	{
 		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ")");
 	}

@@ -12,6 +12,7 @@
 # include "Utility/Easing.hpp"
 # include "Utility/Math.hpp"
 # include "Utility/MemoryCast.hpp"
+# include "Utility/Console.hpp"
 
 class WireFrame
 {
@@ -199,6 +200,8 @@ void Main()
 
 	double elapsedTime = 0.0;
 
+	s3d::Console::Open();
+
 	while (s3d::System::Update())
 	{
 		auto t = Lerp(q, mq, elapsedTime);
@@ -209,6 +212,10 @@ void Main()
 		if (1.0 < elapsedTime)
 		{
 			elapsedTime -= 1.0;
+
+			Console::Println(L"タイマー初期化");
 		}
 	}
+
+	s3d::Console::Close();
 }
