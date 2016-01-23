@@ -2,7 +2,6 @@
 # include "Vector4.hpp"
 # include "Point3.hpp"
 
-# include "Utility/String.hpp"
 # include "Utility/Math.hpp"
 
 namespace Transform
@@ -110,11 +109,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Vector3::ToString(Vector3 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ")");
-	}
-
 	float Vector3::Dot(Vector3 const& v1, Vector3 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -149,13 +143,13 @@ namespace Transform
 		return v / static_cast<float>(Math::Sqrt(lengthSq));
 	}
 
-	Vector3 Vector3::Rotate(Vector3 const& point, Vector3 const& axis, double angle)
+	Vector3 Vector3::Rotate(Vector3 const& point, Vector3 const& axis, float angle)
 	{
 		Vector3 v = Dot(point, axis) * Normalize(axis);
 		return
 			v +
-			static_cast<float>(Math::Cos(angle)) * (point - v) +
-			static_cast<float>(Math::Sin(angle)) * Cross(point, axis);
+			Math::Cos(angle) * (point - v) +
+			Math::Sin(angle) * Cross(point, axis);
 	}
 
 	Vector3 Vector3::Projection(Vector3 const& v, Vector3 const& target)

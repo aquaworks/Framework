@@ -278,12 +278,13 @@
     <Font Include="Example\YomogiFont.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\Actor.hpp" />
     <ClInclude Include="Actor\ActorPtr.hpp" />
-    <ClInclude Include="Actor\Collision.hpp" />
     <ClInclude Include="Actor\IActor.hpp" />
     <ClInclude Include="Actor\IWorld.hpp" />
     <ClInclude Include="Actor\Layer.hpp" />
     <ClInclude Include="Actor\World.hpp" />
+    <ClInclude Include="Behavior\Behavior.hpp" />
     <ClInclude Include="Behavior\BehaviorTree.hpp" />
     <ClInclude Include="Behavior\Composite\IComposite.hpp" />
     <ClInclude Include="Behavior\Composite\Selector.hpp" />
@@ -303,7 +304,8 @@
     <ClInclude Include="Shapes\IShape.hpp" />
     <ClInclude Include="Shapes\Mesh.hpp" />
     <ClInclude Include="Shapes\Segment.hpp" />
-    <ClInclude Include="Shapes\SharePtr.hpp" />
+    <ClInclude Include="Shapes\Shapes.hpp" />
+    <ClInclude Include="Shapes\ShapePtr.hpp" />
     <ClInclude Include="Shapes\Sphere.hpp" />
     <ClInclude Include="Transform\Matrix.hpp" />
     <ClInclude Include="Transform\Point2.hpp" />
@@ -311,7 +313,7 @@
     <ClInclude Include="Transform\Point4.hpp" />
     <ClInclude Include="Transform\Pose.hpp" />
     <ClInclude Include="Transform\Quaternion.hpp" />
-    <ClInclude Include="Transform\ValueType.hpp" />
+    <ClInclude Include="Transform\Transform.hpp" />
     <ClInclude Include="Transform\Vector2.hpp" />
     <ClInclude Include="Transform\Vector3.hpp" />
     <ClInclude Include="Transform\Vector4.hpp" />
@@ -322,6 +324,7 @@
     <ClInclude Include="Utility\Optional.hpp" />
     <ClInclude Include="Utility\Range.hpp" />
     <ClInclude Include="Utility\String.hpp" />
+    <ClInclude Include="Utility\Utility.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

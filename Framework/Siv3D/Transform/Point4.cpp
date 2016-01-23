@@ -88,12 +88,7 @@ namespace Transform
 
 	float Point4::Length(Point4 const& v)
 	{
-		return static_cast<float>(Math::Sqrt(LengthSquared(v)));
-	}
-
-	std::wstring Point4::ToString(Point4 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ", ", v.w, ")");
+		return Math::Sqrt((float)LengthSquared(v));
 	}
 
 	bool operator == (Point4 const& v1, Point4 const& v2)

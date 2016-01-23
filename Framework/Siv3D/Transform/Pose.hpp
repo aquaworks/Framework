@@ -45,8 +45,6 @@ namespace Transform
 
 	public:
 
-		static std::wstring ToString(Pose const& pose);
-
 		static Matrix ToMatrix(Pose const& pose);
 
 	public:

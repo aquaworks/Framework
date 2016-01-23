@@ -1,6 +1,7 @@
 # include "Pose.hpp"
 
-# include "Utility/String.hpp"
+# pragma warning (push)
+# pragma warning (disable : 4458)
 
 namespace Transform
 {
@@ -90,14 +91,6 @@ namespace Transform
 		return { position, rotation, scaling * scaling };
 	}
 
-	std::wstring Pose::ToString(Pose const& pose)
-	{
-		return Utility::String::Create(
-			L"position : ", Vector3::ToString(pose.position), L"\n",
-			L"rotate   : ", Quaternion::ToString(pose.rotation), L"\n",
-			L"scale    : ", Vector3::ToString(pose.scaling));
-	}
-
 	Matrix Pose::ToMatrix(Pose const& pose)
 	{
 		return Matrix::Transformation(pose.position, pose.rotation, pose.scaling);
@@ -108,3 +101,5 @@ namespace Transform
 		return { this->position + other.position, this->rotation * other.rotation, this->scaling * other.scaling };
 	}
 }
+
+# pragma warning(pop)

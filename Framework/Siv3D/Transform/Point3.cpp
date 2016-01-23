@@ -2,7 +2,6 @@
 # include "Point4.hpp"
 # include "Vector3.hpp"
 
-# include "Utility/String.hpp"
 # include "Utility/Math.hpp"
 
 namespace Transform
@@ -109,11 +108,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Point3::ToString(Point3 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ")");
-	}
-
 	int Point3::Dot(Point3 const& v1, Point3 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -134,7 +128,7 @@ namespace Transform
 
 	float Point3::Length(Point3 const& v)
 	{
-		return static_cast<float>(Math::Sqrt(LengthSquared(v)));
+		return Math::Sqrt((float)LengthSquared(v));
 	}
 
 	bool operator == (Point3 const& v1, Point3 const& v2)

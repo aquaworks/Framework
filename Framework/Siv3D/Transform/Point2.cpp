@@ -2,8 +2,10 @@
 # include "Point3.hpp"
 # include "Vector2.hpp"
 
-# include "Utility/String.hpp"
 # include "Utility/Math.hpp"
+
+# pragma warning (push)
+# pragma warning (disable : 4458)
 
 namespace Transform
 {
@@ -95,11 +97,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Point2::ToString(Point2 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ")");
-	}
-
 	int Point2::Dot(Point2 const& v1, Point2 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y;
@@ -117,7 +114,7 @@ namespace Transform
 
 	float Point2::Length(Point2 const& v)
 	{
-		return static_cast<float>(Math::Sqrt(LengthSquared(v)));
+		return Math::Sqrt((float)LengthSquared(v));
 	}
 
 	bool operator == (Point2 const& v1, Point2 const& v2)
@@ -225,3 +222,5 @@ namespace Transform
 		return result /= s;
 	}
 }
+
+# pragma warning (pop)

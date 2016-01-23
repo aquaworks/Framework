@@ -4,89 +4,89 @@
 
 namespace Utility
 {
-	double Quad(double t)
+	float Quad(float t)
 	{
 		return t * t;
 	}
 
-	double Cubic(double t)
+	float Cubic(float t)
 	{
 		return t * t * t;
 	}
 
-	double Quart(double t)
+	float Quart(float t)
 	{
 		return t * t * t * t;
 	}
 
-	double Quint(double t)
+	float Quint(float t)
 	{
 		return t * t * t * t * t;
 	}
 
-	double Sine(double t)
+	float Sine(float t)
 	{
-		return 1.0 - Math::Cos(Math::HALF_PI * t);
+		return 1.0f- Math::Cos(Math::HALF_PI * t);
 	}
 
-	double Exp(double t)
+	float Exp(float t)
 	{
-		return t == 0.0 ?
-			0.0 :
-			Math::Pow(2.0, 10.0 * (t - 1.0));
+		return t == 0.0f ?
+			0.0f :
+			Math::Pow(2.0f, 10.0f * (t - 1.0f));
 	}
 
-	double Circ(double t)
+	float Circ(float t)
 	{
-		t -= 1;
-		return 1.0 - Math::Sqrt(1 - t * t);
+		t -= 1.0f;
+		return 1.0f- Math::Sqrt(1.0f- t * t);
 	}
 
-	double Back(double t)
+	float Back(float t)
 	{
-		return t * t * (2.70158 * t - 1.70158);
+		return t * t * (2.70158f * t - 1.70158f);
 	}
 
-	double Bounce(double t)
+	float Bounce(float t)
 	{
-		if (t < 1 / 2.75)
+		if (t < 1.0f / 2.75f)
 		{
-			return 7.5625 * t * t;
+			return 7.5625f * t * t;
 		}
-		if (t < 2 / 2.75)
+		if (t < 2.0f / 2.75f)
 		{
-			t -= 1.5 / 2.75;
-			return 7.5625 * t * t + 0.75;
+			t -= 1.5f / 2.75f;
+			return 7.5625f * t * t + 0.75f;
 		}
-		if (t < 2.5 / 2.75)
+		if (t < 2.5f / 2.75f)
 		{
-			t -= 2.25 / 2.75;
-			return 7.5625 * t * t + 0.9375;
+			t -= 2.25f / 2.75f;
+			return 7.5625f * t * t + 0.9375f;
 		}
-		t -= 2.625 / 2.75;
-		return 7.5625 * t * t + 0.984375;
+		t -= 2.625f / 2.75f;
+		return 7.5625f * t * t + 0.984375f;
 	}
 
-	double Elastic(double t)
+	float Elastic(float t)
 	{
-		if (t == 0.0)
+		if (t == 0.0f)
 		{
-			return 0.0;
-		}
-
-		if (t == 1.0)
-		{
-			return 1.0;
+			return 0.0f;
 		}
 
-		double s = 0.04774648292756859813 * Math::Asin(1.0);
+		if (t == 1.0f)
+		{
+			return 1.0f;
+		}
 
-		t -= 1.0;
-		return -Math::Pow(2.0, 10.0 * t) * Math::Sin((t - s) *
-			20.94395102393195529);
+		float s = 0.04774648292756859813f * Math::Asin(1.0f);
+
+		t -= 1.0f;
+		return -Math::Pow(2.0f, 10.0f * t) * Math::Sin((t - s) *
+			20.94395102393195529f);
 	}
 
-	double Linear(double t)
+	float Linear(float t)
 	{
 		return t;
 	}

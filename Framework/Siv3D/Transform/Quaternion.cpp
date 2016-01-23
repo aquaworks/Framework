@@ -5,7 +5,6 @@
 # include "Vector4.hpp"
 
 # include "Utility/Math.hpp"
-# include "Utility/String.hpp"
 # include "Utility/MemoryCast.hpp"
 
 namespace Transform
@@ -45,22 +44,22 @@ namespace Transform
 		return identity;
 	}
 
-	Quaternion& Quaternion::Rotate(Vector3 const& axis, double angle)
+	Quaternion& Quaternion::Rotate(Vector3 const& axis, float angle)
 	{
 		return *this *= Rotation(axis, angle);
 	}
 
-	Quaternion& Quaternion::Roll(double angle)
+	Quaternion& Quaternion::Roll(float angle)
 	{
 		return *this *= Rotation(Vector3::Forward(), angle);
 	}
 
-	Quaternion& Quaternion::Pitch(double angle)
+	Quaternion& Quaternion::Pitch(float angle)
 	{
 		return *this *= Rotation(Vector3::Right(), angle);
 	}
 
-	Quaternion& Quaternion::Yaw(double angle)
+	Quaternion& Quaternion::Yaw(float angle)
 	{
 		return *this *= Rotation(Vector3::Up(), angle);
 	}
@@ -70,18 +69,15 @@ namespace Transform
 		return ToMatrix(*this);
 	}
 
-	Quaternion Quaternion::Rotation(Vector3 const& axis, double angle)
+	Quaternion Quaternion::Rotation(Vector3 const& axis, float angle)
 	{
-		double theta = angle / 2.0;
-		float sin = (float)Math::Sin(theta);
-		float cos = (float)Math::Cos(theta);
+		float theta = angle / 2.0f;
+		float sin = Math::Sin(theta);
+		float cos = Math::Cos(theta);
 		return Quaternion(
 			axis.x * sin, axis.y * sin, axis.z * sin, cos);
 	}
-	std::wstring Quaternion::ToString(Quaternion const& q)
-	{
-		return Vector4::ToString(*MemoryCast<Vector4>(&q.x));
-	}
+
 	Matrix Quaternion::ToMatrix(Quaternion const& q)
 	{
 		float x2 = 2 * q.x * q.x;

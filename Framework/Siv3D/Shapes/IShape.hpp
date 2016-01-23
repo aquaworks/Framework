@@ -2,7 +2,7 @@
 
 # include "Transform/Pose.hpp"
 
-# include "SharePtr.hpp"
+# include "ShapePtr.hpp"
 
 namespace Shapes
 {

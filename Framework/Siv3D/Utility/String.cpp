@@ -90,54 +90,54 @@ namespace Utility
 
 		std::wstring Create(Transform::Point2 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L"]");
 		}
 
 		std::wstring Create(Transform::Point3 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L", ", value.z, L"]");
 		}
 
 		std::wstring Create(Transform::Point4 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L"]");
 		}
 
 		std::wstring Create(Transform::Vector2 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L"]");
 		}
 
 		std::wstring Create(Transform::Vector3 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L", ", value.z, L"]");
 		}
 
 		std::wstring Create(Transform::Vector4 const& value)
 		{
-			return String::Create(L"(", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L")");
+			return String::Create(L"[", value.x, L", ", value.y, L", ", value.z, L", ", value.w, L"]");
 		}
 
 		std::wstring Create(Transform::Matrix const& value)
 		{
 			return String::Create(
-				MemoryCast<Transform::Vector4>(value.m11), L"\n",
-				MemoryCast<Transform::Vector4>(value.m21), L"\n",
-				MemoryCast<Transform::Vector4>(value.m31), L"\n",
-				MemoryCast<Transform::Vector4>(value.m41));
+				L"[", value.m11, L", ", value.m12, L", ", value.m13, L", ", value.m14, L"]\n",
+				L"[", value.m21, L", ", value.m22, L", ", value.m23, L", ", value.m24, L"]\n",
+				L"[", value.m31, L", ", value.m32, L", ", value.m33, L", ", value.m34, L"]\n",
+				L"[", value.m41, L", ", value.m42, L", ", value.m43, L", ", value.m44, L"]");
 		}
 
 		std::wstring Create(Transform::Quaternion const& value)
 		{
-			return String::Create(MemoryCast<Transform::Vector4>(value));
+			return String::Create(L"[", value.x, L", ", value.y, L", ", value.z, L" ; ", value.w, L"]");
 		}
 
 		std::wstring Create(Transform::Pose const& value)
 		{
 			return Utility::String::Create(
-				L"position : ", MemoryCast<Transform::Vector3>(value.position), L"\n",
-				L"rotate   : ", MemoryCast<Transform::Quaternion>(value.rotation), L"\n",
-				L"scale    : ", MemoryCast<Transform::Vector3>(value.scaling));
+				value.position, L"\n",
+				value.rotation, L"\n",
+				value.scaling);
 		}
 
 		std::vector<std::string> Split(std::string const& str, char delim)

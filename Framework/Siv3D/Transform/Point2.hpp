@@ -66,10 +66,6 @@ namespace Transform
 
 	public:
 
-		/// <summary>•¶š—ñ‚É•ÏŠ·‚µ‚Ä•Ô‚·</summary>
-		/// <param name="v">“_</param>
-		static std::wstring ToString(Point2 const& v);
-
 		/// <summary>“àÏ‚ğ•Ô‚·</summary>
 		/// <param name="v1">“_</param>
 		/// <param name="v2">“_</param>

@@ -23,21 +23,19 @@ namespace Transform
 
 	public:
 
-		Quaternion& Rotate(Vector3 const& axis, double angle);
+		Quaternion& Rotate(Vector3 const& axis, float angle);
 
-		Quaternion& Roll(double angle);
+		Quaternion& Roll(float angle);
 
-		Quaternion& Pitch(double angle);
+		Quaternion& Pitch(float angle);
 
-		Quaternion& Yaw(double angle);
+		Quaternion& Yaw(float angle);
 
 		Matrix ToMatrix();
 
 	public:
 
-		static Quaternion Rotation(Vector3 const& axis, double angle);
-
-		static std::wstring ToString(Quaternion const& q);
+		static Quaternion Rotation(Vector3 const& axis, float angle);
 
 		static Matrix ToMatrix(Quaternion const& q);
 

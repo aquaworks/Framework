@@ -55,10 +55,6 @@ namespace Transform
 
 	public:
 
-		/// <summary>•¶š—ñ‚É•ÏŠ·‚µ‚Ä•Ô‚·</summary>
-		/// <param name="v">ƒxƒNƒgƒ‹</param>
-		static std::wstring ToString(Vector4 const& v);
-
 		/// <summary>“àÏ‚ğ•Ô‚·</summary>
 		static float Dot(Vector4 const& v1, Vector4 const& v2);
 

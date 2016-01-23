@@ -3,7 +3,6 @@
 # include "Point4.hpp"
 
 # include "Utility/Math.hpp"
-# include "Utility/String.hpp"
 
 namespace Transform
 {
@@ -107,11 +106,6 @@ namespace Transform
 	{
 		Vector4 normal = Normalize(target);
 		return Dot(v, normal) * normal;
-	}
-
-	std::wstring Vector4::ToString(Vector4 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ", ", v.z, ", ", v.w, ")");
 	}
 
 	bool operator == (Vector4 const& v1, Vector4 const& v2)

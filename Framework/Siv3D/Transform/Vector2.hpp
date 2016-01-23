@@ -67,10 +67,6 @@ namespace Transform
 
 	public:
 
-		/// <summary>文字列に変換して返す</summary>
-		/// <param name="v">ベクトル</param>
-		static std::wstring ToString(Vector2 const& v);
-
 		/// <summary>内積を返す</summary>
 		/// <param name="v1">ベクトル</param>
 		/// <param name="v2">ベクトル</param>
@@ -95,7 +91,7 @@ namespace Transform
 		/// <param name="point">任意点</param>
 		/// <param name="origin">中心点</param>
 		/// <param name="angle">回転量</param>
-		static Vector2 Rotate(Vector2 const& point, Vector2 const& origin, double angle);
+		static Vector2 Rotate(Vector2 const& point, Vector2 const& origin, float angle);
 
 		/// <summary>投影したベクトルを返す</summary>
 		/// <param name="v">ベクトル</param>

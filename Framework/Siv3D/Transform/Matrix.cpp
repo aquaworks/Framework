@@ -5,7 +5,6 @@
 # include "Quaternion.hpp"
 # include "Pose.hpp"
 
-# include "Utility/String.hpp"
 # include "Utility/Math.hpp"
 # include "Utility/MemoryCast.hpp"
 
@@ -174,21 +173,12 @@ namespace Transform
 		return (float)det;
 	}
 
-	std::wstring Matrix::ToString(Matrix const& m)
-	{
-		return String::Create(
-			Vector4::ToString(MemoryCast<Vector4>(*m.mat[0])), "\n",
-			Vector4::ToString(MemoryCast<Vector4>(*m.mat[1])), "\n",
-			Vector4::ToString(MemoryCast<Vector4>(*m.mat[2])), "\n",
-			Vector4::ToString(MemoryCast<Vector4>(*m.mat[3])));
-	}
-
 	Matrix Matrix::Translation(Vector3 const& translation)
 	{
 		return Translated(Identity(), translation);
 	}
 
-	Matrix Matrix::Rotation(Vector3 const& axis, double angle)
+	Matrix Matrix::Rotation(Vector3 const& axis, float angle)
 	{
 		return Rotated(Identity(), axis, angle);
 	}
@@ -203,7 +193,7 @@ namespace Transform
 		return Scaled(Identity(), scaling);
 	}
 
-	Matrix Matrix::Transformation(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling)
+	Matrix Matrix::Transformation(Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
 	{
 		return Transformed(Identity(), translation, axis, angle, scaling);
 	}
@@ -221,7 +211,7 @@ namespace Transform
 		return matrix;
 	}
 
-	Matrix& Matrix::Rotate(Matrix& matrix, Vector3 const& axis, double angle)
+	Matrix& Matrix::Rotate(Matrix& matrix, Vector3 const& axis, float angle)
 	{
 		Vector4 X = Vector4(Vector3::Rotate(Vector3(matrix.m11, matrix.m12, matrix.m13), axis, angle), 0.0f);
 		Vector4 Y = Vector4(Vector3::Rotate(Vector3(matrix.m21, matrix.m22, matrix.m23), axis, angle), 0.0f);
@@ -251,7 +241,7 @@ namespace Transform
 		return matrix;
 	}
 
-	Matrix& Matrix::Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling)
+	Matrix& Matrix::Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
 	{
 		return Translate(Rotate(Scale(matrix, scaling), axis, angle), translation);
 	}
@@ -273,33 +263,33 @@ namespace Transform
 
 	Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
 	{
-		double m11 = matrix.m11;
-		double m12 = matrix.m12;
-		double m13 = matrix.m13;
-		double m21 = matrix.m21;
-		double m22 = matrix.m22;
-		double m23 = matrix.m23;
-		double m31 = matrix.m31;
-		double m32 = matrix.m32;
-		double m33 = matrix.m33;
+		float m11 = matrix.m11;
+		float m12 = matrix.m12;
+		float m13 = matrix.m13;
+		float m21 = matrix.m21;
+		float m22 = matrix.m22;
+		float m23 = matrix.m23;
+		float m31 = matrix.m31;
+		float m32 = matrix.m32;
+		float m33 = matrix.m33;
 
-		double q0 = (m11 + m22 + m33 + 1.0) / 4.0;
-		double q1 = (m11 - m22 - m33 + 1.0) / 4.0;
-		double q2 = (m22 - m33 - m11 + 1.0) / 4.0;
-		double q3 = (m33 - m11 - m22 + 1.0) / 4.0;
+		float q0 = (m11 + m22 + m33 + 1.0f) / 4.0f;
+		float q1 = (m11 - m22 - m33 + 1.0f) / 4.0f;
+		float q2 = (m22 - m33 - m11 + 1.0f) / 4.0f;
+		float q3 = (m33 - m11 - m22 + 1.0f) / 4.0f;
 
-		q0 = q0 < 0.0 ? 0.0 : q0;
-		q1 = q1 < 0.0 ? 0.0 : q1;
-		q2 = q2 < 0.0 ? 0.0 : q2;
-		q3 = q3 < 0.0 ? 0.0 : q3;
+		q0 = q0 < 0.0f ? 0.0f : q0;
+		q1 = q1 < 0.0f ? 0.0f : q1;
+		q2 = q2 < 0.0f ? 0.0f : q2;
+		q3 = q3 < 0.0f ? 0.0f : q3;
 
 		q0 = Math::Sqrt(q0);
 		q1 = Math::Sqrt(q1);
 		q2 = Math::Sqrt(q2);
 		q3 = Math::Sqrt(q3);
 
-		int index;
-		double max;
+		size_t index;
+		float max;
 		std::tie(index, max) = Math::MaxData({ q0, q1, q2, q3 });
 
 		float const table[4][4] =
@@ -319,59 +309,13 @@ namespace Transform
 		return MemoryCast<Quaternion>(res);
 	}
 
-	/*Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
-	{
-		double m11 = matrix.m11;
-		double m12 = matrix.m12;
-		double m13 = matrix.m13;
-		double m21 = matrix.m21;
-		double m22 = matrix.m22;
-		double m23 = matrix.m23;
-		double m31 = matrix.m31;
-		double m32 = matrix.m32;
-		double m33 = matrix.m33;
-
-		double x = m11 - m22 - m33 + 1.0;
-		double y = m22 - m33 - m11 + 1.0;
-		double z = m33 - m11 - m22 + 1.0;
-		double w = m11 + m22 + m33 + 1.0;
-
-		int index;
-		double max;
-		std::tie(index, max) = Math::MaxData({ x, y, z, w });
-
-		if (max < 0.0)
-		{
-			return Quaternion::Identity();
-		}
-
-		float v = (float)Math::Sqrt(max) * 0.5f;
-		float m = 0.25f / v;
-
-		float const table[4][4] =
-		{
-			v, (m12 + m21) * m, (m31 + m13) * m, (m23 - m32) * m,
-			(m12 + m21) * m, v, (m23 + m32) * m, (m31 - m13) * m,
-			(m31 + m13) * m, (m23 + m32) * m, v, (m12 - m21) * m,
-			(m23 - m32) * m, (m31 - m13) * m, (m12 - m21) * m, v,
-		};
-
-		return Quaternion
-		{
-			table[index][0],
-			table[index][1],
-			table[index][2],
-			table[index][3]
-		};
-	}*/
-
 	Matrix Matrix::Translated(Matrix const& matrix, Vector3 const& translation)
 	{
 		Matrix m = matrix;
 		return Translate(m, translation);
 	}
 
-	Matrix Matrix::Rotated(Matrix const& matrix, Vector3 const& axis, double angle)
+	Matrix Matrix::Rotated(Matrix const& matrix, Vector3 const& axis, float angle)
 	{
 		Matrix m = matrix;
 		return Rotate(m, axis, angle);
@@ -389,7 +333,7 @@ namespace Transform
 		return Scale(m, scaling);
 	}
 
-	Matrix Matrix::Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling)
+	Matrix Matrix::Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
 	{
 		Matrix m = matrix;
 		return Transform(m, translation, axis, angle, scaling);
@@ -577,12 +521,6 @@ namespace Transform
 	Quaternion Matrix::Rotation(Matrix const& matrix)
 	{
 		return ToQuaternion(matrix);
-		/*Vector3 scale = Scaling(matrix);
-		return Matrix(
-			matrix.m11 / scale.x, matrix.m12 / scale.x, matrix.m13 / scale.x, 0.0f,
-			matrix.m21 / scale.y, matrix.m22 / scale.y, matrix.m23 / scale.y, 0.0f,
-			matrix.m31 / scale.z, matrix.m32 / scale.z, matrix.m33 / scale.z, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f);*/
 	}
 
 	Vector3 Matrix::Scaling(Matrix const& matrix)
@@ -614,9 +552,9 @@ namespace Transform
 		return matrix;
 	}
 
-	Matrix Matrix::Perspective(double fov, float aspect, float nearclip, float farclip)
+	Matrix Matrix::Perspective(float fov, float aspect, float nearclip, float farclip)
 	{
-		float y = (float)(1 / Math::Tan(fov / 2.0));
+		float y = 1 / Math::Tan(fov / 2.0f);
 		float x = y / aspect;
 		float z = farclip / (farclip - nearclip);
 		float w = -z * nearclip;

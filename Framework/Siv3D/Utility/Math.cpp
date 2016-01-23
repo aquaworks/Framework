@@ -6,94 +6,94 @@ namespace Utility
 {
 	namespace Math
 	{
-		double ToRadian(double x)
+		float ToRadian(float x)
 		{
 			return x * RADIAN;
 		}
 
-		double ToDegree(double x)
+		float ToDegree(float x)
 		{
 			return x * DEGREE;
 		}
 
-		double Sin(double x)
+		float Sin(float x)
 		{
 			return std::sin(x);
 		}
 
-		double Cos(double x)
+		float Cos(float x)
 		{
 			return std::cos(x);
 		}
 
-		double Tan(double x)
+		float Tan(float x)
 		{
 			return std::tan(x);
 		}
 
-		double Asin(double x)
+		float Asin(float x)
 		{
 			return std::asin(x);
 		}
 
-		double Acos(double x)
+		float Acos(float x)
 		{
 			return std::acos(x);
 		}
 
-		double Atan(double x)
+		float Atan(float x)
 		{
 			return std::atan(x);
 		}
 
-		double Atan2(double y, double x)
+		float Atan2(float y, float x)
 		{
 			return std::atan2(y, x);
 		}
 
-		double Floor(double x)
+		float Floor(float x)
 		{
 			return std::floor(x);
 		}
 
-		double Ceiling(double x)
+		float Ceiling(float x)
 		{
 			return std::ceil(x);
 		}
 
-		double Round(double x)
+		float Round(float x)
 		{
 			return std::round(x);
 		}
 
-		double Sign(double x)
+		float Sign(float x)
 		{
-			return std::signbit(x) ? 1.0 : -1.0;
+			return std::signbit(x) ? 1.0f : -1.0f;
 		}
 
-		double Pow(double x, double y)
+		float Pow(float x, float y)
 		{
 			return std::pow(x, y);
 		}
 
-		double Sqrt(double x)
+		float Sqrt(float x)
 		{
 			return std::sqrt(x);
 		}
 
-		double Smooth(double x, int y)
+		float Smooth(float x, int y)
 		{
-			double f = Math::Pow(10.0, -static_cast<double>(y));
+			float f = Math::Pow(10.0, -static_cast<float>(y));
 			int i = (int)(x * f);
 			return i / f;
 		}
 
-		double Saturate(double x)
+		float Saturate(float x)
 		{
-			return Clamp(x, 0.0, 1.0);
+			return Clamp(x, 0.0f, 1.0f);
 		}
 
-		double Clamp(double x, double y, double z)
+		float Clamp(float x, float y, float z)
 		{
 			return Math::Min({ Math::Max({ x, y }), z });
 		}

@@ -6,7 +6,7 @@
 # include "IWorld.hpp"
 
 # include "Shapes/IShape.hpp"
-# include "Shapes/SharePtr.hpp"
+# include "Shapes/ShapePtr.hpp"
 
 namespace Graphics
 {

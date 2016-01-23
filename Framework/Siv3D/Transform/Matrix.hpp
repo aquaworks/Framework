@@ -68,9 +68,6 @@ namespace Transform
 		/// <summary>s—ñ®‚ğ•Ô‚·</summary>
 		static float Determinant(Matrix const& m);
 
-		/// <summary>•¶š—ñ‚É•ÏŠ·‚·‚é</summary>
-		static std::wstring ToString(Matrix const& m);
-
 	public:
 
 		/// <summary>•½sˆÚ“®s—ñ‚ğ•Ô‚·</summary>
@@ -80,7 +77,7 @@ namespace Transform
 		/// <summary>‰ñ“]s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
-		static Matrix Rotation(Vector3 const& axis, double angle);
+		static Matrix Rotation(Vector3 const& axis, float angle);
 
 		/// <summary>‰ñ“]s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="rotation">‰ñ“]</param>
@@ -95,7 +92,7 @@ namespace Transform
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
-		static Matrix Transformation(Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
+		static Matrix Transformation(Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
 
 		/// <summary>ƒAƒtƒBƒ“•ÏŠ·s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -112,7 +109,7 @@ namespace Transform
 		/// <summary>‰ñ“]‚·‚é</summary>
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
-		static Matrix& Rotate(Matrix& matrix, Vector3 const& axis, double angle);
+		static Matrix& Rotate(Matrix& matrix, Vector3 const& axis, float angle);
 
 		/// <summary>‰ñ“]‚·‚é</summary>
 		/// <param name="rotation">‰ñ“]</param>
@@ -127,7 +124,7 @@ namespace Transform
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
-		static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
+		static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
 
 		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚·‚é</summary>
 		/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -153,7 +150,7 @@ namespace Transform
 		/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
-		static Matrix Rotated(Matrix const& matrix, Vector3 const& axis, double angle);
+		static Matrix Rotated(Matrix const& matrix, Vector3 const& axis, float angle);
 
 		/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="rotation">‰ñ“]</param>
@@ -168,7 +165,7 @@ namespace Transform
 		/// <param name="axis">‰ñ“]²</param>
 		/// <param name="angle">‰ñ“]—Ê</param>
 		/// <param name="scaling">Šg‘åk¬—¦</param>
-		static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, double angle, Vector3 const& scaling);
+		static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
 
 		/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 		/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -202,7 +199,7 @@ namespace Transform
 
 		static Matrix LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up);
 
-		static Matrix Perspective(double fov, float aspect, float nearclip, float farclip);
+		static Matrix Perspective(float fov, float aspect, float nearclip, float farclip);
 
 		static Matrix Viewport(int width, int height);
 

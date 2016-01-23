@@ -2,8 +2,10 @@
 # include "Vector3.hpp"
 # include "Point2.hpp"
 
-# include "Utility/String.hpp"
 # include "Utility/Math.hpp"
+
+# pragma warning (push)
+# pragma warning (disable : 4458)
 
 namespace Transform
 {
@@ -95,11 +97,6 @@ namespace Transform
 		return elm;
 	}
 
-	std::wstring Vector2::ToString(Vector2 const& v)
-	{
-		return String::Create("(", v.x, ", ", v.y, ")");
-	}
-
 	float Vector2::Dot(Vector2 const& v1, Vector2 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y;
@@ -131,11 +128,11 @@ namespace Transform
 		return v / static_cast<float>(Math::Sqrt(lengthSq));
 	}
 
-	Vector2 Vector2::Rotate(Vector2 const& point, Vector2 const& origin, double angle)
+	Vector2 Vector2::Rotate(Vector2 const& point, Vector2 const& origin, float angle)
 	{
 		return origin + (point - origin) * Vector2(
-			static_cast<float>(Math::Cos(angle)),
-			static_cast<float>(Math::Sin(angle)));
+			Math::Cos(angle),
+			Math::Sin(angle));
 	}
 
 	Vector2 Vector2::Projection(Vector2 const& v, Vector2 const& target)
@@ -254,3 +251,5 @@ namespace Transform
 		return result /= s;
 	}
 }
+
+# pragma warning (pop)
