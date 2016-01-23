@@ -4,7 +4,7 @@
 
 namespace Graphics
 {
-	void Renderer::Render(Shape::ShapePtr const& shape, Transform::Pose const& pose) const
+	void Renderer::Render(Shapes::ShapePtr const& shape, Transform::Pose const& pose) const
 	{
 		shape->Reshape(pose)->Render();
 	}

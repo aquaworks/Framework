@@ -9,30 +9,30 @@ namespace Actor
 	double const IActor::Gravity = 0.02;
 
 	IActor::IActor(std::wstring const& name)
-		: IActor(name, Transform::Pose::Identity(), Shape::IShape::Empty())
+		: IActor(name, Transform::Pose::Identity(), Shapes::IShape::Empty())
 	{
 
 	}
 
 	IActor::IActor(Transform::Pose const& transform)
-		: IActor(L"", transform, Shape::IShape::Empty())
+		: IActor(L"", transform, Shapes::IShape::Empty())
 	{
 
 	}
 
-	IActor::IActor(Shape::ShapePtr const& shape)
+	IActor::IActor(Shapes::ShapePtr const& shape)
 		: IActor(L"", Transform::Pose::Identity(), shape)
 	{
 
 	}
 
 	IActor::IActor(std::wstring const& name, Transform::Pose const& transform)
-		: IActor(name, transform, Shape::IShape::Empty())
+		: IActor(name, transform, Shapes::IShape::Empty())
 	{
 
 	}
 
-	IActor::IActor(std::wstring const& name, Transform::Pose const& transform, Shape::ShapePtr const& shape)
+	IActor::IActor(std::wstring const& name, Transform::Pose const& transform, Shapes::ShapePtr const& shape)
 		: m_children()
 		, m_parent()
 		, m_self()
@@ -45,7 +45,7 @@ namespace Actor
 
 	}
 
-	IActor& IActor::ChangeShape(Shape::ShapePtr const& shape)
+	IActor& IActor::ChangeShape(Shapes::ShapePtr const& shape)
 	{
 		m_shape = shape;
 		return *this;
@@ -66,11 +66,11 @@ namespace Actor
 		return transform * m_parent.lock()->World();
 	}
 
-	Shape::ShapePtr const IActor::LocalShape() const
+	Shapes::ShapePtr const IActor::LocalShape() const
 	{
 		return m_shape;
 	}
-	Shape::ShapePtr const IActor::WorldShape() const
+	Shapes::ShapePtr const IActor::WorldShape() const
 	{
 		return LocalShape()->Reshape(World());
 	}

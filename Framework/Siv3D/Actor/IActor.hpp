@@ -5,8 +5,8 @@
 # include "ActorPtr.hpp"
 # include "IWorld.hpp"
 
-# include "Shape/IShape.hpp"
-# include "Shape/SharePtr.hpp"
+# include "Shapes/IShape.hpp"
+# include "Shapes/SharePtr.hpp"
 
 namespace Graphics
 {
@@ -35,20 +35,20 @@ namespace Actor
 
 		explicit IActor(std::wstring const& name);
 		explicit IActor(Transform::Pose const& transform);
-		explicit IActor(Shape::ShapePtr const& shape);
+		explicit IActor(Shapes::ShapePtr const& shape);
 		IActor(std::wstring const& name, Transform::Pose const& transform);
-		IActor(std::wstring const& name, Transform::Pose const& transform, Shape::ShapePtr const& shape);
+		IActor(std::wstring const& name, Transform::Pose const& transform, Shapes::ShapePtr const& shape);
 
 	public:
 
-		IActor& ChangeShape(Shape::ShapePtr const& shape);
+		IActor& ChangeShape(Shapes::ShapePtr const& shape);
 
 	public:
 
 		Transform::Pose Local() const;
 		Transform::Pose World() const;
-		Shape::ShapePtr const LocalShape() const;
-		Shape::ShapePtr const WorldShape() const;
+		Shapes::ShapePtr const LocalShape() const;
+		Shapes::ShapePtr const WorldShape() const;
 
 	public:
 
@@ -89,6 +89,6 @@ namespace Actor
 		std::wstring m_name;
 		bool m_isDead;
 
-		Shape::ShapePtr m_shape;
+		Shapes::ShapePtr m_shape;
 	};
 }

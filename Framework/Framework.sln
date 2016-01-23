@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Siv3D", "Siv3D\Siv3D.vcxproj", "{01EBD207-CEBE-4DA3-A9A9-7D6E6169945A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Siv3D_", "Siv3D_\Siv3D_.vcxproj", "{01EBD207-CEBE-4DA3-A9A9-7D6E6169945A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quaternion", "Quaternion\Quaternion.vcxproj", "{9BB5F8EB-0AE6-4E55-8697-DE519E3924BD}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrimitiveType", "PrimitiveType\PrimitiveType.vcxproj", "{ECF0D933-0E7E-4EA4-A38B-F2018A67F228}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrix", "Matrix\Matrix.vcxproj", "{50E69D48-0A64-40B7-888E-352A9318F55F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Siv3D", "Siv3D\Siv3D.vcxproj", "{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,12 @@ Global
 		{50E69D48-0A64-40B7-888E-352A9318F55F}.Release|Win32.Build.0 = Release|Win32
 		{50E69D48-0A64-40B7-888E-352A9318F55F}.Release|x64.ActiveCfg = Release|x64
 		{50E69D48-0A64-40B7-888E-352A9318F55F}.Release|x64.Build.0 = Release|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Debug|Win32.ActiveCfg = Debug|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Debug|x64.ActiveCfg = Debug|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Debug|x64.Build.0 = Debug|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Release|Win32.ActiveCfg = Release|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Release|x64.ActiveCfg = Release|x64
+		{FF69E526-11AF-4785-A58C-9C22D2ECF2F3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
