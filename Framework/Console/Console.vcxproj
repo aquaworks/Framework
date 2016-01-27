@@ -150,6 +150,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\Transform\Matrix.cpp" />
+    <ClCompile Include="..\Siv3D\Transform\Pose.cpp" />
+    <ClCompile Include="..\Siv3D\Transform\Quaternion.cpp" />
+    <ClCompile Include="..\Siv3D\Transform\Vector3.cpp" />
+    <ClCompile Include="..\Siv3D\Transform\Vector4.cpp" />
+    <ClCompile Include="..\Siv3D\Utility\Math.cpp" />
+    <ClCompile Include="..\Siv3D\Utility\String.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

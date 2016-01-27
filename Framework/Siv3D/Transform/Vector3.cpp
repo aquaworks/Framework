@@ -149,7 +149,7 @@ namespace Transform
 		return
 			v +
 			Math::Cos(angle) * (point - v) +
-			Math::Sin(angle) * Cross(point, axis);
+			Math::Sin(angle) * Cross(axis, point);
 	}
 
 	Vector3 Vector3::Projection(Vector3 const& v, Vector3 const& target)

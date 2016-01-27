@@ -105,11 +105,11 @@ namespace Transform
 	Quaternion operator * (Quaternion const& q1, Quaternion const& q2)
 	{
 		Quaternion result;
-		Vector3& v = MemoryCast<Vector3>(result);
+		Vector3& v = memory_cast<Vector3>(result);
 		float& t = result.w;
 
-		Vector3 v1 = MemoryCast<Vector3>(q1);
-		Vector3 v2 = MemoryCast<Vector3>(q2);
+		Vector3 v1 = memory_cast<Vector3>(q1);
+		Vector3 v2 = memory_cast<Vector3>(q2);
 		float t1 = q1.w;
 		float t2 = q2.w;
 

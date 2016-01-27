@@ -20,11 +20,11 @@ namespace
 			{
 				for (int k = 0; k < match; ++k)
 				{
-					double elm0 = mat[i * column + j];
-					double elm1 = m1[i * column + k];
-					double elm2 = m2[k * column + j];
-					double mul = elm0 + elm1 * elm2;
-					mat[i * column + j] = (float)mul;
+					float elm0 = mat[i * column + j];
+					float elm1 = m1[i * column + k];
+					float elm2 = m2[k * column + j];
+					float mul = elm0 + elm1 * elm2;
+					mat[i * column + j] = mul;
 				}
 			}
 		}
@@ -113,16 +113,6 @@ namespace Transform
 		return *this;
 	}
 
-	Matrix::operator float* ()
-	{
-		return elm;
-	}
-
-	Matrix::operator float const* () const
-	{
-		return elm;
-	}
-
 	bool Matrix::IsIdentity(Matrix const& m)
 	{
 		return m == Identity();
@@ -141,36 +131,6 @@ namespace Transform
 	bool Matrix::IsInverse(Matrix const& m1, Matrix const& m2)
 	{
 		return IsIdentity(m1 * m2);
-	}
-
-	float Matrix::Determinant(Matrix const& matrix)
-	{
-		double det =
-			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][3] +
-			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][1] +
-			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][2] +
-			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][2] +
-			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][3] +
-			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][0] +
-			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][3] +
-			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][0] +
-			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][1] +
-			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][1] +
-			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][2] +
-			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][0] -
-			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][2] -
-			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][3] -
-			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][1] -
-			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][3] -
-			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][0] -
-			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][2] -
-			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][1] -
-			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][3] -
-			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][0] -
-			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][2] -
-			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][0] -
-			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][1];
-		return (float)det;
 	}
 
 	Matrix Matrix::Translation(Vector3 const& translation)
@@ -261,54 +221,6 @@ namespace Transform
 		return matrix = Inversed(matrix);
 	}
 
-	Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
-	{
-		float m11 = matrix.m11;
-		float m12 = matrix.m12;
-		float m13 = matrix.m13;
-		float m21 = matrix.m21;
-		float m22 = matrix.m22;
-		float m23 = matrix.m23;
-		float m31 = matrix.m31;
-		float m32 = matrix.m32;
-		float m33 = matrix.m33;
-
-		float q0 = (m11 + m22 + m33 + 1.0f) / 4.0f;
-		float q1 = (m11 - m22 - m33 + 1.0f) / 4.0f;
-		float q2 = (m22 - m33 - m11 + 1.0f) / 4.0f;
-		float q3 = (m33 - m11 - m22 + 1.0f) / 4.0f;
-
-		q0 = q0 < 0.0f ? 0.0f : q0;
-		q1 = q1 < 0.0f ? 0.0f : q1;
-		q2 = q2 < 0.0f ? 0.0f : q2;
-		q3 = q3 < 0.0f ? 0.0f : q3;
-
-		q0 = Math::Sqrt(q0);
-		q1 = Math::Sqrt(q1);
-		q2 = Math::Sqrt(q2);
-		q3 = Math::Sqrt(q3);
-
-		size_t index;
-		float max;
-		std::tie(index, max) = Math::MaxData({ q0, q1, q2, q3 });
-
-		float const table[4][4] =
-		{
-			q0, q1 * Math::Sign(m32 - m23), q2 * Math::Sign(m13 - m31), q3 * Math::Sign(m32 - m12),
-			q0 * Math::Sign(m32 - m23), q1, q2 * Math::Sign(m21 + m12), q3 * Math::Sign(m13 + m31),
-			q0 * Math::Sign(m13 - m31), q1 * Math::Sign(m21 + m12), q2, q3 * Math::Sign(m32 + m23),
-			q0 * Math::Sign(m21 - m12), q1 * Math::Sign(m31 + m13), q2 * Math::Sign(m32 + m23), q3,
-		};
-
-		Vector4 res { table[index][0], table[index][1], table[index][2], table[index][3] };
-
-		float length = Vector4::Length(res);
-
-		res /= length;
-
-		return MemoryCast<Quaternion>(res);
-	}
-
 	Matrix Matrix::Translated(Matrix const& matrix, Vector3 const& translation)
 	{
 		Matrix m = matrix;
@@ -363,7 +275,7 @@ namespace Transform
 			return Zero();
 		}
 
-		double m11 = (
+		float m11 = (
 			matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][3] +
 			matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][1] +
 			matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][2] -
@@ -371,7 +283,7 @@ namespace Transform
 			matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][3] -
 			matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][1]) / det;
 
-		double m12 = (
+		float m12 = (
 			matrix.mat[0][1] * matrix.mat[2][3] * matrix.mat[3][2] +
 			matrix.mat[0][2] * matrix.mat[2][1] * matrix.mat[3][3] +
 			matrix.mat[0][3] * matrix.mat[2][2] * matrix.mat[3][1] -
@@ -379,7 +291,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[2][3] * matrix.mat[3][1] -
 			matrix.mat[0][3] * matrix.mat[2][1] * matrix.mat[3][2]) / det;
 
-		double m13 = (
+		float m13 = (
 			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[3][3] +
 			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[3][1] +
 			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[3][2] -
@@ -387,7 +299,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[3][3] -
 			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[3][1]) / det;
 
-		double m14 = (
+		float m14 = (
 			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][2] +
 			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][3] +
 			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][1] -
@@ -395,7 +307,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][1] -
 			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][2]) / det;
 
-		double m21 = (
+		float m21 = (
 			matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][2] +
 			matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][3] +
 			matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][0] -
@@ -403,7 +315,7 @@ namespace Transform
 			matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][0] -
 			matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][2]) / det;
 
-		double m22 = (
+		float m22 = (
 			matrix.mat[0][0] * matrix.mat[2][2] * matrix.mat[3][3] +
 			matrix.mat[0][2] * matrix.mat[2][3] * matrix.mat[3][0] +
 			matrix.mat[0][3] * matrix.mat[2][0] * matrix.mat[3][2] -
@@ -411,7 +323,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[2][0] * matrix.mat[3][3] -
 			matrix.mat[0][3] * matrix.mat[2][2] * matrix.mat[3][0]) / det;
 
-		double m23 = (
+		float m23 = (
 			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[3][2] +
 			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[3][3] +
 			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[3][0] -
@@ -419,7 +331,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[3][0] -
 			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[3][2]) / det;
 
-		double m24 = (
+		float m24 = (
 			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][3] +
 			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][0] +
 			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][2] -
@@ -427,7 +339,7 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][3] -
 			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][0]) / det;
 
-		double m31 = (
+		float m31 = (
 			matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][3] +
 			matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][0] +
 			matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][1] -
@@ -435,7 +347,7 @@ namespace Transform
 			matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][3] -
 			matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][0]) / det;
 
-		double m32 = (
+		float m32 = (
 			matrix.mat[0][0] * matrix.mat[2][3] * matrix.mat[3][1] +
 			matrix.mat[0][1] * matrix.mat[2][0] * matrix.mat[3][3] +
 			matrix.mat[0][3] * matrix.mat[2][1] * matrix.mat[3][0] -
@@ -443,7 +355,7 @@ namespace Transform
 			matrix.mat[0][1] * matrix.mat[2][3] * matrix.mat[3][0] -
 			matrix.mat[0][3] * matrix.mat[2][0] * matrix.mat[3][1]) / det;
 
-		double m33 = (
+		float m33 = (
 			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[3][3] +
 			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[3][0] +
 			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[3][1] -
@@ -451,7 +363,7 @@ namespace Transform
 			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[3][3] -
 			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[3][0]) / det;
 
-		double m34 = (
+		float m34 = (
 			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][1] +
 			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][3] +
 			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][0] -
@@ -459,7 +371,7 @@ namespace Transform
 			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][0] -
 			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][1]) / det;
 
-		double m41 = (
+		float m41 = (
 			matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][1] +
 			matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][2] +
 			matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][0] -
@@ -467,7 +379,7 @@ namespace Transform
 			matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][0] -
 			matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][1]) / det;
 
-		double m42 = (
+		float m42 = (
 			matrix.mat[0][0] * matrix.mat[2][1] * matrix.mat[3][2] +
 			matrix.mat[0][1] * matrix.mat[2][2] * matrix.mat[3][0] +
 			matrix.mat[0][2] * matrix.mat[2][0] * matrix.mat[3][1] -
@@ -475,7 +387,7 @@ namespace Transform
 			matrix.mat[0][1] * matrix.mat[2][0] * matrix.mat[3][2] -
 			matrix.mat[0][2] * matrix.mat[2][1] * matrix.mat[3][0]) / det;
 
-		double m43 = (
+		float m43 = (
 			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[3][1] +
 			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[3][2] +
 			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[3][0] -
@@ -483,7 +395,7 @@ namespace Transform
 			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[3][0] -
 			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[3][1]) / det;
 
-		double m44 = (
+		float m44 = (
 			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][2] +
 			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][0] +
 			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][1] -
@@ -492,10 +404,10 @@ namespace Transform
 			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][0]) / det;
 
 		return Matrix(
-			(float)m11, (float)m12, (float)m13, (float)m14,
-			(float)m21, (float)m22, (float)m23, (float)m24,
-			(float)m31, (float)m32, (float)m33, (float)m34,
-			(float)m41, (float)m42, (float)m43, (float)m44);
+			m11, m12, m13, m14,
+			m21, m22, m23, m24,
+			m31, m32, m33, m34,
+			m41, m42, m43, m44);
 	}
 
 	Vector4 Matrix::Up(Matrix const& matrix)
@@ -526,14 +438,92 @@ namespace Transform
 	Vector3 Matrix::Scaling(Matrix const& matrix)
 	{
 		return Vector3(
-			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[0])),
-			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[1])),
-			Vector4::Length(MemoryCast<Vector4>(*matrix.mat[2])));
+			Vector4::Length(memory_cast<Vector4>(*matrix.mat[0])),
+			Vector4::Length(memory_cast<Vector4>(*matrix.mat[1])),
+			Vector4::Length(memory_cast<Vector4>(*matrix.mat[2])));
 	}
 
 	Pose Transform::Matrix::Decompose(Matrix const& matrix)
 	{
 		return Pose::Affine(Matrix::Translation(matrix), Matrix::Rotation(matrix), Matrix::Scaling(matrix));
+	}
+
+	float Matrix::Determinant(Matrix const& matrix)
+	{
+		float det =
+			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][3] +
+			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][1] +
+			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][2] +
+			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][2] +
+			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][3] +
+			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][0] +
+			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][3] +
+			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][0] +
+			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][1] +
+			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][1] +
+			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][2] +
+			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][0] -
+			matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][2] -
+			matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][3] -
+			matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][1] -
+			matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][3] -
+			matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][0] -
+			matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][2] -
+			matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][1] -
+			matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][3] -
+			matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][0] -
+			matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][2] -
+			matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][0] -
+			matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][1];
+		return det;
+	}
+
+	Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
+	{
+		float m11 = matrix.m11;
+		float m12 = matrix.m12;
+		float m13 = matrix.m13;
+		float m21 = matrix.m21;
+		float m22 = matrix.m22;
+		float m23 = matrix.m23;
+		float m31 = matrix.m31;
+		float m32 = matrix.m32;
+		float m33 = matrix.m33;
+
+		float q0 = (m11 + m22 + m33 + 1.0f) / 4.0f;
+		float q1 = (m11 - m22 - m33 + 1.0f) / 4.0f;
+		float q2 = (m22 - m33 - m11 + 1.0f) / 4.0f;
+		float q3 = (m33 - m11 - m22 + 1.0f) / 4.0f;
+
+		q0 = q0 < 0.0f ? 0.0f : q0;
+		q1 = q1 < 0.0f ? 0.0f : q1;
+		q2 = q2 < 0.0f ? 0.0f : q2;
+		q3 = q3 < 0.0f ? 0.0f : q3;
+
+		q0 = Math::Sqrt(q0);
+		q1 = Math::Sqrt(q1);
+		q2 = Math::Sqrt(q2);
+		q3 = Math::Sqrt(q3);
+
+		size_t index;
+		float max;
+		std::tie(index, max) = Math::MaxData({ q0, q1, q2, q3 });
+
+		float const table[4][4] =
+		{
+			q0, q1 * Math::Sign(m32 - m23), q2 * Math::Sign(m13 - m31), q3 * Math::Sign(m32 - m12),
+			q0 * Math::Sign(m32 - m23), q1, q2 * Math::Sign(m21 + m12), q3 * Math::Sign(m13 + m31),
+			q0 * Math::Sign(m13 - m31), q1 * Math::Sign(m21 + m12), q2, q3 * Math::Sign(m32 + m23),
+			q0 * Math::Sign(m21 - m12), q1 * Math::Sign(m31 + m13), q2 * Math::Sign(m32 + m23), q3,
+		};
+
+		Vector4 res { table[index][0], table[index][1], table[index][2], table[index][3] };
+
+		float length = Vector4::Length(res);
+
+		res /= length;
+
+		return memory_cast<Quaternion>(res);
 	}
 
 	Matrix Matrix::LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up)
@@ -597,7 +587,7 @@ namespace Transform
 	{
 		Matrix m = Matrix::Zero();
 
-		Multiply(m, 4, 4, 4, m1, m2);
+		Multiply(m.elm, 4, 4, 4, m1.elm, m2.elm);
 
 		return m;
 	}
@@ -611,7 +601,7 @@ namespace Transform
 	{
 		Vector4 r;
 
-		Multiply(r, 1, 4, 4, v, m);
+		Multiply(r, 1, 4, 4, v, m.elm);
 
 		return r;
 	}

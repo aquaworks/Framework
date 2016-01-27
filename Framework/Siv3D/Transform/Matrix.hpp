@@ -10,6 +10,7 @@ namespace Transform
 	// -------------------------------------------------------------------
 	// 前置宣言
 	// -------------------------------------------------------------------
+
 	class Vector3;
 	class Quaternion;
 	class Pose;
@@ -17,6 +18,10 @@ namespace Transform
 	/// <summary>行列</summary>
 	class Matrix
 	{
+		// ---------------------------------------------------------------
+		// 定数
+		// ---------------------------------------------------------------
+
 	public:
 
 		/// <summary>零行列を返す</summary>
@@ -24,6 +29,10 @@ namespace Transform
 
 		/// <summary>単位行列を返す</summary>
 		static Matrix const& Identity();
+
+		// ---------------------------------------------------------------
+		// システム
+		// ---------------------------------------------------------------
 
 	public:
 
@@ -43,13 +52,9 @@ namespace Transform
 		/// <summary>代入演算子</summary>
 		Matrix& operator = (Matrix const& m);
 
-	public:
-
-		/// <summary>配列に変換する</summary>
-		operator float* ();
-
-		/// <summary>配列に変換する</summary>
-		operator float const* () const;
+		// ---------------------------------------------------------------
+		// 状態を返す
+		// ---------------------------------------------------------------
 
 	public:
 
@@ -65,8 +70,9 @@ namespace Transform
 		/// <summary>逆行列かどうかを返す</summary>
 		static bool IsInverse(Matrix const& m1, Matrix const& m2);
 
-		/// <summary>行列式を返す</summary>
-		static float Determinant(Matrix const& m);
+		// ---------------------------------------------------------------
+		// 変換行列を返す
+		// ---------------------------------------------------------------
 
 	public:
 
@@ -99,6 +105,10 @@ namespace Transform
 		/// <param name="rotation">回転</param>
 		/// <param name="scaling">拡大縮小率</param>
 		static Matrix Transformation(Vector3 const& translation, Quaternion const& rotation, Vector3 const& scaling);
+
+		// ---------------------------------------------------------------
+		// 変換する
+		// ---------------------------------------------------------------
 
 	public:
 
@@ -138,8 +148,9 @@ namespace Transform
 		/// <summary>逆行列にする</summary>
 		static Matrix& Inverse(Matrix& matrix);
 
-		/// <summary>クォータニオンに変換する</summary>
-		static Quaternion ToQuaternion(Matrix const& matrix);
+		// ---------------------------------------------------------------
+		// 変換済み行列を返す
+		// ---------------------------------------------------------------
 
 	public:
 
@@ -179,28 +190,52 @@ namespace Transform
 		/// <summary>逆行列を返す</summary>
 		static Matrix Inversed(Matrix const& matrix);
 
+		// ---------------------------------------------------------------
+		// パラメータ取得
+		// ---------------------------------------------------------------
+
 	public:
 
+		/// <summary>上方向ベクトルを返す</summary>
 		static Vector4 Up(Matrix const& matrix);
 
+		/// <summary>右方向ベクトルを返す</summary>
 		static Vector4 Right(Matrix const& matrix);
 
+		/// <summary>前方向ベクトルを返す</summary>
 		static Vector4 Forward(Matrix const& matrix);
-
+		
+		/// <summary>平行移動成分を返す</summary>
 		static Vector3 Translation(Matrix const& matrix);
-
+		
+		/// <summary>回転成分を返す</summary>
 		static Quaternion Rotation(Matrix const& matrix);
-
+		
+		/// <summary>拡大縮小成分を返す</summary>
 		static Vector3 Scaling(Matrix const& matrix);
-
+		
+		/// <summary>成分分解する</summary>
 		static Pose Decompose(Matrix const& matrix);
+
+		/// <summary>行列式を返す</summary>
+		static float Determinant(Matrix const& m);
+
+		/// <summary>クォータニオンに変換する</summary>
+		static Quaternion ToQuaternion(Matrix const& matrix);
+
+		// ---------------------------------------------------------------
+		// 特殊な行列生成
+		// ---------------------------------------------------------------
 
 	public:
 
+		/// <summary>ビュー行列を返す</summary>
 		static Matrix LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up);
 
+		/// <summary>透視射影行列を返す</summary>
 		static Matrix Perspective(float fov, float aspect, float nearclip, float farclip);
 
+		/// <summary>ビューポート行列を返す</summary>
 		static Matrix Viewport(int width, int height);
 
 	public:
@@ -221,20 +256,17 @@ namespace Transform
 		};
 	};
 
+	// ---------------------------------------------------------------
+	// 演算子オーバーロード
+	// ---------------------------------------------------------------
+
 	bool operator == (Matrix const& m1, Matrix const& m2);
-
 	bool operator != (Matrix const& m1, Matrix const& m2);
-
 	Matrix operator * (Matrix const& m1, Matrix const& m2);
-
 	Vector3 operator * (Vector3 const& v, Matrix const& m);
-
 	Vector4 operator * (Vector4 const& v, Matrix const& m);
-
 	Matrix& operator *= (Matrix& m1, Matrix const& m2);
-
 	Vector3& operator *= (Vector3& v, Matrix const& m);
-
 	Vector4& operator *= (Vector4& v, Matrix const& m);
 }
 
