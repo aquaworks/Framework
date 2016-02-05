@@ -15,12 +15,6 @@ namespace Shapes
 
 	}
 
-	bool IShape::Intersects(IShape const& shape) const
-	{
-		(void)shape;
-		return false;
-	}
-
 	ShapePtr IShape::Reshape(Transform::Pose const& pose) const
 	{
 		return std::make_shared<IShape>(origin * pose);
@@ -36,5 +30,40 @@ namespace Shapes
 		Transform::Pose pose;
 		pose.Move(origin.position);
 		return std::make_shared<Sphere>(pose, 0.0f);
+	}
+
+	bool IShape::Intersects(ShapePtr const& shape) const
+	{
+		return shape->Intersects(*this);
+	}
+
+	bool IShape::Intersects(IShape const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool IShape::Intersects(Sphere const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool IShape::Intersects(Capsule const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool IShape::Intersects(Segment const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool IShape::Intersects(Mesh const& shape) const
+	{
+		(void)shape;
+		return false;
 	}
 }

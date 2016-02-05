@@ -87,16 +87,6 @@ namespace Transform
 		return *this;
 	}
 
-	Vector2::operator float* ()
-	{
-		return elm;
-	}
-
-	Vector2::operator const float* () const
-	{
-		return elm;
-	}
-
 	float Vector2::Dot(Vector2 const& v1, Vector2 const& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y;

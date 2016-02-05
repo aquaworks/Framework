@@ -601,7 +601,7 @@ namespace Transform
 	{
 		Vector4 r;
 
-		Multiply(r, 1, 4, 4, v, m.elm);
+		Multiply(r.elm, 1, 4, 4, v.elm, m.elm);
 
 		return r;
 	}

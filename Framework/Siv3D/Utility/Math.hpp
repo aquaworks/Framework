@@ -8,31 +8,34 @@ namespace Utility
 	namespace Math
 	{
 		/// <summary>弧度法</summary>
-		static float const RADIAN = 0.01745329251994329547f;
+		static float const Radian = 0.01745329251994329547f;
 
 		/// <summary>度数法</summary>
-		static float const DEGREE = 57.29577951308232286f;
+		static float const Degree = 57.29577951308232286f;
 
 		/// <summary>円周率</summary>
-		static float const PI = 3.141592653589793116f;
+		static float const Pi = 3.141592653589793116f;
 
 		/// <summary>2 * π</summary>
-		static float const float_PI = 6.283185307179586232f;
+		static float const Mul2Pi = 6.283185307179586232f;
 
 		/// <summary>3 * π</summary>
-		static float const TRIPLE_PI = 9.424777960769379348f;
+		static float const Mul3Pi = 9.424777960769379348f;
 
 		/// <summary>4 * π</summary>
-		static float const QUADRUPLE_PI = 12.56637061435917246f;
+		static float const Mul4Pi = 12.56637061435917246f;
 
 		/// <summary>π/2</summary>
-		static float const HALF_PI = 1.570796326794896558f;
+		static float const Div2Pi = 1.570796326794896558f;
 
 		/// <summary>π/3</summary>
-		static float const DIV3_PI = 1.047197551196597853f;
+		static float const Div3Pi = 1.047197551196597853f;
 
 		/// <summary>π/4</summary>
-		static float const DIV4_PI = 0.785398163397448279f;
+		static float const Div4Pi = 0.785398163397448279f;
+
+		/// <summary>微小</summary>
+		static float const Eps = 0.00000001f;
 
 		/// <summary>度数法を弧度法に変換</summary>
 		/// <param name="x">度数法</param>

@@ -1,6 +1,7 @@
 # include "Capsule.hpp"
 
 # include "Sphere.hpp"
+# include "Physics/Collision.hpp"
 
 # include <Siv3D.hpp>
 
@@ -13,11 +14,6 @@ namespace Shapes
 		, radius(radius)
 	{
 
-	}
-	bool Capsule::Intersects(IShape const& shape) const
-	{
-		(void)shape;
-		return true;
 	}
 
 	ShapePtr Capsule::Reshape(Transform::Pose const& pose) const
@@ -42,9 +38,9 @@ namespace Shapes
 		double r = radius;
 		s3d::ColorF col { color.r, color.g, color.b, color.a };
 
-		s3d::Cylinder(from, to, r).draw(s3d::Palette::Red);
-		s3d::Sphere(from, r, rotate).draw(s3d::Palette::Green);
-		s3d::Sphere(to, r, rotate).draw(s3d::Palette::Blue);
+		s3d::Cylinder(from, to, r).draw(col);
+		s3d::Sphere(from, r, rotate).draw(col);
+		s3d::Sphere(to, r, rotate).draw(col);
 	}
 
 	ShapePtr Capsule::BoundingSphere() const
@@ -59,5 +55,36 @@ namespace Shapes
 		float r = Transform::Vector3::Length(end - begin) / 2.0f + radius;
 
 		return std::make_shared<Sphere>(pose, r);
+	}
+
+	bool Capsule::Intersects(ShapePtr const& shape) const
+	{
+		return shape->Intersects(*this);
+	}
+
+	bool Capsule::Intersects(IShape const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool Capsule::Intersects(Sphere const& shape) const
+	{
+		return Physics::Collision::SphereCapsule(shape, *this);
+	}
+
+	bool Capsule::Intersects(Capsule const& shape) const
+	{
+		return Physics::Collision::CapsuleCapsule(*this, shape);
+	}
+
+	bool Capsule::Intersects(Segment const& shape) const
+	{
+		return Physics::Collision::CapsuleSegment(*this, shape);
+	}
+
+	bool Capsule::Intersects(Mesh const& shape) const
+	{
+		return Physics::Collision::CapsuleMesh(*this, shape);
 	}
 }

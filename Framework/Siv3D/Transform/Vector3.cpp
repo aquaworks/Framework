@@ -50,7 +50,7 @@ namespace Transform
 		return forward;
 	}
 
-	Vector3 const& Vector3::backward()
+	Vector3 const& Vector3::Backward()
 	{
 		static Vector3 backward { 0.0f, 0.0f, -1.0f };
 		return backward;
@@ -97,16 +97,6 @@ namespace Transform
 		y = v.y;
 		z = v.z;
 		return *this;
-	}
-
-	Vector3::operator float* ()
-	{
-		return elm;
-	}
-
-	Vector3::operator float const* () const
-	{
-		return elm;
 	}
 
 	float Vector3::Dot(Vector3 const& v1, Vector3 const& v2)
