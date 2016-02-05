@@ -13,15 +13,13 @@ void Main()
 	ShapePtr sphere = std::make_shared<Shapes::Sphere>(pose, 1.0f);
 	ShapePtr capsule = std::make_shared<Shapes::Capsule>(pose, Vector3(0.0f, 2.5f, 0.0f), Vector3(0.0f, -2.5f, 0.0f), 0.5f);
 	ShapePtr segment = std::make_shared<Shapes::Segment>(pose, Vector3(0.0f, 2.5f, 0.0f), Vector3(0.0f, -2.5f, 0.0f));
-	ShapePtr mesh = Shapes::Mesh::Box({ 0.5f, 0.5f, 0.5f });
+	ShapePtr mesh = Shapes::Mesh::BoxNormal({ 0.5f, 0.5f, 0.5f });
 
-	ShapePtr own = segment->Reshape(Pose::Identity());
-	ShapePtr other = mesh->Reshape(Pose::Identity());
+	ShapePtr own = mesh->Reshape(Pose::Identity());
+	ShapePtr other = capsule->Reshape(Pose::Identity());
 
 	while (System::Update())
 	{
-		pose = Pose::Identity();
-
 		bool isIntersects = own->Intersects(other);
 
 		if (Input::KeyA.pressed)
@@ -49,7 +47,7 @@ void Main()
 			pose.Move(Vector3::Backward() * 0.1f);
 		}
 
-		other = other->Reshape(pose);
+		other->Repose(pose);
 
 		own->Render();
 		Vector4 color = isIntersects ? Vector4(1.0f, 0.0f, 0.0f, 1.0f) : Vector4(0.0f, 1.0f, 0.0f, 1.0f);

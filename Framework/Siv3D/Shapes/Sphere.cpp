@@ -63,70 +63,21 @@ namespace Shapes
 	bool Sphere::Intersects(Sphere const& shape) const
 	{
 		return Physics::Collision::SphereSphere(*this, shape);
-
-		Transform::Vector3 center1 = origin.position;
-		float radius1 = radius;
-		Transform::Vector3 center2 = shape.origin.position;
-		float radius2 = shape.radius;
-		return Physics::Collision::SphereSphere(center1, radius1, center2, radius2);
 	}
 
 	bool Sphere::Intersects(Capsule const& shape) const
 	{
 		return Physics::Collision::SphereCapsule(*this, shape);
-
-		Transform::Vector3 center = origin.position;
-		float radius = this->radius + shape.radius;
-		Transform::Vector3 begin = shape.begin * shape.origin;
-		Transform::Vector3 end = shape.end * shape.origin;
-		return Physics::Collision::SphereSegment(center, radius, begin, end);
 	}
 
 	bool Sphere::Intersects(Segment const& shape) const
 	{
 		return Physics::Collision::SphereSegment(*this, shape);
-
-		Transform::Vector3 center = origin.position;
-		float radius = this->radius;
-		Transform::Vector3 begin = shape.begin * shape.origin;
-		Transform::Vector3 end = shape.end * shape.origin;
-		return Physics::Collision::SphereSegment(center, radius, begin, end);
 	}
 
 	bool Sphere::Intersects(Mesh const& shape) const
 	{
 		return Physics::Collision::SphereMesh(*this, shape);
-
-		if (!IShape::Intersects(shape.BoundingSphere()))
-		{
-			return false;
-		}
-
-		Mesh::VertexBuffer const& vertices = shape.vertices;
-		Mesh::IndexBuffer const& indices = shape.indices;
-
-		Transform::Vector3 p0 = origin.position;
-
-		for (size_t i = 0; i < indices.size(); i += 3)
-		{
-			Transform::Vector3 p1 = vertices.at(i).position;
-			Transform::Vector3 p2 = vertices.at(i + 1).position;
-			Transform::Vector3 p3 = vertices.at(i + 2).position;
-
-			Transform::Vector3 a = p2 - p1;
-			Transform::Vector3 b = p3 - p1;
-			Transform::Vector3 c = p1 - p0;
-			Transform::Vector3 n = Transform::Vector3::Normalize(Transform::Vector3::Cross(a, b));
-			float length = Transform::Vector3::Dot(c, n);
-			Transform::Vector3 point = p0 + n * length;
-
-			if (Physics::Collision::PolygonInside({ p1, p2, p3 }, point))
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 }
 

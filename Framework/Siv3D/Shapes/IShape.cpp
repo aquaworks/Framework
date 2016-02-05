@@ -15,6 +15,11 @@ namespace Shapes
 
 	}
 
+	void IShape::Repose(Transform::Pose const& pose)
+	{
+		this->origin = pose;
+	}
+
 	ShapePtr IShape::Reshape(Transform::Pose const& pose) const
 	{
 		return std::make_shared<IShape>(origin * pose);
