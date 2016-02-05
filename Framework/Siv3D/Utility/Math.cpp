@@ -8,12 +8,12 @@ namespace Utility
 	{
 		float ToRadian(float x)
 		{
-			return x * RADIAN;
+			return x * Radian;
 		}
 
 		float ToDegree(float x)
 		{
-			return x * DEGREE;
+			return x * Degree;
 		}
 
 		float Sin(float x)

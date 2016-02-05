@@ -100,6 +100,14 @@ namespace Transform
 	{
 		return { this->position + other.position, this->rotation * other.rotation, this->scaling * other.scaling };
 	}
+	Vector3 operator * (Vector3 const& v, Pose const& pose)
+	{
+		return v * Pose::ToMatrix(pose);
+	}
+	Vector3& operator *= (Vector3& v, Pose const& pose)
+	{
+		return v *= Pose::ToMatrix(pose);
+	}
 }
 
 # pragma warning(pop)

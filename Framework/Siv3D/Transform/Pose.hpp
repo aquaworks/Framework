@@ -57,4 +57,7 @@ namespace Transform
 		Quaternion rotation;
 		Vector3 scaling;
 	};
+
+	Vector3 operator * (Vector3 const& v, Pose const& pose);
+	Vector3& operator *= (Vector3& v, Pose const& pose);
 }

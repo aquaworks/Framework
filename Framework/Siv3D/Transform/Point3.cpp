@@ -52,8 +52,8 @@ namespace Transform
 
 	Point3 const& Point3::Backward()
 	{
-		static Point3 backward { 0, 0, -1 };
-		return backward;
+		static Point3 Backward { 0, 0, -1 };
+		return Backward;
 	}
 
 	Point3::Point3()

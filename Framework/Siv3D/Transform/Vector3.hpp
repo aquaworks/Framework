@@ -41,7 +41,7 @@ namespace Transform
 		static Vector3 const& Forward();
 
 		/// <summary>(0, 0, -1)で初期化されたベクトルを返す</summary>
-		static Vector3 const& backward();
+		static Vector3 const& Backward();
 
 	public:
 
@@ -62,14 +62,6 @@ namespace Transform
 
 		/// <summary>代入演算子</summary>
 		Vector3& operator = (Vector3 const& v);
-
-	public:
-
-		/// <summary>配列に変換する</summary>
-		operator float* ();
-
-		/// <summary>配列に変換する</summary>
-		operator float const* () const;
 
 	public:
 

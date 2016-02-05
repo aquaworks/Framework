@@ -26,7 +26,7 @@ namespace Utility
 
 	float Sine(float t)
 	{
-		return 1.0f- Math::Cos(Math::HALF_PI * t);
+		return 1.0f- Math::Cos(Math::Div2Pi * t);
 	}
 
 	float Exp(float t)

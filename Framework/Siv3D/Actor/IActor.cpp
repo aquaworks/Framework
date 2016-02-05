@@ -77,7 +77,7 @@ namespace Actor
 
 	bool IActor::IsCollide(ActorPtr const& actor) const
 	{
-		return WorldShape()->Intersects(*actor->WorldShape());
+		return WorldShape()->Intersects(actor->WorldShape());
 	}
 
 	void IActor::Update(float deltaTime)

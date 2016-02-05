@@ -59,14 +59,6 @@ namespace Transform
 
 	public:
 
-		/// <summary>配列に変換する</summary>
-		operator float* ();
-
-		/// <summary>配列に変換する</summary>
-		operator float const* () const;
-
-	public:
-
 		/// <summary>内積を返す</summary>
 		/// <param name="v1">ベクトル</param>
 		/// <param name="v2">ベクトル</param>

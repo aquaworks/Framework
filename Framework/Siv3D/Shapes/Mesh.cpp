@@ -4,6 +4,8 @@
 
 # include "Sphere.hpp"
 
+# include "Physics/Collision.hpp"
+
 # include <Siv3D.hpp>
 
 namespace Shapes
@@ -51,7 +53,7 @@ namespace Shapes
 			4, 7, 3,
 		};
 
-		return std::make_shared<Mesh>(Transform::Pose::Empty(), vertices, indices);
+		return std::make_shared<Mesh>(Transform::Pose::Identity(), vertices, indices);
 	}
 
 	ShapePtr Mesh::BoxNormal(Transform::Vector3 const& size)
@@ -137,7 +139,7 @@ namespace Shapes
 			23, 20, 22,
 		};
 
-		auto&& shape = std::make_shared<Mesh>(Transform::Pose::Empty(), vertices, indices);
+		auto&& shape = std::make_shared<Mesh>(Transform::Pose::Identity(), vertices, indices);
 
 		shape->ComputeNormal();
 
@@ -257,7 +259,7 @@ namespace Shapes
 			3, 0, 2,
 		};
 
-		return std::make_shared<Mesh>(Transform::Pose::Empty(), vertices, indices);
+		return std::make_shared<Mesh>(Transform::Pose::Identity(), vertices, indices);
 	}
 
 	Mesh::Mesh(Transform::Pose const& origin, VertexBuffer const& vertices, IndexBuffer const& indices)
@@ -278,11 +280,6 @@ namespace Shapes
 		{
 			this->vertices.emplace_back(vertex, Transform::Vector3::Zero(), Transform::Vector2::Zero());
 		}
-	}
-	bool Mesh::Intersects(IShape const& shape) const
-	{
-		(void)shape;
-		return true;
 	}
 
 	ShapePtr Mesh::Reshape(Transform::Pose const& pose) const
@@ -339,6 +336,37 @@ namespace Shapes
 		float r = Transform::Vector3::Length(max - center);
 		
 		return std::make_shared<Sphere>(pose, r);
+	}
+
+	bool Mesh::Intersects(ShapePtr const& shape) const
+	{
+		return shape->Intersects(*this);
+	}
+
+	bool Mesh::Intersects(IShape const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool Mesh::Intersects(Sphere const& shape) const
+	{
+		return Physics::Collision::SphereMesh(shape, *this);
+	}
+
+	bool Mesh::Intersects(Capsule const& shape) const
+	{
+		return Physics::Collision::CapsuleMesh(shape, *this);
+	}
+
+	bool Mesh::Intersects(Segment const& shape) const
+	{
+		return Physics::Collision::SegmentMesh(shape, *this);
+	}
+
+	bool Mesh::Intersects(Mesh const& shape) const
+	{
+		return Physics::Collision::MeshMesh(shape, *this);
 	}
 
 	void Mesh::ComputeNormal()

@@ -47,14 +47,6 @@ namespace Transform
 
 	public:
 
-		/// <summary>”z—ñ‚É•ÏŠ·‚·‚é</summary>
-		operator float* ();
-
-		/// <summary>”z—ñ‚É•ÏŠ·‚·‚é</summary>
-		operator float const* () const;
-
-	public:
-
 		/// <summary>“àÏ‚ğ•Ô‚·</summary>
 		static float Dot(Vector4 const& v1, Vector4 const& v2);
 

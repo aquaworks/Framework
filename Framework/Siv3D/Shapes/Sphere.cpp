@@ -1,6 +1,15 @@
 # include "Sphere.hpp"
 
+# include "Capsule.hpp"
+# include "Segment.hpp"
+# include "Mesh.hpp"
+
+# include "Physics/Collision.hpp"
+
 # include <Siv3D.hpp>
+
+# pragma warning (push)
+# pragma warning (disable : 4458)
 
 namespace Shapes
 {
@@ -9,12 +18,6 @@ namespace Shapes
 		, radius(radius)
 	{
 
-	}
-
-	bool Sphere::Intersects(IShape const& shape) const
-	{
-		(void)shape;
-		return true;
 	}
 
 	ShapePtr Sphere::Reshape(Transform::Pose const& pose) const
@@ -45,4 +48,37 @@ namespace Shapes
 		pose.Move(origin.position);
 		return std::make_shared<Sphere>(pose, radius * origin.scaling.x);
 	}
+
+	bool Sphere::Intersects(ShapePtr const& shape) const
+	{
+		return shape->Intersects(*this);
+	}
+
+	bool Sphere::Intersects(IShape const& shape) const
+	{
+		(void)shape;
+		return false;
+	}
+
+	bool Sphere::Intersects(Sphere const& shape) const
+	{
+		return Physics::Collision::SphereSphere(*this, shape);
+	}
+
+	bool Sphere::Intersects(Capsule const& shape) const
+	{
+		return Physics::Collision::SphereCapsule(*this, shape);
+	}
+
+	bool Sphere::Intersects(Segment const& shape) const
+	{
+		return Physics::Collision::SphereSegment(*this, shape);
+	}
+
+	bool Sphere::Intersects(Mesh const& shape) const
+	{
+		return Physics::Collision::SphereMesh(*this, shape);
+	}
 }
+
+# pragma warning (pop)
