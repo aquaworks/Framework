@@ -570,5 +570,8 @@
     <ClInclude Include="Aquaworks\Typedef.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Aquaworks\Aquaworks.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

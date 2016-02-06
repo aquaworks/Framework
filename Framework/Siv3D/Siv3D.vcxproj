@@ -285,6 +285,7 @@
     <ClInclude Include="Aquaworks\Actor\IWorld.hpp" />
     <ClInclude Include="Aquaworks\Actor\Layer.hpp" />
     <ClInclude Include="Aquaworks\Actor\World.hpp" />
+    <ClInclude Include="Aquaworks\Aquaworks.hpp" />
     <ClInclude Include="Aquaworks\Behavior\BehaviorTree.hpp" />
     <ClInclude Include="Aquaworks\Behavior\Composite\IComposite.hpp" />
     <ClInclude Include="Aquaworks\Behavior\Composite\Selector.hpp" />
