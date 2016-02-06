@@ -1,56 +1,144 @@
 ﻿# include <Siv3D.hpp>
 
-# include "Transform/Transform.hpp"
-# include "Shapes/Shapes.hpp"
+# include "Scene/SceneManager.hpp"
+# include "Scene/IScene.hpp"
+
+# include "Shapes/Sphere.hpp"
+# include "Shapes/Segment.hpp"
+# include "Shapes/Mesh.hpp"
+
+
+using SceneIdentifier = int;
+
+using BaseScene = IScene<SceneIdentifier>;
+
+class Scene1 : public BaseScene
+{
+public:
+	Scene1()
+		: m_shape(std::make_shared<Shapes::Sphere>(Transform::Pose::Identity(), 1.0f))
+	{
+
+	}
+	virtual void Initialize() override
+	{
+
+	}
+	virtual void Update(float deltaTime) override
+	{
+		(void)deltaTime;
+	}
+	virtual void Render() const override
+	{
+		m_shape->Render();
+	}
+	virtual void Post() override
+	{
+
+	}
+	virtual void Finalize() override
+	{
+
+	}
+	virtual bool IsSwallow() const override
+	{
+		return true;
+	}
+private:
+	Shapes::ShapePtr m_shape;
+};
+
+class Scene2 : public BaseScene
+{
+public:
+	Scene2()
+		: m_shape(std::make_shared<Shapes::Segment>(Transform::Pose::Identity(), Transform::Vector3(3.0f, 3.0f, 0.0f), Transform::Vector3(-3.0f, -3.0f, 0.0f)))
+	{
+
+	}
+	virtual void Initialize() override
+	{
+
+	}
+	virtual void Update(float deltaTime) override
+	{
+		(void)deltaTime;
+	}
+	virtual void Render() const override
+	{
+		m_shape->Render();
+	}
+	virtual void Post() override
+	{
+
+	}
+	virtual void Finalize() override
+	{
+
+	}
+	virtual bool IsSwallow() const override
+	{
+		return true;
+	}
+private:
+	Shapes::ShapePtr m_shape;
+};
+
+class Scene3 : public BaseScene
+{
+public:
+	Scene3()
+		: m_shape(Shapes::Mesh::BoxNormal({ 1.0f, 1.0f, 1.0f }))
+	{
+
+	}
+	virtual void Initialize() override
+	{
+
+	}
+	virtual void Update(float deltaTime) override
+	{
+		(void)deltaTime;
+		if (Input::Key1.clicked)
+		{
+			GetSceneManager()->Change(0, 1.0f, false);
+		}
+	}
+	virtual void Render() const override
+	{
+		m_shape->Render();
+	}
+	virtual void Post() override
+	{
+		
+	}
+	virtual void Finalize() override
+	{
+
+	}
+	virtual bool IsSwallow() const override
+	{
+		return true;
+	}
+private:
+	Shapes::ShapePtr m_shape;
+};
 
 void Main()
 {
-	using namespace Shapes;
-	using namespace Transform;
+	SceneManager<SceneIdentifier> sceneManager;
 
-	Pose pose = Pose::Identity();
+	sceneManager.Add<Scene1>(0);
+	sceneManager.Add<Scene2>(1);
+	sceneManager.Add<Scene3>(2);
 
-	ShapePtr sphere = std::make_shared<Shapes::Sphere>(pose, 1.0f);
-	ShapePtr capsule = std::make_shared<Shapes::Capsule>(pose, Vector3(0.0f, 2.5f, 0.0f), Vector3(0.0f, -2.5f, 0.0f), 0.5f);
-	ShapePtr segment = std::make_shared<Shapes::Segment>(pose, Vector3(0.0f, 2.5f, 0.0f), Vector3(0.0f, -2.5f, 0.0f));
-	ShapePtr mesh = Shapes::Mesh::BoxNormal({ 0.5f, 0.5f, 0.5f });
-
-	ShapePtr own = mesh->Reshape(Pose::Identity());
-	ShapePtr other = capsule->Reshape(Pose::Identity());
+	sceneManager.Push(2);
 
 	while (System::Update())
 	{
-		bool isIntersects = own->Intersects(other);
-
-		if (Input::KeyA.pressed)
-		{
-			pose.Move(Vector3::Left() * 0.1f);
-		}
-		if (Input::KeyD.pressed)
-		{
-			pose.Move(Vector3::Right() * 0.1f);
-		}
-		if (Input::KeyE.pressed)
-		{
-			pose.Move(Vector3::Up() * 0.1f);
-		}
-		if (Input::KeyX.pressed)
-		{
-			pose.Move(Vector3::Down() * 0.1f);
-		}
-		if (Input::KeyW.pressed)
-		{
-			pose.Move(Vector3::Forward() * 0.1f);
-		}
-		if (Input::KeyS.pressed)
-		{
-			pose.Move(Vector3::Backward() * 0.1f);
-		}
-
-		other->Repose(pose);
-
-		own->Render();
-		Vector4 color = isIntersects ? Vector4(1.0f, 0.0f, 0.0f, 1.0f) : Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		other->Render(color);
+		sceneManager.Resolve();
+		sceneManager.Update(0.016667f);
+		sceneManager.Render();
+		sceneManager.Post();
 	}
 }

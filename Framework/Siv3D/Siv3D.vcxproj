@@ -249,6 +249,8 @@
     <None Include="Example\Test.json" />
     <None Include="Example\Well\Well.mtl" />
     <None Include="Example\Well\Well.wavefrontobj" />
+    <None Include="Scene\FadeIn.inl" />
+    <None Include="Scene\FadeOut.inl" />
     <Text Include="Example\Shaders\Blend2D.hlsl" />
     <Text Include="Example\Shaders\Invert2D.hlsl" />
     <Text Include="Example\Shaders\Monochrome2D.hlsl" />
@@ -300,6 +302,9 @@
     <ClInclude Include="Behavior\Task\Wait.hpp" />
     <ClInclude Include="Graphics\Renderer.hpp" />
     <ClInclude Include="Physics\Collision.hpp" />
+    <ClInclude Include="Scene\IScene.hpp" />
+    <ClInclude Include="Scene\ISceneMediator.hpp" />
+    <ClInclude Include="Scene\SceneManager.hpp" />
     <ClInclude Include="Shapes\Capsule.hpp" />
     <ClInclude Include="Shapes\IShape.hpp" />
     <ClInclude Include="Shapes\Mesh.hpp" />
@@ -324,6 +329,7 @@
     <ClInclude Include="Utility\Optional.hpp" />
     <ClInclude Include="Utility\Range.hpp" />
     <ClInclude Include="Utility\String.hpp" />
+    <ClInclude Include="Typedef.hpp" />
     <ClInclude Include="Utility\Utility.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
