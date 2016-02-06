@@ -63,73 +63,73 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\IActor.cpp">
+    <ClCompile Include="Aquaworks\Actor\IActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\World.cpp">
+    <ClCompile Include="Aquaworks\Actor\World.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderer.cpp">
+    <ClCompile Include="Aquaworks\Graphics\Renderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\Collision.cpp">
+    <ClCompile Include="Aquaworks\Physics\Collision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Matrix.cpp">
+    <ClCompile Include="Aquaworks\Shapes\Capsule.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Point2.cpp">
+    <ClCompile Include="Aquaworks\Shapes\IShape.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Point3.cpp">
+    <ClCompile Include="Aquaworks\Shapes\Mesh.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Point4.cpp">
+    <ClCompile Include="Aquaworks\Shapes\Segment.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Pose.cpp">
+    <ClCompile Include="Aquaworks\Shapes\Sphere.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Quaternion.cpp">
+    <ClCompile Include="Aquaworks\Transform\Matrix.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Vector2.cpp">
+    <ClCompile Include="Aquaworks\Transform\Point2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Vector3.cpp">
+    <ClCompile Include="Aquaworks\Transform\Point3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Transform\Vector4.cpp">
+    <ClCompile Include="Aquaworks\Transform\Point4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Console.cpp">
+    <ClCompile Include="Aquaworks\Transform\Pose.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Easing.cpp">
+    <ClCompile Include="Aquaworks\Transform\Quaternion.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Math.cpp">
+    <ClCompile Include="Aquaworks\Transform\Vector2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Optional.cpp">
+    <ClCompile Include="Aquaworks\Transform\Vector3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\String.cpp">
+    <ClCompile Include="Aquaworks\Transform\Vector4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\Capsule.cpp">
+    <ClCompile Include="Aquaworks\Utility\Console.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\IShape.cpp">
+    <ClCompile Include="Aquaworks\Utility\Easing.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\Mesh.cpp">
+    <ClCompile Include="Aquaworks\Utility\Math.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\Segment.cpp">
+    <ClCompile Include="Aquaworks\Utility\Optional.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\Sphere.cpp">
+    <ClCompile Include="Aquaworks\Utility\String.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -359,10 +359,10 @@
     <None Include="Engine\config.ini" />
     <None Include="Engine\LogMessages.txt" />
     <None Include="Engine\Siv3DVersion" />
-    <None Include="Scene\FadeIn.inl">
+    <None Include="Aquaworks\Scene\FadeIn.inl">
       <Filter>ヘッダー ファイル</Filter>
     </None>
-    <None Include="Scene\FadeOut.inl">
+    <None Include="Aquaworks\Scene\FadeOut.inl">
       <Filter>ヘッダー ファイル</Filter>
     </None>
   </ItemGroup>
@@ -432,157 +432,142 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor\ActorPtr.hpp">
+    <ClInclude Include="Aquaworks\Actor\ActorPtr.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\IActor.hpp">
+    <ClInclude Include="Aquaworks\Actor\IActor.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\IWorld.hpp">
+    <ClInclude Include="Aquaworks\Actor\IWorld.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Layer.hpp">
+    <ClInclude Include="Aquaworks\Actor\Layer.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\World.hpp">
+    <ClInclude Include="Aquaworks\Actor\World.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Composite\IComposite.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Composite\IComposite.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Composite\Selector.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Composite\Selector.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Composite\Sequence.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Composite\Sequence.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Decorator\Cooldown.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Decorator\Cooldown.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Decorator\IDecorator.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Decorator\IDecorator.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Decorator\TimeLimit.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Decorator\TimeLimit.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Task\Fail.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Task\Fail.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Task\ITask.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Task\ITask.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Task\Success.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Task\Success.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Task\Wait.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Task\Wait.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\BehaviorTree.hpp">
+    <ClInclude Include="Aquaworks\Behavior\BehaviorTree.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\IBehavior.hpp">
+    <ClInclude Include="Aquaworks\Behavior\IBehavior.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Root.hpp">
+    <ClInclude Include="Aquaworks\Behavior\Root.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderer.hpp">
+    <ClInclude Include="Aquaworks\Graphics\Renderer.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\Collision.hpp">
+    <ClInclude Include="Aquaworks\Physics\Collision.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Matrix.hpp">
+    <ClInclude Include="Aquaworks\Scene\IScene.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Point2.hpp">
+    <ClInclude Include="Aquaworks\Scene\ISceneMediator.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Point3.hpp">
+    <ClInclude Include="Aquaworks\Scene\SceneManager.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Point4.hpp">
+    <ClInclude Include="Aquaworks\Shapes\Capsule.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Pose.hpp">
+    <ClInclude Include="Aquaworks\Shapes\IShape.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Quaternion.hpp">
+    <ClInclude Include="Aquaworks\Shapes\Mesh.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Vector2.hpp">
+    <ClInclude Include="Aquaworks\Shapes\Segment.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Vector3.hpp">
+    <ClInclude Include="Aquaworks\Shapes\ShapePtr.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Vector4.hpp">
+    <ClInclude Include="Aquaworks\Shapes\Sphere.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Console.hpp">
+    <ClInclude Include="Aquaworks\Transform\Matrix.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Easing.hpp">
+    <ClInclude Include="Aquaworks\Transform\Point2.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Math.hpp">
+    <ClInclude Include="Aquaworks\Transform\Point3.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Optional.hpp">
+    <ClInclude Include="Aquaworks\Transform\Point4.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Range.hpp">
+    <ClInclude Include="Aquaworks\Transform\Pose.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\String.hpp">
+    <ClInclude Include="Aquaworks\Transform\Quaternion.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Capsule.hpp">
+    <ClInclude Include="Aquaworks\Transform\Vector2.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\IShape.hpp">
+    <ClInclude Include="Aquaworks\Transform\Vector3.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Mesh.hpp">
+    <ClInclude Include="Aquaworks\Transform\Vector4.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Segment.hpp">
+    <ClInclude Include="Aquaworks\Utility\Console.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Sphere.hpp">
+    <ClInclude Include="Aquaworks\Utility\Easing.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Utility.hpp">
+    <ClInclude Include="Aquaworks\Utility\Math.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\ShapePtr.hpp">
+    <ClInclude Include="Aquaworks\Utility\MemoryCast.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Transform\Transform.hpp">
+    <ClInclude Include="Aquaworks\Utility\Optional.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Shapes.hpp">
+    <ClInclude Include="Aquaworks\Utility\Range.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior\Behavior.hpp">
+    <ClInclude Include="Aquaworks\Utility\String.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Actor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\MemoryCast.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\IScene.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\ISceneMediator.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneManager.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Typedef.hpp">
+    <ClInclude Include="Aquaworks\Typedef.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
