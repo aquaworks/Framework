@@ -1,62 +1,64 @@
 namespace Aquaworks
 {
-	template <typename Identifier>
-	class FadeIn final : public IScene<Identifier>
+	namespace Scene
 	{
-	public:
-
-		FadeIn(float fadeCount, bool isSwallow = false)
-			: m_fadeCount(fadeCount)
-			, m_currentCount(fadeCount)
-			, m_isSwallow(isSwallow)
+		template <typename Identifier>
+		class FadeIn final : public IScene<Identifier>
 		{
-			m_image.resize(640, 480);
-			m_image.fill(Palette::Black);
-			m_texture.fill(m_image);
-		}
+		public:
 
-		virtual void Initialize() override
-		{
-
-		}
-
-		virtual void Update(float deltaTime) override
-		{
-			m_currentCount -= deltaTime;
-			if (m_currentCount > 0)
+			FadeIn(FadeState const& fadeState)
+				: m_fadeState(fadeState)
+				, m_currentCount(fadeState.count[FadeState::Identifier::In])
 			{
-				return;
+				m_image.resize(640, 480);
+				m_image.fill(Palette::Black);
+				m_texture.fill(m_image);
 			}
 
-			GetSceneManager()->Pop();
-		}
+			virtual void Initialize() override
+			{
 
-		virtual void Render() const override
-		{
-			m_texture.draw(Alpha((s3d::uint32)(m_currentCount / m_fadeCount * 255)));
-		}
+			}
 
-		virtual void Post() override
-		{
+			virtual void Update(float deltaTime) override
+			{
+				m_currentCount -= deltaTime;
+				if (m_currentCount > 0)
+				{
+					return;
+				}
 
-		}
+				GetSceneManager()->Pop();
+			}
 
-		virtual void Finalize() override
-		{
+			virtual void Render() const override
+			{
+				float t = Utility::Math::Saturate(m_currentCount / m_fadeState.count[FadeState::Identifier::In]);
+				m_texture.draw(Alpha((s3d::uint32)(255 * t)));
+			}
 
-		}
+			virtual void Post() override
+			{
 
-		virtual bool IsSwallow() const override
-		{
-			return m_isSwallow;
-		}
+			}
 
-	private:
+			virtual void Finalize() override
+			{
 
-		float const m_fadeCount;
-		float m_currentCount;
-		bool const m_isSwallow;
-		Image m_image;
-		DynamicTexture m_texture;
-	};
+			}
+
+			virtual bool IsSwallow() const override
+			{
+				return m_fadeState.isSwallow;
+			}
+
+		private:
+
+			FadeState const m_fadeState;
+			float m_currentCount;
+			Image m_image;
+			DynamicTexture m_texture;
+		};
+	}
 }
