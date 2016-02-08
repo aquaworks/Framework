@@ -130,13 +130,6 @@ private:
 
 void Main()
 {
-	Image blackImage { 640, 480, Palette::Black };
-	Image transitionImage { L"Aquaworks/TransitionImage/153.png" };
-
-	DynamicTexture texture { transitionImage };
-
-	Texture background { Image(L"Example/Windmill.png").fit({ 640, 480 }) };
-
 	Font const font { 16 };
 
 	SceneManager sceneManager;
@@ -146,45 +139,11 @@ void Main()
 
 	sceneManager.Push(0);
 
-	GUI gui { GUIStyle::Default };
-	gui.add(GUIText::Create(L"Red"));
-	gui.addln(L"Red", GUISlider::Create(0, 255, 0));
-	gui.add(GUIText::Create(L"Green"));
-	gui.addln(L"Green", GUISlider::Create(0, 255, 0));
-	gui.add(GUIText::Create(L"Blue"));
-	gui.addln(L"Blue", GUISlider::Create(0, 255, 0));
-	gui.add(GUIText::Create(L"Alpha"));
-	gui.addln(L"Alpha", GUISlider::Create(0, 255, 0));
-	gui.addln(GUIHorizontalLine::Create());
-	gui.add(L"Blend", GUIRadioButton::Create({ L"Default", L"Additive", L"Multiplicative", L"Subtractive", L"Opaque" }, 0));
-	gui.show();
-
-	std::vector<BlendState> BlendStateMap =
-	{
-		BlendState::Default,
-		BlendState::Additive,
-		BlendState::Multiplicative,
-		BlendState::Subtractive,
-		BlendState::Opaque,
-	};
-
 	while (System::Update())
 	{
 		sceneManager.Resolve();
 		sceneManager.Update(0.016666667f);
 		sceneManager.Render();
 		sceneManager.Post();
-
-		font(Profiler::FPS()).draw({ 0, 64 });
-
-		background.draw();
-
-		Graphics2D::SetBlendState(BlendStateMap.at(gui.radioButton(L"Blend").checkedItem.value()));
-		uint32 red = gui.slider(L"Red").sliderPosition;
-		uint32 green = gui.slider(L"Green").sliderPosition;
-		uint32 blue = gui.slider(L"Blue").sliderPosition;
-		uint32 alpha = gui.slider(L"Alpha").sliderPosition;
-		texture.draw(Color(red, green, blue, alpha));
-		Graphics2D::SetBlendState(BlendState::Default);
 	}
 }
