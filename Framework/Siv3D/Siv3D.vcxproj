@@ -93,6 +93,7 @@
     <ClCompile Include="Aquaworks\Actor\IActor.cpp" />
     <ClCompile Include="Aquaworks\Actor\World.cpp" />
     <ClCompile Include="Aquaworks\Graphics\Renderer.cpp" />
+    <ClCompile Include="Aquaworks\Scene\FadeState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Aquaworks\Physics\Collision.cpp" />
     <ClCompile Include="Aquaworks\Shapes\Capsule.cpp" />
@@ -128,6 +129,7 @@
     <Image Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Aquaworks\Scene\FadeWait.inl" />
     <None Include="Engine\assets\engine_textures.s3a" />
     <None Include="Engine\config.ini" />
     <None Include="Engine\dll(x64)\D3D\d3dcompiler_47.dll" />
@@ -301,6 +303,7 @@
     <ClInclude Include="Aquaworks\Behavior\Task\Wait.hpp" />
     <ClInclude Include="Aquaworks\Graphics\Renderer.hpp" />
     <ClInclude Include="Aquaworks\Physics\Collision.hpp" />
+    <ClInclude Include="Aquaworks\Scene\FadeState.hpp" />
     <ClInclude Include="Aquaworks\Scene\IScene.hpp" />
     <ClInclude Include="Aquaworks\Scene\ISceneMediator.hpp" />
     <ClInclude Include="Aquaworks\Scene\SceneManager.hpp" />

@@ -1,71 +1,87 @@
 namespace Aquaworks
 {
-	template <typename Identifier>
-	class FadeOut final : public IScene<Identifier>
+	namespace Scene
 	{
-	public:
-
-		FadeOut(float fadeCount, std::function<void()> const& operation, bool isSwallow = false)
-			: m_fadeCount(fadeCount)
-			, m_currentCount(fadeCount)
-			, m_operation(operation)
-			, m_isSwallow(isSwallow)
+		template <typename Identifier>
+		class FadeOut final : public IScene<Identifier>
 		{
-			m_image.resize(640, 480);
-			m_image.fill(Palette::Black);
-			m_texture.fill(m_image);
-		}
+		public:
 
-		virtual void Initialize() override
-		{
-
-		}
-
-		virtual void Update(float deltaTime) override
-		{
-			m_currentCount -= deltaTime;
-			if (m_currentCount > 0)
+			FadeOut(FadeState const& fadeState, std::function<void()> const& operation)
+				: m_fadeState(fadeState)
+				, m_currentCount(fadeState.count[FadeState::Identifier::Out])
+				, m_operation(operation)
 			{
-				return;
+				m_image.resize(640, 480);
+				m_image.fill(Palette::Black);
+				m_texture.fill(m_image);
 			}
 
-			GetSceneManager()->Pop();
-			m_operation();
-
-			auto manager = dynamic_cast<SceneManager<Identifier>*>(GetSceneManager());
-			manager->PushOperation([count = m_fadeCount, isSwallow = m_isSwallow, manager = manager] ()
+			virtual void Initialize() override
 			{
-				manager->PushOp(manager->Create<FadeIn<Identifier>>(count, isSwallow));
-			});
-		}
 
-		virtual void Render() const override
-		{
-			m_texture.draw(Alpha((s3d::uint32)((1 - m_currentCount / m_fadeCount) * 255)));
-		}
+			}
 
-		virtual void Post() override
-		{
+			virtual void Update(float deltaTime) override
+			{
+				m_currentCount -= deltaTime;
+				if (m_currentCount > 0)
+				{
+					return;
+				}
 
-		}
+				auto manager = dynamic_cast<SceneManager<Identifier>*>(GetSceneManager());
 
-		virtual void Finalize() override
-		{
+				manager->Pop();
+				m_operation();
 
-		}
+				if (m_fadeState.IsEnabled(FadeState::Identifier::Wait))
+				{
+					manager->PushOperation([fadeState = m_fadeState, manager = manager] ()
+					{
+						manager->PushOp(manager->Create<FadeWait<Identifier>>(fadeState));
+					});
+					return;
+				}
 
-		virtual bool IsSwallow() const override
-		{
-			return m_isSwallow;
-		}
+				if (m_fadeState.IsEnabled(FadeState::Identifier::In))
+				{
+					manager->PushOperation([fadeState = m_fadeState, manager = manager] ()
+					{
+						manager->PushOp(manager->Create<FadeIn<Identifier>>(fadeState));
+					});
+					return;
+				}
+			}
 
-	private:
+			virtual void Render() const override
+			{
+				float t = Utility::Math::Saturate(1 - m_currentCount / m_fadeState.count[FadeState::Identifier::Out]);
+				m_texture.draw(Alpha((s3d::uint32)(255 * t)));
+			}
 
-		float const m_fadeCount;
-		float m_currentCount;
-		std::function<void()> const m_operation;
-		bool const m_isSwallow;
-		Image m_image;
-		DynamicTexture m_texture;
-	};
+			virtual void Post() override
+			{
+
+			}
+
+			virtual void Finalize() override
+			{
+
+			}
+
+			virtual bool IsSwallow() const override
+			{
+				return m_fadeState.isSwallow;
+			}
+
+		private:
+
+			FadeState const m_fadeState;
+			float m_currentCount;
+			std::function<void()> const m_operation;
+			Image m_image;
+			DynamicTexture m_texture;
+		};
+	}
 }
