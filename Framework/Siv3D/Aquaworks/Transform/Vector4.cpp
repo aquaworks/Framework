@@ -34,7 +34,7 @@ namespace Aquaworks
 
 		}
 
-		Vector4::Vector4(float x, float y, float z, float w)
+		Vector4::Vector4(f32 x, f32 y, f32 z, f32 w)
 			: x(x)
 			, y(y)
 			, z(z)
@@ -43,7 +43,7 @@ namespace Aquaworks
 
 		}
 
-		Vector4::Vector4(Vector3 const& v, float w)
+		Vector4::Vector4(Vector3 const& v, f32 w)
 			: Vector4(v.x, v.y, v.z, w)
 		{
 
@@ -51,10 +51,10 @@ namespace Aquaworks
 
 		Vector4::Vector4(Point4 const& v)
 			: Vector4(
-				static_cast<float>(v.x),
-				static_cast<float>(v.y),
-				static_cast<float>(v.z),
-				static_cast<float>(v.w))
+				static_cast<f32>(v.x),
+				static_cast<f32>(v.y),
+				static_cast<f32>(v.z),
+				static_cast<f32>(v.w))
 		{
 
 		}
@@ -68,30 +68,30 @@ namespace Aquaworks
 			return *this;
 		}
 
-		float Vector4::Dot(Vector4 const& v1, Vector4 const& v2)
+		f32 Vector4::Dot(Vector4 const& v1, Vector4 const& v2)
 		{
 			return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 		}
 
-		float Vector4::LengthSquared(Vector4 const& v)
+		f32 Vector4::LengthSquared(Vector4 const& v)
 		{
 			return Dot(v, v);
 		}
 
-		float Vector4::Length(Vector4 const& v)
+		f32 Vector4::Length(Vector4 const& v)
 		{
-			return static_cast<float>(Math::Sqrt(LengthSquared(v)));
+			return static_cast<f32>(Math::Sqrt(LengthSquared(v)));
 		}
 
 		Vector4 Vector4::Normalize(Vector4 const& v)
 		{
-			float lengthSq = LengthSquared(v);
+			f32 lengthSq = LengthSquared(v);
 			if (lengthSq == 0.0f)
 			{
 				return v;
 			}
 
-			return v / static_cast<float>(Math::Sqrt(lengthSq));
+			return v / static_cast<f32>(Math::Sqrt(lengthSq));
 		}
 
 		Vector4 Vector4::Projection(Vector4 const& v, Vector4 const& target)
@@ -151,7 +151,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector4& operator *= (Vector4& v, float s)
+		Vector4& operator *= (Vector4& v, f32 s)
 		{
 			v.x *= s;
 			v.y *= s;
@@ -169,7 +169,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector4& operator /= (Vector4& v, float s)
+		Vector4& operator /= (Vector4& v, f32 s)
 		{
 			v.x /= s;
 			v.y /= s;
@@ -196,13 +196,13 @@ namespace Aquaworks
 			return result *= v2;
 		}
 
-		Vector4 operator * (Vector4 const& v, float s)
+		Vector4 operator * (Vector4 const& v, f32 s)
 		{
 			Vector4 result = v;
 			return result *= s;
 		}
 
-		Vector4 operator * (float s, Vector4 const& v)
+		Vector4 operator * (f32 s, Vector4 const& v)
 		{
 			return v * s;
 		}
@@ -213,7 +213,7 @@ namespace Aquaworks
 			return result /= v2;
 		}
 
-		Vector4 operator / (Vector4 const& v, float s)
+		Vector4 operator / (Vector4 const& v, f32 s)
 		{
 			Vector4 result = v;
 			return result /= s;

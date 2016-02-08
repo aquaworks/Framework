@@ -4,6 +4,8 @@
 # include <vector>
 # include <sstream>
 
+# include "../Typedef.hpp"
+
 namespace Aquaworks
 {
 	namespace Transform
@@ -28,15 +30,13 @@ namespace Aquaworks
 			std::wstring Create(std::string const& value);
 			std::wstring Create(wchar_t const* value);
 			std::wstring Create(std::wstring const& value);
-			std::wstring Create(long double value);
-			std::wstring Create(double value);
-			std::wstring Create(float value);
-			std::wstring Create(unsigned long long value);
-			std::wstring Create(long long value);
-			std::wstring Create(unsigned long value);
-			std::wstring Create(long value);
-			std::wstring Create(unsigned int value);
-			std::wstring Create(int value);
+			std::wstring Create(f64 value);
+			std::wstring Create(f32 value);
+			std::wstring Create(u64 value);
+			std::wstring Create(u64 value);
+			std::wstring Create(s64 value);
+			std::wstring Create(u32 value);
+			std::wstring Create(s32 value);
 
 			std::wstring Create(Transform::Point2 const& value);
 			std::wstring Create(Transform::Point3 const& value);

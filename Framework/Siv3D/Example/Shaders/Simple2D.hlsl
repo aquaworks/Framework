@@ -4,21 +4,21 @@ SamplerState sampler0 : register(s0);
 
 cbuffer vscbSprite : register(b0)
 {
-	row_major float2x4 g_transform;
+	row_major f322x4 g_transform;
 }
 
 struct VS_INPUT
 {
-	float2 position : POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	f322 position : POSITION;
+	f322 tex : TEXCOORD0;
+	f324 color : COLOR0;
 };
 
 struct VS_OUTPUT
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	f324 position : SV_POSITION;
+	f322 tex : TEXCOORD0;
+	f324 color : COLOR0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -36,7 +36,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	return output;
 }
 
-float4 PS(VS_OUTPUT input) : SV_Target
+f324 PS(VS_OUTPUT input) : SV_Target
 {
 	return texture0.Sample(sampler0, input.tex) * input.color;
 }

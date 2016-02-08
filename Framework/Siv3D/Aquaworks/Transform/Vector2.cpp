@@ -61,7 +61,7 @@ namespace Aquaworks
 
 		}
 
-		Vector2::Vector2(float x, float y)
+		Vector2::Vector2(f32 x, f32 y)
 			: x(x)
 			, y(y)
 		{
@@ -76,8 +76,8 @@ namespace Aquaworks
 
 		Vector2::Vector2(Point2 const& v)
 			: Vector2(
-				static_cast<float>(v.x),
-				static_cast<float>(v.y))
+				static_cast<f32>(v.x),
+				static_cast<f32>(v.y))
 		{
 
 		}
@@ -89,38 +89,38 @@ namespace Aquaworks
 			return *this;
 		}
 
-		float Vector2::Dot(Vector2 const& v1, Vector2 const& v2)
+		f32 Vector2::Dot(Vector2 const& v1, Vector2 const& v2)
 		{
 			return v1.x * v2.x + v1.y * v2.y;
 		}
 
-		float Vector2::Cross(Vector2 const& v1, Vector2 const& v2)
+		f32 Vector2::Cross(Vector2 const& v1, Vector2 const& v2)
 		{
 			return v1.x * v2.y - v1.y * v2.x;
 		}
 
-		float Vector2::LengthSquared(Vector2 const& v)
+		f32 Vector2::LengthSquared(Vector2 const& v)
 		{
 			return Dot(v, v);
 		}
 
-		float Vector2::Length(Vector2 const& v)
+		f32 Vector2::Length(Vector2 const& v)
 		{
-			return static_cast<float>(Math::Sqrt(LengthSquared(v)));
+			return static_cast<f32>(Math::Sqrt(LengthSquared(v)));
 		}
 
 		Vector2 Vector2::Nornalize(Vector2 const& v)
 		{
-			float lengthSq = LengthSquared(v);
+			f32 lengthSq = LengthSquared(v);
 			if (lengthSq == 0.0f)
 			{
 				return v;
 			}
 
-			return v / static_cast<float>(Math::Sqrt(lengthSq));
+			return v / static_cast<f32>(Math::Sqrt(lengthSq));
 		}
 
-		Vector2 Vector2::Rotate(Vector2 const& point, Vector2 const& origin, float angle)
+		Vector2 Vector2::Rotate(Vector2 const& point, Vector2 const& origin, f32 angle)
 		{
 			return origin + (point - origin) * Vector2(
 				Math::Cos(angle),
@@ -133,9 +133,9 @@ namespace Aquaworks
 			return Dot(v, normal) * normal;
 		}
 
-		float Vector2::Angle(Vector2 const& v1, Vector2 const& v2)
+		f32 Vector2::Angle(Vector2 const& v1, Vector2 const& v2)
 		{
-			return static_cast<float>(Math::Acos(Dot(Nornalize(v1), Nornalize(v2))));
+			return static_cast<f32>(Math::Acos(Dot(Nornalize(v1), Nornalize(v2))));
 		}
 
 		bool operator == (Vector2 const& v1, Vector2 const& v2)
@@ -181,7 +181,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector2& operator *= (Vector2& v, float s)
+		Vector2& operator *= (Vector2& v, f32 s)
 		{
 			v.x *= s;
 			v.y *= s;
@@ -195,7 +195,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector2& operator /= (Vector2& v, float s)
+		Vector2& operator /= (Vector2& v, f32 s)
 		{
 			v.x /= s;
 			v.y /= s;
@@ -220,13 +220,13 @@ namespace Aquaworks
 			return result *= v2;
 		}
 
-		Vector2 operator * (Vector2 const& v, float s)
+		Vector2 operator * (Vector2 const& v, f32 s)
 		{
 			Vector2 result = v;
 			return result *= s;
 		}
 
-		Vector2 operator * (float s, Vector2 const& v)
+		Vector2 operator * (f32 s, Vector2 const& v)
 		{
 			return v * s;
 		}
@@ -237,7 +237,7 @@ namespace Aquaworks
 			return result /= v2;
 		}
 
-		Vector2 operator / (Vector2 const& v, float s)
+		Vector2 operator / (Vector2 const& v, f32 s)
 		{
 			Vector2 result = v;
 			return result /= s;

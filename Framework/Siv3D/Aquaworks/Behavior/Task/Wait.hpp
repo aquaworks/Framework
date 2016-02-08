@@ -12,7 +12,7 @@ namespace Aquaworks
 		{
 		public:
 
-			Wait(float waitTime)
+			Wait(f32 waitTime)
 				: m_waitTime(waitTime)
 				, m_remainTime(waitTime)
 			{
@@ -26,7 +26,7 @@ namespace Aquaworks
 				m_remainTime = m_waitTime;
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_remainTime -= deltaTime;
 			}
@@ -48,8 +48,8 @@ namespace Aquaworks
 
 		private:
 
-			float m_waitTime;
-			float m_remainTime;
+			f32 m_waitTime;
+			f32 m_remainTime;
 		};
 	}
 }

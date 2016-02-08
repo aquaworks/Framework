@@ -10,7 +10,7 @@ namespace Aquaworks
 		{
 		public:
 
-			TimeLimit(float timeLimit)
+			TimeLimit(f32 timeLimit)
 				: m_timeLimit(timeLimit)
 				, m_elapsedTime(timeLimit)
 			{
@@ -22,7 +22,7 @@ namespace Aquaworks
 				m_elapsedTime = m_timeLimit;
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_elapsedTime -= deltaTime;
 			}
@@ -39,8 +39,8 @@ namespace Aquaworks
 
 		private:
 
-			float const m_timeLimit;
-			float m_elapsedTime;
+			f32 const m_timeLimit;
+			f32 m_elapsedTime;
 		};
 	}
 }

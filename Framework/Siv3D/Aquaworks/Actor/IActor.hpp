@@ -58,13 +58,13 @@ namespace Aquaworks
 
 		public:
 
-			virtual void Update(float deltaTime) final;
+			virtual void Update(f32 deltaTime) final;
 			void Collide(ActorPtr const& actor);
 			virtual void Render(Graphics::Renderer const& renderer) const final;
 
 		public:
 
-			virtual void OnUpdate(float deltaTime);
+			virtual void OnUpdate(f32 deltaTime);
 			virtual void OnCollide(ActorPtr const& actor);
 			virtual void OnRender(Graphics::Renderer const& renderer) const;
 

@@ -82,7 +82,7 @@ namespace Aquaworks
 			return WorldShape()->Intersects(actor->WorldShape());
 		}
 
-		void IActor::Update(float deltaTime)
+		void IActor::Update(f32 deltaTime)
 		{
 			m_previous = m_transform;
 			OnUpdate(deltaTime);
@@ -125,7 +125,7 @@ namespace Aquaworks
 			}
 		}
 
-		void IActor::OnUpdate(float deltaTime)
+		void IActor::OnUpdate(f32 deltaTime)
 		{
 			(void)deltaTime;
 		}

@@ -10,7 +10,7 @@ namespace Aquaworks
 		{
 		public:
 
-			Capsule(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end, float radius);
+			Capsule(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end, f32 radius);
 
 		public:
 
@@ -31,7 +31,7 @@ namespace Aquaworks
 
 			Transform::Vector3 begin;
 			Transform::Vector3 end;
-			float radius;
+			f32 radius;
 		};
 	}
 }

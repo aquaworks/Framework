@@ -20,7 +20,7 @@ namespace Aquaworks
 				m_isSuccess = false;
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				(*m_iterator)->Update(deltaTime);
 				if ((*m_iterator)->IsEnd())

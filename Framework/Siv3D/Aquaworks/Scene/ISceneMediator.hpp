@@ -16,10 +16,10 @@ namespace Aquaworks
 			virtual void Push(Identifier const& identifier, FadeState const& state) = 0;
 			virtual void Pop(FadeState const& state) = 0;
 
-			virtual void Change(Identifier const& identifier, float t, bool isSwallow = true) = 0;
-			virtual void Replace(Identifier const& ientifier, float t, bool isSwallow = true) = 0;
-			virtual void Push(Identifier const& ientifier, float t, bool isSwallow = true) = 0;
-			virtual void Pop(float t, bool isSwallow = true) = 0;
+			virtual void Change(Identifier const& identifier, f32 t, bool isSwallow = true) = 0;
+			virtual void Replace(Identifier const& ientifier, f32 t, bool isSwallow = true) = 0;
+			virtual void Push(Identifier const& ientifier, f32 t, bool isSwallow = true) = 0;
+			virtual void Pop(f32 t, bool isSwallow = true) = 0;
 
 		public:
 

@@ -10,7 +10,7 @@ namespace Aquaworks
 		{
 		public:
 
-			Cooldown(float cooldown)
+			Cooldown(f32 cooldown)
 				: m_cooldown(cooldown)
 				, m_elapsedTime(0.0f)
 			{
@@ -22,7 +22,7 @@ namespace Aquaworks
 				m_elapsedTime = 0.0f;
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_elapsedTime -= deltaTime;
 			}
@@ -39,8 +39,8 @@ namespace Aquaworks
 
 		private:
 
-			float const m_cooldown;
-			float m_elapsedTime;
+			f32 const m_cooldown;
+			f32 m_elapsedTime;
 		};
 	}
 }

@@ -14,7 +14,7 @@ namespace Aquaworks
 {
 	namespace
 	{
-		void Multiply(float* mat, int row, int column, int match, float const* m1, float const* m2)
+		void Multiply(f32* mat, int row, int column, int match, f32 const* m1, f32 const* m2)
 		{
 			for (int i = 0; i < row; ++i)
 			{
@@ -22,10 +22,10 @@ namespace Aquaworks
 				{
 					for (int k = 0; k < match; ++k)
 					{
-						float elm0 = mat[i * column + j];
-						float elm1 = m1[i * column + k];
-						float elm2 = m2[k * column + j];
-						float mul = elm0 + elm1 * elm2;
+						f32 elm0 = mat[i * column + j];
+						f32 elm1 = m1[i * column + k];
+						f32 elm2 = m2[k * column + j];
+						f32 mul = elm0 + elm1 * elm2;
 						mat[i * column + j] = mul;
 					}
 				}
@@ -55,7 +55,7 @@ namespace Aquaworks
 
 		}
 
-		Matrix::Matrix(float const* m)
+		Matrix::Matrix(f32 const* m)
 			: Matrix(
 				m[0], m[1], m[2], m[3],
 				m[4], m[5], m[6], m[7],
@@ -66,10 +66,10 @@ namespace Aquaworks
 		}
 
 		Matrix::Matrix(
-			float m11, float m12, float m13, float m14,
-			float m21, float m22, float m23, float m24,
-			float m31, float m32, float m33, float m34,
-			float m41, float m42, float m43, float m44)
+			f32 m11, f32 m12, f32 m13, f32 m14,
+			f32 m21, f32 m22, f32 m23, f32 m24,
+			f32 m31, f32 m32, f32 m33, f32 m34,
+			f32 m41, f32 m42, f32 m43, f32 m44)
 			: m11(m11)
 			, m12(m12)
 			, m13(m13)
@@ -140,7 +140,7 @@ namespace Aquaworks
 			return Translated(Identity(), translation);
 		}
 
-		Matrix Matrix::Rotation(Vector3 const& axis, float angle)
+		Matrix Matrix::Rotation(Vector3 const& axis, f32 angle)
 		{
 			return Rotated(Identity(), axis, angle);
 		}
@@ -155,7 +155,7 @@ namespace Aquaworks
 			return Scaled(Identity(), scaling);
 		}
 
-		Matrix Matrix::Transformation(Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
+		Matrix Matrix::Transformation(Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling)
 		{
 			return Transformed(Identity(), translation, axis, angle, scaling);
 		}
@@ -173,7 +173,7 @@ namespace Aquaworks
 			return matrix;
 		}
 
-		Matrix& Matrix::Rotate(Matrix& matrix, Vector3 const& axis, float angle)
+		Matrix& Matrix::Rotate(Matrix& matrix, Vector3 const& axis, f32 angle)
 		{
 			Vector4 X = Vector4(Vector3::Rotate(Vector3(matrix.m11, matrix.m12, matrix.m13), axis, angle), 0.0f);
 			Vector4 Y = Vector4(Vector3::Rotate(Vector3(matrix.m21, matrix.m22, matrix.m23), axis, angle), 0.0f);
@@ -203,7 +203,7 @@ namespace Aquaworks
 			return matrix;
 		}
 
-		Matrix& Matrix::Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
+		Matrix& Matrix::Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling)
 		{
 			return Translate(Rotate(Scale(matrix, scaling), axis, angle), translation);
 		}
@@ -229,7 +229,7 @@ namespace Aquaworks
 			return Translate(m, translation);
 		}
 
-		Matrix Matrix::Rotated(Matrix const& matrix, Vector3 const& axis, float angle)
+		Matrix Matrix::Rotated(Matrix const& matrix, Vector3 const& axis, f32 angle)
 		{
 			Matrix m = matrix;
 			return Rotate(m, axis, angle);
@@ -247,7 +247,7 @@ namespace Aquaworks
 			return Scale(m, scaling);
 		}
 
-		Matrix Matrix::Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling)
+		Matrix Matrix::Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling)
 		{
 			Matrix m = matrix;
 			return Transform(m, translation, axis, angle, scaling);
@@ -270,14 +270,14 @@ namespace Aquaworks
 
 		Matrix Matrix::Inversed(Matrix const& matrix)
 		{
-			float det = Determinant(matrix);
+			f32 det = Determinant(matrix);
 
 			if (det == 0.0f)
 			{
 				return Zero();
 			}
 
-			float m11 = (
+			f32 m11 = (
 				matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][3] +
 				matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][1] +
 				matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][2] -
@@ -285,7 +285,7 @@ namespace Aquaworks
 				matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][3] -
 				matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][1]) / det;
 
-			float m12 = (
+			f32 m12 = (
 				matrix.mat[0][1] * matrix.mat[2][3] * matrix.mat[3][2] +
 				matrix.mat[0][2] * matrix.mat[2][1] * matrix.mat[3][3] +
 				matrix.mat[0][3] * matrix.mat[2][2] * matrix.mat[3][1] -
@@ -293,7 +293,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[2][3] * matrix.mat[3][1] -
 				matrix.mat[0][3] * matrix.mat[2][1] * matrix.mat[3][2]) / det;
 
-			float m13 = (
+			f32 m13 = (
 				matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[3][3] +
 				matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[3][1] +
 				matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[3][2] -
@@ -301,7 +301,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[3][3] -
 				matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[3][1]) / det;
 
-			float m14 = (
+			f32 m14 = (
 				matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][2] +
 				matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[2][3] +
 				matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][1] -
@@ -309,7 +309,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][1] -
 				matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][2]) / det;
 
-			float m21 = (
+			f32 m21 = (
 				matrix.mat[1][0] * matrix.mat[2][3] * matrix.mat[3][2] +
 				matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][3] +
 				matrix.mat[1][3] * matrix.mat[2][2] * matrix.mat[3][0] -
@@ -317,7 +317,7 @@ namespace Aquaworks
 				matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][0] -
 				matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][2]) / det;
 
-			float m22 = (
+			f32 m22 = (
 				matrix.mat[0][0] * matrix.mat[2][2] * matrix.mat[3][3] +
 				matrix.mat[0][2] * matrix.mat[2][3] * matrix.mat[3][0] +
 				matrix.mat[0][3] * matrix.mat[2][0] * matrix.mat[3][2] -
@@ -325,7 +325,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[2][0] * matrix.mat[3][3] -
 				matrix.mat[0][3] * matrix.mat[2][2] * matrix.mat[3][0]) / det;
 
-			float m23 = (
+			f32 m23 = (
 				matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[3][2] +
 				matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[3][3] +
 				matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[3][0] -
@@ -333,7 +333,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[3][0] -
 				matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[3][2]) / det;
 
-			float m24 = (
+			f32 m24 = (
 				matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][3] +
 				matrix.mat[0][2] * matrix.mat[1][3] * matrix.mat[2][0] +
 				matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][2] -
@@ -341,7 +341,7 @@ namespace Aquaworks
 				matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][3] -
 				matrix.mat[0][3] * matrix.mat[1][2] * matrix.mat[2][0]) / det;
 
-			float m31 = (
+			f32 m31 = (
 				matrix.mat[1][0] * matrix.mat[2][1] * matrix.mat[3][3] +
 				matrix.mat[1][1] * matrix.mat[2][3] * matrix.mat[3][0] +
 				matrix.mat[1][3] * matrix.mat[2][0] * matrix.mat[3][1] -
@@ -349,7 +349,7 @@ namespace Aquaworks
 				matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][3] -
 				matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][0]) / det;
 
-			float m32 = (
+			f32 m32 = (
 				matrix.mat[0][0] * matrix.mat[2][3] * matrix.mat[3][1] +
 				matrix.mat[0][1] * matrix.mat[2][0] * matrix.mat[3][3] +
 				matrix.mat[0][3] * matrix.mat[2][1] * matrix.mat[3][0] -
@@ -357,7 +357,7 @@ namespace Aquaworks
 				matrix.mat[0][1] * matrix.mat[2][3] * matrix.mat[3][0] -
 				matrix.mat[0][3] * matrix.mat[2][0] * matrix.mat[3][1]) / det;
 
-			float m33 = (
+			f32 m33 = (
 				matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[3][3] +
 				matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[3][0] +
 				matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[3][1] -
@@ -365,7 +365,7 @@ namespace Aquaworks
 				matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[3][3] -
 				matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[3][0]) / det;
 
-			float m34 = (
+			f32 m34 = (
 				matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][1] +
 				matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[2][3] +
 				matrix.mat[0][3] * matrix.mat[1][1] * matrix.mat[2][0] -
@@ -373,7 +373,7 @@ namespace Aquaworks
 				matrix.mat[0][1] * matrix.mat[1][3] * matrix.mat[2][0] -
 				matrix.mat[0][3] * matrix.mat[1][0] * matrix.mat[2][1]) / det;
 
-			float m41 = (
+			f32 m41 = (
 				matrix.mat[1][0] * matrix.mat[2][2] * matrix.mat[3][1] +
 				matrix.mat[1][1] * matrix.mat[2][0] * matrix.mat[3][2] +
 				matrix.mat[1][2] * matrix.mat[2][1] * matrix.mat[3][0] -
@@ -381,7 +381,7 @@ namespace Aquaworks
 				matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][0] -
 				matrix.mat[1][2] * matrix.mat[2][0] * matrix.mat[3][1]) / det;
 
-			float m42 = (
+			f32 m42 = (
 				matrix.mat[0][0] * matrix.mat[2][1] * matrix.mat[3][2] +
 				matrix.mat[0][1] * matrix.mat[2][2] * matrix.mat[3][0] +
 				matrix.mat[0][2] * matrix.mat[2][0] * matrix.mat[3][1] -
@@ -389,7 +389,7 @@ namespace Aquaworks
 				matrix.mat[0][1] * matrix.mat[2][0] * matrix.mat[3][2] -
 				matrix.mat[0][2] * matrix.mat[2][1] * matrix.mat[3][0]) / det;
 
-			float m43 = (
+			f32 m43 = (
 				matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[3][1] +
 				matrix.mat[0][1] * matrix.mat[1][0] * matrix.mat[3][2] +
 				matrix.mat[0][2] * matrix.mat[1][1] * matrix.mat[3][0] -
@@ -397,7 +397,7 @@ namespace Aquaworks
 				matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[3][0] -
 				matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[3][1]) / det;
 
-			float m44 = (
+			f32 m44 = (
 				matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][2] +
 				matrix.mat[0][1] * matrix.mat[1][2] * matrix.mat[2][0] +
 				matrix.mat[0][2] * matrix.mat[1][0] * matrix.mat[2][1] -
@@ -450,9 +450,9 @@ namespace Aquaworks
 			return Pose::Affine(Matrix::Translation(matrix), Matrix::Rotation(matrix), Matrix::Scaling(matrix));
 		}
 
-		float Matrix::Determinant(Matrix const& matrix)
+		f32 Matrix::Determinant(Matrix const& matrix)
 		{
-			float det =
+			f32 det =
 				matrix.mat[0][0] * matrix.mat[1][1] * matrix.mat[2][2] * matrix.mat[3][3] +
 				matrix.mat[0][0] * matrix.mat[1][2] * matrix.mat[2][3] * matrix.mat[3][1] +
 				matrix.mat[0][0] * matrix.mat[1][3] * matrix.mat[2][1] * matrix.mat[3][2] +
@@ -482,20 +482,20 @@ namespace Aquaworks
 
 		Quaternion Transform::Matrix::ToQuaternion(Matrix const& matrix)
 		{
-			float m11 = matrix.m11;
-			float m12 = matrix.m12;
-			float m13 = matrix.m13;
-			float m21 = matrix.m21;
-			float m22 = matrix.m22;
-			float m23 = matrix.m23;
-			float m31 = matrix.m31;
-			float m32 = matrix.m32;
-			float m33 = matrix.m33;
+			f32 m11 = matrix.m11;
+			f32 m12 = matrix.m12;
+			f32 m13 = matrix.m13;
+			f32 m21 = matrix.m21;
+			f32 m22 = matrix.m22;
+			f32 m23 = matrix.m23;
+			f32 m31 = matrix.m31;
+			f32 m32 = matrix.m32;
+			f32 m33 = matrix.m33;
 
-			float q0 = (m11 + m22 + m33 + 1.0f) / 4.0f;
-			float q1 = (m11 - m22 - m33 + 1.0f) / 4.0f;
-			float q2 = (m22 - m33 - m11 + 1.0f) / 4.0f;
-			float q3 = (m33 - m11 - m22 + 1.0f) / 4.0f;
+			f32 q0 = (m11 + m22 + m33 + 1.0f) / 4.0f;
+			f32 q1 = (m11 - m22 - m33 + 1.0f) / 4.0f;
+			f32 q2 = (m22 - m33 - m11 + 1.0f) / 4.0f;
+			f32 q3 = (m33 - m11 - m22 + 1.0f) / 4.0f;
 
 			q0 = q0 < 0.0f ? 0.0f : q0;
 			q1 = q1 < 0.0f ? 0.0f : q1;
@@ -508,10 +508,10 @@ namespace Aquaworks
 			q3 = Math::Sqrt(q3);
 
 			size_t index;
-			float max;
+			f32 max;
 			std::tie(index, max) = Math::MaxData({ q0, q1, q2, q3 });
 
-			float const table[4][4] =
+			f32 const table[4][4] =
 			{
 				q0, q1 * Math::Sign(m32 - m23), q2 * Math::Sign(m13 - m31), q3 * Math::Sign(m32 - m12),
 				q0 * Math::Sign(m32 - m23), q1, q2 * Math::Sign(m21 + m12), q3 * Math::Sign(m13 + m31),
@@ -521,7 +521,7 @@ namespace Aquaworks
 
 			Vector4 res { table[index][0], table[index][1], table[index][2], table[index][3] };
 
-			float length = Vector4::Length(res);
+			f32 length = Vector4::Length(res);
 
 			res /= length;
 
@@ -544,12 +544,12 @@ namespace Aquaworks
 			return matrix;
 		}
 
-		Matrix Matrix::Perspective(float fov, float aspect, float nearclip, float farclip)
+		Matrix Matrix::Perspective(f32 fov, f32 aspect, f32 nearclip, f32 farclip)
 		{
-			float y = 1 / Math::Tan(fov / 2.0f);
-			float x = y / aspect;
-			float z = farclip / (farclip - nearclip);
-			float w = -z * nearclip;
+			f32 y = 1 / Math::Tan(fov / 2.0f);
+			f32 x = y / aspect;
+			f32 z = farclip / (farclip - nearclip);
+			f32 w = -z * nearclip;
 			return Matrix(
 				x, 0, 0, 0,
 				0, y, 0, 0,
@@ -559,8 +559,8 @@ namespace Aquaworks
 
 		Matrix Matrix::Viewport(int width, int height)
 		{
-			float w = width / 2.0f;
-			float h = height / 2.0f;
+			f32 w = width / 2.0f;
+			f32 h = height / 2.0f;
 			return Matrix(
 				w, 0, 0, 0,
 				0, -h, 0, 0,

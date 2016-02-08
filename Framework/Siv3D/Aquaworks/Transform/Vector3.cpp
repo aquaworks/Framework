@@ -70,7 +70,7 @@ namespace Aquaworks
 
 		}
 
-		Vector3::Vector3(float x, float y, float z)
+		Vector3::Vector3(f32 x, f32 y, f32 z)
 			: x(x)
 			, y(y)
 			, z(z)
@@ -86,9 +86,9 @@ namespace Aquaworks
 
 		Vector3::Vector3(Point3 const& v)
 			: Vector3(
-				static_cast<float>(v.x),
-				static_cast<float>(v.y),
-				static_cast<float>(v.z))
+				static_cast<f32>(v.x),
+				static_cast<f32>(v.y),
+				static_cast<f32>(v.z))
 		{
 
 		}
@@ -101,7 +101,7 @@ namespace Aquaworks
 			return *this;
 		}
 
-		float Vector3::Dot(Vector3 const& v1, Vector3 const& v2)
+		f32 Vector3::Dot(Vector3 const& v1, Vector3 const& v2)
 		{
 			return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 		}
@@ -114,28 +114,28 @@ namespace Aquaworks
 				v1.x * v2.y - v1.y * v2.x);
 		}
 
-		float Vector3::LengthSquared(Vector3 const& v)
+		f32 Vector3::LengthSquared(Vector3 const& v)
 		{
 			return Dot(v, v);
 		}
 
-		float Vector3::Length(Vector3 const& v)
+		f32 Vector3::Length(Vector3 const& v)
 		{
-			return static_cast<float>(Math::Sqrt(LengthSquared(v)));
+			return static_cast<f32>(Math::Sqrt(LengthSquared(v)));
 		}
 
 		Vector3 Vector3::Normalize(Vector3 const& v)
 		{
-			float lengthSq = LengthSquared(v);
+			f32 lengthSq = LengthSquared(v);
 			if (lengthSq == 0.0f)
 			{
 				return v;
 			}
 
-			return v / static_cast<float>(Math::Sqrt(lengthSq));
+			return v / static_cast<f32>(Math::Sqrt(lengthSq));
 		}
 
-		Vector3 Vector3::Rotate(Vector3 const& point, Vector3 const& axis, float angle)
+		Vector3 Vector3::Rotate(Vector3 const& point, Vector3 const& axis, f32 angle)
 		{
 			Vector3 v = Dot(point, axis) * Normalize(axis);
 			return
@@ -150,12 +150,12 @@ namespace Aquaworks
 			return Dot(v, normal) * normal;
 		}
 
-		float Vector3::Angle(Vector3 const& v1, Vector3 const& v2)
+		f32 Vector3::Angle(Vector3 const& v1, Vector3 const& v2)
 		{
-			return static_cast<float>(Math::Acos(Dot(Normalize(v1), Normalize(v2))));
+			return static_cast<f32>(Math::Acos(Dot(Normalize(v1), Normalize(v2))));
 		}
 
-		Vector3 Vector3::Slerp(Vector3 const& start, Vector3 const& end, float t)
+		Vector3 Vector3::Slerp(Vector3 const& start, Vector3 const& end, f32 t)
 		{
 			return Rotate(start, Cross(end, start), Angle(start, end) * t);
 		}
@@ -207,7 +207,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector3& operator *= (Vector3& v, float s)
+		Vector3& operator *= (Vector3& v, f32 s)
 		{
 			v.x *= s;
 			v.y *= s;
@@ -223,7 +223,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Vector3& operator /= (Vector3& v, float s)
+		Vector3& operator /= (Vector3& v, f32 s)
 		{
 			v.x /= s;
 			v.y /= s;
@@ -249,13 +249,13 @@ namespace Aquaworks
 			return result *= v2;
 		}
 
-		Vector3 operator * (Vector3 const& v, float s)
+		Vector3 operator * (Vector3 const& v, f32 s)
 		{
 			Vector3 result = v;
 			return result *= s;
 		}
 
-		Vector3 operator * (float s, Vector3 const& v)
+		Vector3 operator * (f32 s, Vector3 const& v)
 		{
 			return v * s;
 		}
@@ -266,7 +266,7 @@ namespace Aquaworks
 			return result /= v2;
 		}
 
-		Vector3 operator / (Vector3 const& v, float s)
+		Vector3 operator / (Vector3 const& v, f32 s)
 		{
 			Vector3 result = v;
 			return result /= s;

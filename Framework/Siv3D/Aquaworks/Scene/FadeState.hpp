@@ -1,6 +1,7 @@
 # pragma once
 
 # include "../Utility/Optional.hpp"
+# include "../Typedef.hpp"
 
 namespace Aquaworks
 {
@@ -20,7 +21,7 @@ namespace Aquaworks
 		public:
 
 			FadeState();
-			FadeState(float out, float wait, float in, bool isSwallow = true);
+			FadeState(f32 out, f32 wait, f32 in, bool isSwallow = true);
 
 		public:
 
@@ -28,7 +29,7 @@ namespace Aquaworks
 
 		public:
 
-			float count[3];
+			f32 count[3];
 			bool isSwallow;
 		};
 	}

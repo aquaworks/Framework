@@ -45,7 +45,7 @@ namespace Aquaworks
 			m_root->Remove(selector);
 		}
 
-		void World::Update(float deltaTime)
+		void World::Update(f32 deltaTime)
 		{
 			m_root->Update(deltaTime);
 		}

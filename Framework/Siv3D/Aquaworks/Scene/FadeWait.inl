@@ -21,7 +21,7 @@ namespace Aquaworks
 
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_currentCount -= deltaTime;
 				if (m_currentCount > 0)
@@ -65,7 +65,7 @@ namespace Aquaworks
 		private:
 
 			FadeState const m_fadeState;
-			float m_currentCount;
+			f32 m_currentCount;
 			Image m_image;
 			DynamicTexture m_texture;
 		};

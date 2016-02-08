@@ -22,7 +22,7 @@ namespace Aquaworks
 
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_currentCount -= deltaTime;
 				if (m_currentCount > 0)
@@ -56,7 +56,7 @@ namespace Aquaworks
 
 			virtual void Render() const override
 			{
-				float t = Utility::Math::Saturate(1 - m_currentCount / m_fadeState.count[FadeState::Identifier::Out]);
+				f32 t = Utility::Math::Saturate(1 - m_currentCount / m_fadeState.count[FadeState::Identifier::Out]);
 				m_texture.draw(Alpha((s3d::uint32)(255 * t)));
 			}
 
@@ -78,7 +78,7 @@ namespace Aquaworks
 		private:
 
 			FadeState const m_fadeState;
-			float m_currentCount;
+			f32 m_currentCount;
 			std::function<void()> const m_operation;
 			Image m_image;
 			DynamicTexture m_texture;

@@ -88,9 +88,9 @@ namespace Aquaworks
 			return Dot(v, v);
 		}
 
-		float Point4::Length(Point4 const& v)
+		f32 Point4::Length(Point4 const& v)
 		{
-			return Math::Sqrt((float)LengthSquared(v));
+			return Math::Sqrt((f32)LengthSquared(v));
 		}
 
 		bool operator == (Point4 const& v1, Point4 const& v2)

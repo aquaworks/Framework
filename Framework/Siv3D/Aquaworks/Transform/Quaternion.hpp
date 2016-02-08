@@ -25,7 +25,7 @@ namespace Aquaworks
 
 			Quaternion(Quaternion const& q);
 
-			Quaternion(float x, float y, float z, float w);
+			Quaternion(f32 x, f32 y, f32 z, f32 w);
 
 			// ---------------------------------------------------------------
 			// 定数
@@ -43,16 +43,16 @@ namespace Aquaworks
 		public:
 
 			/// <summary>任意軸回転を行なう</summary>
-			Quaternion& Rotate(Vector3 const& axis, float angle);
+			Quaternion& Rotate(Vector3 const& axis, f32 angle);
 
 			/// <summary>ロール回転を行なう</summary>
-			Quaternion& Roll(float angle);
+			Quaternion& Roll(f32 angle);
 
 			/// <summary>ピッチ回転を行なう</summary>
-			Quaternion& Pitch(float angle);
+			Quaternion& Pitch(f32 angle);
 
 			/// <summary>ヨー回転を行なう</summary>
-			Quaternion& Yaw(float angle);
+			Quaternion& Yaw(f32 angle);
 
 			/// <summary>行列に変換する</summary>
 			Matrix ToMatrix();
@@ -64,7 +64,7 @@ namespace Aquaworks
 		public:
 
 			/// <summary>任意軸回転クォータニオンを返す</summary>
-			static Quaternion Rotation(Vector3 const& axis, float angle);
+			static Quaternion Rotation(Vector3 const& axis, f32 angle);
 
 			/// <summary>行列に変換する</summary>
 			static Matrix ToMatrix(Quaternion const& q);
@@ -74,7 +74,7 @@ namespace Aquaworks
 
 		public:
 
-			float x, y, z, w;
+			f32 x, y, z, w;
 		};
 
 		// ---------------------------------------------------------------

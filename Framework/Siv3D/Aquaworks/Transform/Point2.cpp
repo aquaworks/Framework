@@ -61,7 +61,7 @@ namespace Aquaworks
 
 		}
 
-		Point2::Point2(int x, int y)
+		Point2::Point2(s32 x, s32 y)
 			: x(x)
 			, y(y)
 		{
@@ -76,8 +76,8 @@ namespace Aquaworks
 
 		Point2::Point2(Vector2 const& v)
 			: Point2(
-				static_cast<int>(v.x),
-				static_cast<int>(v.y))
+				static_cast<s32>(v.x),
+				static_cast<s32>(v.y))
 		{
 
 		}
@@ -89,34 +89,34 @@ namespace Aquaworks
 			return *this;
 		}
 
-		Point2::operator int* ()
+		Point2::operator s32* ()
 		{
 			return elm;
 		}
 
-		Point2::operator int const* () const
+		Point2::operator s32 const* () const
 		{
 			return elm;
 		}
 
-		int Point2::Dot(Point2 const& v1, Point2 const& v2)
+		s32 Point2::Dot(Point2 const& v1, Point2 const& v2)
 		{
 			return v1.x * v2.x + v1.y * v2.y;
 		}
 
-		int Point2::Cross(Point2 const& v1, Point2 const& v2)
+		s32 Point2::Cross(Point2 const& v1, Point2 const& v2)
 		{
 			return v1.x * v2.y - v1.y * v2.x;
 		}
 
-		int Point2::LengthSquared(Point2 const& v)
+		s32 Point2::LengthSquared(Point2 const& v)
 		{
 			return Dot(v, v);
 		}
 
-		float Point2::Length(Point2 const& v)
+		f32 Point2::Length(Point2 const& v)
 		{
-			return Math::Sqrt((float)LengthSquared(v));
+			return Math::Sqrt((f32)LengthSquared(v));
 		}
 
 		bool operator == (Point2 const& v1, Point2 const& v2)
@@ -162,7 +162,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Point2& operator *= (Point2& v, int s)
+		Point2& operator *= (Point2& v, s32 s)
 		{
 			v.x *= s;
 			v.y *= s;
@@ -176,7 +176,7 @@ namespace Aquaworks
 			return v1;
 		}
 
-		Point2& operator /= (Point2& v, int s)
+		Point2& operator /= (Point2& v, s32 s)
 		{
 			v.x /= s;
 			v.y /= s;
@@ -201,13 +201,13 @@ namespace Aquaworks
 			return result *= v2;
 		}
 
-		Point2 operator * (Point2 const& v, int s)
+		Point2 operator * (Point2 const& v, s32 s)
 		{
 			Point2 result = v;
 			return result *= s;
 		}
 
-		Point2 operator * (int s, Point2 const& v)
+		Point2 operator * (s32 s, Point2 const& v)
 		{
 			return v * s;
 		}
@@ -218,7 +218,7 @@ namespace Aquaworks
 			return result /= v2;
 		}
 
-		Point2 operator / (Point2 const& v, int s)
+		Point2 operator / (Point2 const& v, s32 s)
 		{
 			Point2 result = v;
 			return result /= s;

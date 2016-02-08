@@ -22,7 +22,7 @@ namespace Aquaworks
 
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				(void)deltaTime;
 			}

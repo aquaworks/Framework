@@ -42,14 +42,14 @@ namespace Aquaworks
 			Matrix();
 
 			/// <summary>”z—ñ‚©‚ç\’z‚·‚é</summary>
-			explicit Matrix(float const* m);
+			explicit Matrix(f32 const* m);
 
 			/// <summary>—v‘f‚ğw’è‚µ‚Ä\’z‚·‚é</summary>
 			Matrix(
-				float m11, float m12, float m13, float m14,
-				float m21, float m22, float m23, float m24,
-				float m31, float m32, float m33, float m34,
-				float m41, float m42, float m43, float m44);
+				f32 m11, f32 m12, f32 m13, f32 m14,
+				f32 m21, f32 m22, f32 m23, f32 m24,
+				f32 m31, f32 m32, f32 m33, f32 m34,
+				f32 m41, f32 m42, f32 m43, f32 m44);
 
 			/// <summary>‘ã“ü‰‰Zq</summary>
 			Matrix& operator = (Matrix const& m);
@@ -85,7 +85,7 @@ namespace Aquaworks
 			/// <summary>‰ñ“]s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
-			static Matrix Rotation(Vector3 const& axis, float angle);
+			static Matrix Rotation(Vector3 const& axis, f32 angle);
 
 			/// <summary>‰ñ“]s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="rotation">‰ñ“]</param>
@@ -100,7 +100,7 @@ namespace Aquaworks
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
 			/// <param name="scaling">Šg‘åk¬—¦</param>
-			static Matrix Transformation(Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
+			static Matrix Transformation(Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling);
 
 			/// <summary>ƒAƒtƒBƒ“•ÏŠ·s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -121,7 +121,7 @@ namespace Aquaworks
 			/// <summary>‰ñ“]‚·‚é</summary>
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
-			static Matrix& Rotate(Matrix& matrix, Vector3 const& axis, float angle);
+			static Matrix& Rotate(Matrix& matrix, Vector3 const& axis, f32 angle);
 
 			/// <summary>‰ñ“]‚·‚é</summary>
 			/// <param name="rotation">‰ñ“]</param>
@@ -136,7 +136,7 @@ namespace Aquaworks
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
 			/// <param name="scaling">Šg‘åk¬—¦</param>
-			static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
+			static Matrix& Transform(Matrix& matrix, Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling);
 
 			/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚·‚é</summary>
 			/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -163,7 +163,7 @@ namespace Aquaworks
 			/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
-			static Matrix Rotated(Matrix const& matrix, Vector3 const& axis, float angle);
+			static Matrix Rotated(Matrix const& matrix, Vector3 const& axis, f32 angle);
 
 			/// <summary>‰ñ“]‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="rotation">‰ñ“]</param>
@@ -178,7 +178,7 @@ namespace Aquaworks
 			/// <param name="axis">‰ñ“]²</param>
 			/// <param name="angle">‰ñ“]—Ê</param>
 			/// <param name="scaling">Šg‘åk¬—¦</param>
-			static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, float angle, Vector3 const& scaling);
+			static Matrix Transformed(Matrix const& matrix, Vector3 const& translation, Vector3 const& axis, f32 angle, Vector3 const& scaling);
 
 			/// <summary>ƒAƒtƒBƒ“•ÏŠ·‚µ‚½s—ñ‚ğ•Ô‚·</summary>
 			/// <param name="translation">•½sˆÚ“®—Ê</param>
@@ -220,7 +220,7 @@ namespace Aquaworks
 			static Pose Decompose(Matrix const& matrix);
 
 			/// <summary>s—ñ®‚ğ•Ô‚·</summary>
-			static float Determinant(Matrix const& m);
+			static f32 Determinant(Matrix const& m);
 
 			/// <summary>ƒNƒH[ƒ^ƒjƒIƒ“‚É•ÏŠ·‚·‚é</summary>
 			static Quaternion ToQuaternion(Matrix const& matrix);
@@ -235,25 +235,25 @@ namespace Aquaworks
 			static Matrix LookAt(Vector3 const& position, Vector3 const& target, Vector3 const& up);
 
 			/// <summary>“§‹Ë‰es—ñ‚ğ•Ô‚·</summary>
-			static Matrix Perspective(float fov, float aspect, float nearclip, float farclip);
+			static Matrix Perspective(f32 fov, f32 aspect, f32 nearclip, f32 farclip);
 
 			/// <summary>ƒrƒ…[ƒ|[ƒgs—ñ‚ğ•Ô‚·</summary>
-			static Matrix Viewport(int width, int height);
+			static Matrix Viewport(s32 width, s32 height);
 
 		public:
 
 			union
 			{
-				float elm[16];
+				f32 elm[16];
 
-				float mat[4][4];
+				f32 mat[4][4];
 
 				struct
 				{
-					float m11, m12, m13, m14;
-					float m21, m22, m23, m24;
-					float m31, m32, m33, m34;
-					float m41, m42, m43, m44;
+					f32 m11, m12, m13, m14;
+					f32 m21, m22, m23, m24;
+					f32 m31, m32, m33, m34;
+					f32 m41, m42, m43, m44;
 				};
 			};
 		};

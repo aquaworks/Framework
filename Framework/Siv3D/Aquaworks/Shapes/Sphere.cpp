@@ -15,7 +15,7 @@ namespace Aquaworks
 {
 	namespace Shapes
 	{
-		Sphere::Sphere(Transform::Pose const& origin, float radius)
+		Sphere::Sphere(Transform::Pose const& origin, f32 radius)
 			: IShape(origin)
 			, radius(radius)
 		{

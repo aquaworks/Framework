@@ -1,20 +1,20 @@
 // Reserved
 cbuffer vscbSprite : register(b0)
 {
-	row_major float2x4 g_transform;
+	row_major f322x4 g_transform;
 };
 
 // Customizable
 cbuffer vsConstants1 : register(b1)
 {
-	float4 g_param;
+	f324 g_param;
 };
 
 struct VS_OUTPUT
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	f324 position : SV_POSITION;
+	f322 tex : TEXCOORD0;
+	f324 color : COLOR0;
 };
 
 VS_OUTPUT VS(uint id: SV_VERTEXID)
@@ -33,7 +33,7 @@ VS_OUTPUT VS(uint id: SV_VERTEXID)
 
 	VS_OUTPUT output;
 
-	float2 position;
+	f322 position;
 	position.x = particleIndex * 5 + ((vertexInQuad % 2) ? 5.0 : 0.0);
 	position.y = (vertexInQuad & 2) ? 480.0 : 300.0 + sin(position.x * g_param.x + g_param.z) * g_param.y;
 
@@ -56,7 +56,7 @@ VS_OUTPUT VS(uint id: SV_VERTEXID)
 	//
 	// Color
 	//
-	output.color = float4(0.1, 0.7, 1, 0.7);
+	output.color = f324(0.1, 0.7, 1, 0.7);
 
 	return output;
 }

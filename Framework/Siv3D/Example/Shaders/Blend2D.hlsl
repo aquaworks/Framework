@@ -4,27 +4,27 @@ SamplerState sampler0 : register( s0 );
 
 struct VS_OUTPUT
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	f324 position : SV_POSITION;
+	f322 tex : TEXCOORD0;
+	f324 color : COLOR0;
 };
 
 cbuffer psConstants1 : register( b1 )
 {
-	float3 g_color;
-	float g_blend;
+	f323 g_color;
+	f32 g_blend;
 };
 /*
 struct ParamDraw
 {
 	Float3 color;
-	float blend;
+	f32 blend;
 };
 */
 
-float4 PS(VS_OUTPUT input) : SV_Target
+f324 PS(VS_OUTPUT input) : SV_Target
 {
-	const float4 srcColor = texture0.Sample(sampler0, input.tex) * input.color;
+	const f324 srcColor = texture0.Sample(sampler0, input.tex) * input.color;
 
-	return float4(lerp(srcColor.rgb, g_color, g_blend), srcColor.a);
+	return f324(lerp(srcColor.rgb, g_color, g_blend), srcColor.a);
 }

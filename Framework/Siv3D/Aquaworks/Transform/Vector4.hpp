@@ -5,6 +5,8 @@
 
 # include <string>
 
+# include "../Typedef.hpp"
+
 namespace Aquaworks
 {
 	namespace Transform
@@ -36,10 +38,10 @@ namespace Aquaworks
 			Vector4(Vector4 const& v);
 
 			/// <summary>要素を指定して構築する</summary>
-			Vector4(float x, float y, float z, float w);
+			Vector4(f32 x, f32 y, f32 z, f32 w);
 
 			/// <summary>三次元ベクトルとw要素を指定して構築する</summary>
-			Vector4(Vector3 const& v, float w);
+			Vector4(Vector3 const& v, f32 w);
 
 			/// <summary>四次元点から構築する</summary>
 			explicit Vector4(Point4 const& v);
@@ -50,15 +52,15 @@ namespace Aquaworks
 		public:
 
 			/// <summary>内積を返す</summary>
-			static float Dot(Vector4 const& v1, Vector4 const& v2);
+			static f32 Dot(Vector4 const& v1, Vector4 const& v2);
 
 			/// <summary>長さの二乗を返す</summary>
 			/// <param name="v">ベクトル</param>
-			static float LengthSquared(Vector4 const& v);
+			static f32 LengthSquared(Vector4 const& v);
 
 			/// <summary>長さを返す</summary>
 			/// <param name="v">ベクトル</param>
-			static float Length(Vector4 const& v);
+			static f32 Length(Vector4 const& v);
 
 			/// <summary>正規化したベクトル返す</summary>
 			/// <param name="v">ベクトル</param>
@@ -73,18 +75,18 @@ namespace Aquaworks
 
 			union
 			{
-				float elm[4];
+				f32 elm[4];
 
-				float mat[1][4];
+				f32 mat[1][4];
 
 				struct
 				{
-					float r, g, b, a;
+					f32 r, g, b, a;
 				};
 
 				struct
 				{
-					float x, y, z, w;
+					f32 x, y, z, w;
 				};
 			};
 		};
@@ -103,11 +105,11 @@ namespace Aquaworks
 
 		Vector4& operator *= (Vector4& v1, Vector4 const& v2);
 
-		Vector4& operator *= (Vector4& v, float s);
+		Vector4& operator *= (Vector4& v, f32 s);
 
 		Vector4& operator /= (Vector4& v1, Vector4 const& v2);
 
-		Vector4& operator /= (Vector4& v, float s);
+		Vector4& operator /= (Vector4& v, f32 s);
 
 		Vector4 operator + (Vector4 const& v1, Vector4 const& v2);
 
@@ -115,13 +117,13 @@ namespace Aquaworks
 
 		Vector4 operator * (Vector4 const& v1, Vector4 const& v2);
 
-		Vector4 operator * (Vector4 const& v, float s);
+		Vector4 operator * (Vector4 const& v, f32 s);
 
-		Vector4 operator * (float s, Vector4 const& v);
+		Vector4 operator * (f32 s, Vector4 const& v);
 
 		Vector4 operator / (Vector4 const& v1, Vector4 const& v2);
 
-		Vector4 operator / (Vector4 const& v, float s);
+		Vector4 operator / (Vector4 const& v, f32 s);
 	}
 }
 

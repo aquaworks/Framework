@@ -6,50 +6,50 @@ namespace Aquaworks
 {
 	namespace Utility
 	{
-		float Quad(float t)
+		f32 Quad(f32 t)
 		{
 			return t * t;
 		}
 
-		float Cubic(float t)
+		f32 Cubic(f32 t)
 		{
 			return t * t * t;
 		}
 
-		float Quart(float t)
+		f32 Quart(f32 t)
 		{
 			return t * t * t * t;
 		}
 
-		float Quint(float t)
+		f32 Quint(f32 t)
 		{
 			return t * t * t * t * t;
 		}
 
-		float Sine(float t)
+		f32 Sine(f32 t)
 		{
 			return 1.0f - Math::Cos(Math::Div2Pi * t);
 		}
 
-		float Exp(float t)
+		f32 Exp(f32 t)
 		{
 			return t == 0.0f ?
 				0.0f :
 				Math::Pow(2.0f, 10.0f * (t - 1.0f));
 		}
 
-		float Circ(float t)
+		f32 Circ(f32 t)
 		{
 			t -= 1.0f;
 			return 1.0f - Math::Sqrt(1.0f - t * t);
 		}
 
-		float Back(float t)
+		f32 Back(f32 t)
 		{
 			return t * t * (2.70158f * t - 1.70158f);
 		}
 
-		float Bounce(float t)
+		f32 Bounce(f32 t)
 		{
 			if (t < 1.0f / 2.75f)
 			{
@@ -69,7 +69,7 @@ namespace Aquaworks
 			return 7.5625f * t * t + 0.984375f;
 		}
 
-		float Elastic(float t)
+		f32 Elastic(f32 t)
 		{
 			if (t == 0.0f)
 			{
@@ -81,14 +81,14 @@ namespace Aquaworks
 				return 1.0f;
 			}
 
-			float s = 0.04774648292756859813f * Math::Asin(1.0f);
+			f32 s = 0.04774648292756859813f * Math::Asin(1.0f);
 
 			t -= 1.0f;
 			return -Math::Pow(2.0f, 10.0f * t) * Math::Sin((t - s) *
 				20.94395102393195529f);
 		}
 
-		float Linear(float t)
+		f32 Linear(f32 t)
 		{
 			return t;
 		}

@@ -21,13 +21,13 @@ namespace Aquaworks
 			using namespace Utility;
 			using namespace Shapes;
 
-			bool SphereSphere(Vector3 const& center1, float radius1, Vector3 const& center2, float radius2)
+			bool SphereSphere(Vector3 const& center1, f32 radius1, Vector3 const& center2, f32 radius2)
 			{
-				float r = radius1 + radius2;
+				f32 r = radius1 + radius2;
 				return Vector3::LengthSquared((center2 - center1)) <= r * r;
 			}
 
-			bool SpherePlane(Vector3 const& center, float radius, Vector3 const& normal, float distance)
+			bool SpherePlane(Vector3 const& center, f32 radius, Vector3 const& normal, f32 distance)
 			{
 				// 原点から平面までのベクトル
 				Vector3 pn = normal * distance;
@@ -36,7 +36,7 @@ namespace Aquaworks
 				Vector3 c = center - pn;
 
 				// 距離
-				float l = Vector3::Dot(c, normal);
+				f32 l = Vector3::Dot(c, normal);
 
 				// 距離が半径より長ければ衝突していない
 				if (l > radius)
@@ -47,7 +47,7 @@ namespace Aquaworks
 				return true;
 			}
 
-			bool SphereSegment(Vector3 const& center, float radius, Vector3 const& begin, Vector3 const& end)
+			bool SphereSegment(Vector3 const& center, f32 radius, Vector3 const& begin, Vector3 const& end)
 			{
 				// 線分のベクトル
 				Vector3 v = end - begin;
@@ -55,7 +55,7 @@ namespace Aquaworks
 				Vector3 v1 = center - begin;
 
 				// 球から始点までのベクトルが線分のベクトルに影響を及ぼす割合
-				float t = Vector3::Dot(v, v1) / Vector3::Dot(v, v);
+				f32 t = Vector3::Dot(v, v1) / Vector3::Dot(v, v);
 
 				// 最近点
 				Vector3 p =
@@ -72,11 +72,11 @@ namespace Aquaworks
 				return true;
 			}
 
-			bool SegmentPlane(Vector3 const& begin, Vector3 const& end, Vector3 const& normal, float distance)
+			bool SegmentPlane(Vector3 const& begin, Vector3 const& end, Vector3 const& normal, f32 distance)
 			{
-				Optional<float> t = RatioSegmentPlane(begin, end, normal, distance);
+				Optional<f32> t = RatioSegmentPlane(begin, end, normal, distance);
 
-				if (!t || Range<float>(0.0f, 1.0f).IsExcluded(*t))
+				if (!t || Range<f32>(0.0f, 1.0f).IsExcluded(*t))
 				{
 					return false;
 				}
@@ -84,7 +84,7 @@ namespace Aquaworks
 				return true;
 			}
 
-			bool SegmentSegment(Vector3 const& begin1, Vector3 const& end1, Vector3 const& begin2, Vector3 const& end2, float distance)
+			bool SegmentSegment(Vector3 const& begin1, Vector3 const& end1, Vector3 const& begin2, Vector3 const& end2, f32 distance)
 			{
 				// 名称変更
 				Vector3 const& p1 = begin1;
@@ -107,7 +107,7 @@ namespace Aquaworks
 				n = Vector3::Normalize(n);
 
 				// 距離
-				float d = Vector3::Dot(c, n);
+				f32 d = Vector3::Dot(c, n);
 
 				if (Math::Abs(d) > distance)
 				{
@@ -119,15 +119,15 @@ namespace Aquaworks
 				Vector3 const v3 = p3 - p1;
 				Vector3 const v4 = p4 - p2;
 
-				float l1 = Vector3::Dot(n, v1);
-				float l2 = Vector3::Dot(n, v2);
-				float l3 = Vector3::Dot(n, v3);
-				float l4 = Vector3::Dot(n, v4);
+				f32 l1 = Vector3::Dot(n, v1);
+				f32 l2 = Vector3::Dot(n, v2);
+				f32 l3 = Vector3::Dot(n, v3);
+				f32 l4 = Vector3::Dot(n, v4);
 
-				float t1 = l1 / (l1 - l2);
-				float t2 = l3 / (l3 - l4);
+				f32 t1 = l1 / (l1 - l2);
+				f32 t2 = l3 / (l3 - l4);
 
-				Range<float> const range { 0.0f, 1.0f };
+				Range<f32> const range { 0.0f, 1.0f };
 
 				if (range.IsExcluded(t1) || range.IsExcluded(t2))
 				{
@@ -137,7 +137,7 @@ namespace Aquaworks
 				return true;
 			}
 
-			bool CapsuleCapsule(Vector3 const& begin1, Vector3 const& end1, float radius1, Vector3 const& begin2, Vector3 const& end2, float radius2)
+			bool CapsuleCapsule(Vector3 const& begin1, Vector3 const& end1, f32 radius1, Vector3 const& begin2, Vector3 const& end2, f32 radius2)
 			{
 				// 名称変更
 				Vector3 const& p1 = begin1;
@@ -160,10 +160,10 @@ namespace Aquaworks
 				n = Vector3::Normalize(n);
 
 				// 半径の合計
-				float radius = radius1 + radius2;
+				f32 radius = radius1 + radius2;
 
 				// 距離
-				float d = Vector3::Dot(c, n);
+				f32 d = Vector3::Dot(c, n);
 
 				if (Math::Abs(d) > radius * radius)
 				{
@@ -183,15 +183,15 @@ namespace Aquaworks
 				Vector3 const v3 = P3 - p1;
 				Vector3 const v4 = P4 - p2;
 
-				float l1 = Vector3::Dot(n2, v1);
-				float l2 = Vector3::Dot(n2, v2);
-				float l3 = Vector3::Dot(n1, v3);
-				float l4 = Vector3::Dot(n2, v4);
+				f32 l1 = Vector3::Dot(n2, v1);
+				f32 l2 = Vector3::Dot(n2, v2);
+				f32 l3 = Vector3::Dot(n1, v3);
+				f32 l4 = Vector3::Dot(n2, v4);
 
-				float t1 = l1 / (l1 - l2);
-				float t2 = l3 / (l3 - l4);
+				f32 t1 = l1 / (l1 - l2);
+				f32 t2 = l3 / (l3 - l4);
 
-				Range<float> const range { 0.0f, 1.0f };
+				Range<f32> const range { 0.0f, 1.0f };
 
 				if (range.IsExcluded(t1) || range.IsExcluded(t2))
 				{
@@ -201,7 +201,7 @@ namespace Aquaworks
 				return true;
 			}
 
-			bool CapsulePlane(Vector3 const& begin, Vector3 const& end, float radius, Vector3 const& normal, float distance)
+			bool CapsulePlane(Vector3 const& begin, Vector3 const& end, f32 radius, Vector3 const& normal, f32 distance)
 			{
 				// 平面上の１点
 				Vector3 const p0 = normal * distance;
@@ -215,8 +215,8 @@ namespace Aquaworks
 				Vector3 const v2 = p2 - p0;
 
 				// 法線とベクトルの内積で平面から端点までの距離を求める
-				float l1 = Vector3::Dot(normal, v1);
-				float l2 = Vector3::Dot(normal, v2);
+				f32 l1 = Vector3::Dot(normal, v1);
+				f32 l2 = Vector3::Dot(normal, v2);
 
 				// 始点側で接触している場合
 				if (l1 < radius)
@@ -234,7 +234,7 @@ namespace Aquaworks
 				return false;
 			}
 
-			Optional<float> RatioSegmentPlane(Vector3 const& begin, Vector3 const& end, Vector3 const& normal, float distance)
+			Optional<f32> RatioSegmentPlane(Vector3 const& begin, Vector3 const& end, Vector3 const& normal, f32 distance)
 			{
 				// 平面上の１点
 				Vector3 p0 = normal * distance;
@@ -245,8 +245,8 @@ namespace Aquaworks
 				Vector3 v2 = end - p0;
 
 				// 法線とベクトルの内積で、平面から端点までの距離を求める
-				float l1 = Vector3::Dot(normal, v1);
-				float l2 = Vector3::Dot(normal, v2);
+				f32 l1 = Vector3::Dot(normal, v1);
+				f32 l2 = Vector3::Dot(normal, v2);
 
 				// l1とl2が等しければ平行なため交点が存在しない
 				if (l1 == l2)
@@ -327,7 +327,7 @@ namespace Aquaworks
 					Vector3 b = p3 - p1;
 					Vector3 c = p1 - p0;
 					Vector3 n = Vector3::Normalize(Vector3::Cross(a, b));
-					float length = Vector3::Dot(c, n);
+					f32 length = Vector3::Dot(c, n);
 					if (Math::Abs(length) > sphere.radius * sphere.origin.scaling.x)
 					{
 						continue;
@@ -369,7 +369,7 @@ namespace Aquaworks
 
 				Vector3 begin = capsule.begin * capsule.origin;
 				Vector3 end = capsule.end * capsule.origin;
-				float radius = capsule.radius;
+				f32 radius = capsule.radius;
 
 				for (size_t i = 0; i < indices.size(); i += 3)
 				{
@@ -383,22 +383,22 @@ namespace Aquaworks
 					Vector3 b = p3 - p1;
 
 					Vector3 n = Vector3::Cross(a, b);
-					float distance = Vector3::Dot(n, p1);
+					f32 distance = Vector3::Dot(n, p1);
 					Vector3 p0 = n * distance;
 
 					Vector3 v = end - begin;
 					Vector3 v1 = begin - p0;
 					Vector3 v2 = end - p0;
 
-					float l1 = Vector3::Dot(n, v1);
-					float l2 = Vector3::Dot(n, v2);
+					f32 l1 = Vector3::Dot(n, v1);
+					f32 l2 = Vector3::Dot(n, v2);
 
 					bool isPolygonInside = false;
 
 					// カプセルとポリゴンが平行でない時
 					if (l1 - l2 != 0)
 					{
-						float t = l1 / (l1 - l2);
+						f32 t = l1 / (l1 - l2);
 						// 交点
 						isPolygonInside = PolygonInside(polygon, begin + v * t);
 					}
@@ -465,7 +465,7 @@ namespace Aquaworks
 				Vector3 b = end2 - begin2;
 				Vector3 c = begin2 - begin1;
 				Vector3 n = Vector3::Normalize(Vector3::Cross(a, b));
-				float length = Vector3::Dot(n, c);
+				f32 length = Vector3::Dot(n, c);
 				return Math::Abs(length) < Math::Eps;
 			}
 
@@ -497,14 +497,14 @@ namespace Aquaworks
 					Vector3 const v1 = begin - p0;
 					Vector3 const v2 = end - p0;
 
-					float l1 = Vector3::Dot(n, v1);
-					float l2 = Vector3::Dot(n, v2);
+					f32 l1 = Vector3::Dot(n, v1);
+					f32 l2 = Vector3::Dot(n, v2);
 
 					// 平行でない時
 					if (l1 - l2 != 0)
 					{
-						float t = l1 / (l1 - l2);
-						if (Range<float>(0.0f, 1.0f).IsExcluded(t))
+						f32 t = l1 / (l1 - l2);
+						if (Range<f32>(0.0f, 1.0f).IsExcluded(t))
 						{
 							continue;
 						}

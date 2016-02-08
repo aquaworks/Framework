@@ -9,7 +9,7 @@ namespace Aquaworks
 {
 	namespace Shapes
 	{
-		Capsule::Capsule(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end, float radius)
+		Capsule::Capsule(Transform::Pose const& origin, Transform::Vector3 const& begin, Transform::Vector3 const& end, f32 radius)
 			: IShape(origin)
 			, begin(begin)
 			, end(end)
@@ -54,7 +54,7 @@ namespace Aquaworks
 			Transform::Vector3 center = origin.position + (begin + end) / 2.0f;
 			pose.Move(center * rotate);
 
-			float r = Transform::Vector3::Length(end - begin) / 2.0f + radius;
+			f32 r = Transform::Vector3::Length(end - begin) / 2.0f + radius;
 
 			return std::make_shared<Sphere>(pose, r);
 		}

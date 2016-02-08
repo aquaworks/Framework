@@ -1,55 +1,55 @@
 
 struct VS_INPUT
 {
-	float4 pos : POSITION;
-	float3 normal : NORMAL;
-	float2 tex : TEXCOORD0;
-	row_major float4x4 worldMatrix : MATRIX;
-	float4 diffuseColor : COLOR;
+	f324 pos : POSITION;
+	f323 normal : NORMAL;
+	f322 tex : TEXCOORD0;
+	row_major f324x4 worldMatrix : MATRIX;
+	f324 diffuseColor : COLOR;
 };
 
 struct VS_OUTPUT
 {
-	float4 pos : SV_POSITION;
-	float3 worldPosition : TEXCOORD0;
-	float4 color : TEXCOORD1;
-	float2 tex : TEXCOORD2;
+	f324 pos : SV_POSITION;
+	f323 worldPosition : TEXCOORD0;
+	f324 color : TEXCOORD1;
+	f322 tex : TEXCOORD2;
 };
 
 //-------------------------------------------------------------
 
 struct Light
 {
-	float3 position;
+	f323 position;
 	uint type;
-	float4 diffuseColor;
-	float4 attenuation;
+	f324 diffuseColor;
+	f324 attenuation;
 };
 
 cbuffer vscbMesh0 : register( b0 )
 {
-	row_major float4x4 g_viewProjectionMatrix;
+	row_major f324x4 g_viewProjectionMatrix;
 
-	float4 g_ambientColor;
+	f324 g_ambientColor;
 
 	Light g_lights[4];
 }
 
-float CalculateDirectionalLight(float3 surfaceNormal, float3 direction)
+f32 CalculateDirectionalLight(f323 surfaceNormal, f323 direction)
 {
 	return saturate(dot(surfaceNormal, direction.xyz)); 
 }
 
-float CalculatePointLight(float3 surfaceNormal, float3 surfacePosition, float3 lightPosition, float3 lightAttenuation)
+f32 CalculatePointLight(f323 surfaceNormal, f323 surfacePosition, f323 lightPosition, f323 lightAttenuation)
 {
-	float3 lightDirection = (lightPosition - surfacePosition);
-	const float d = length(lightDirection);
-	const float Kc = lightAttenuation.x;
-	const float Kl = lightAttenuation.y;
-	const float Kq = lightAttenuation.z;
-	const float f_att = 1.0/(Kc+Kl*d+Kq*d*d);
+	f323 lightDirection = (lightPosition - surfacePosition);
+	const f32 d = length(lightDirection);
+	const f32 Kc = lightAttenuation.x;
+	const f32 Kl = lightAttenuation.y;
+	const f32 Kq = lightAttenuation.z;
+	const f32 f_att = 1.0/(Kc+Kl*d+Kq*d*d);
 	lightDirection = normalize(lightDirection);
-	const float diffuseInfluence = saturate(dot(lightDirection,surfaceNormal)) * f_att;
+	const f32 diffuseInfluence = saturate(dot(lightDirection,surfaceNormal)) * f_att;
 	return diffuseInfluence;
 }
 
@@ -57,7 +57,7 @@ VS_OUTPUT VS(VS_INPUT input)
 {
 	VS_OUTPUT output;
 
-	const float4 posWS = mul(input.pos, input.worldMatrix);
+	const f324 posWS = mul(input.pos, input.worldMatrix);
 
 	output.worldPosition = posWS.xyz;
 
@@ -65,7 +65,7 @@ VS_OUTPUT VS(VS_INPUT input)
 
 	output.tex = input.tex;
 
-	const float3 surfaceNormal = normalize(mul(input.normal,(float3x3)input.worldMatrix));
+	const f323 surfaceNormal = normalize(mul(input.normal,(f323x3)input.worldMatrix));
 
 	output.color = g_ambientColor;
 
@@ -90,13 +90,13 @@ SamplerState sampler0 : register( s0 );
 
 cbuffer pscbMesh0 : register( b0 )
 {
-	float3 g_cameraPosition;
+	f323 g_cameraPosition;
 	uint g_fogType;
-	float4 g_fogParam;
-	float4 g_fogColor;
+	f324 g_fogParam;
+	f324 g_fogColor;
 }
 
-float4 PS(VS_OUTPUT input) : SV_Target
+f324 PS(VS_OUTPUT input) : SV_Target
 {
 	return texture0.Sample(sampler0,input.tex) * input.color;
 }

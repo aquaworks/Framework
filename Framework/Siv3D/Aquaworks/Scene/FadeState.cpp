@@ -10,7 +10,7 @@ namespace Aquaworks
 
 		}
 
-		FadeState::FadeState(float out, float wait, float in, bool isSwallow)
+		FadeState::FadeState(f32 out, f32 wait, f32 in, bool isSwallow)
 			: count()
 			, isSwallow(isSwallow)
 		{

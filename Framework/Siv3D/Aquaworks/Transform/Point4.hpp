@@ -5,6 +5,8 @@
 
 # include <string>
 
+# include "../Typedef.hpp"
+
 namespace Aquaworks
 {
 	namespace Transform
@@ -36,10 +38,10 @@ namespace Aquaworks
 			Point4(Point4 const& v);
 
 			/// <summary>要素を指定して構築する</summary>
-			Point4(int x, int y, int z, int w);
+			Point4(s32 x, s32 y, s32 z, s32 w);
 
 			/// <summary>三次元点とw要素を指定して構築する</summary>
-			Point4(Point3 const& v, int w);
+			Point4(Point3 const& v, s32 w);
 
 			/// <summary>四次元ベクトルから構築する</summary>
 			explicit Point4(Vector4 const& v);
@@ -50,40 +52,40 @@ namespace Aquaworks
 		public:
 
 			/// <summary>配列に変換する</summary>
-			operator int* ();
+			operator s32* ();
 
 			/// <summary>配列に変換する</summary>
-			operator int const* () const;
+			operator s32 const* () const;
 
 		public:
 
 			/// <summary>内積を返す</summary>
-			static int Dot(Point4 const& v1, Point4 const& v2);
+			static s32 Dot(Point4 const& v1, Point4 const& v2);
 
 			/// <summary>長さの二乗を返す</summary>
 			/// <param name="v">点</param>
-			static int LengthSquared(Point4 const& v);
+			static s32 LengthSquared(Point4 const& v);
 
 			/// <summary>長さを返す</summary>
 			/// <param name="v">点</param>
-			static float Length(Point4 const& v);
+			static f32 Length(Point4 const& v);
 
 		public:
 
 			union
 			{
-				int elm[4];
+				s32 elm[4];
 
-				int mat[1][4];
+				s32 mat[1][4];
 
 				struct
 				{
-					int r, g, b, a;
+					s32 r, g, b, a;
 				};
 
 				struct
 				{
-					int x, y, z, w;
+					s32 x, y, z, w;
 				};
 			};
 		};
@@ -102,11 +104,11 @@ namespace Aquaworks
 
 		Point4& operator *= (Point4& v1, Point4 const& v2);
 
-		Point4& operator *= (Point4& v, int s);
+		Point4& operator *= (Point4& v, s32 s);
 
 		Point4& operator /= (Point4& v1, Point4 const& v2);
 
-		Point4& operator /= (Point4& v, int s);
+		Point4& operator /= (Point4& v, s32 s);
 
 		Point4 operator + (Point4 const& v1, Point4 const& v2);
 
@@ -114,13 +116,13 @@ namespace Aquaworks
 
 		Point4 operator * (Point4 const& v1, Point4 const& v2);
 
-		Point4 operator * (Point4 const& v, int s);
+		Point4 operator * (Point4 const& v, s32 s);
 
-		Point4 operator * (int s, Point4 const& v);
+		Point4 operator * (s32 s, Point4 const& v);
 
 		Point4 operator / (Point4 const& v1, Point4 const& v2);
 
-		Point4 operator / (Point4 const& v, int s);
+		Point4 operator / (Point4 const& v, s32 s);
 	}
 }
 

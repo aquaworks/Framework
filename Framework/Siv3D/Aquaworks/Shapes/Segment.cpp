@@ -51,7 +51,7 @@ namespace Aquaworks
 			Transform::Vector3 center = origin.position + (begin + end) / 2.0f;
 			pose.Move(center * rotate);
 
-			float r = Transform::Vector3::Length(end - begin) / 2.0f;
+			f32 r = Transform::Vector3::Length(end - begin) / 2.0f;
 
 			return std::make_shared<Sphere>(pose, r);
 		}

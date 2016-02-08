@@ -31,7 +31,7 @@ namespace Aquaworks
 
 		}
 
-		Quaternion::Quaternion(float x, float y, float z, float w)
+		Quaternion::Quaternion(f32 x, f32 y, f32 z, f32 w)
 			: x(x)
 			, y(y)
 			, z(z)
@@ -46,22 +46,22 @@ namespace Aquaworks
 			return identity;
 		}
 
-		Quaternion& Quaternion::Rotate(Vector3 const& axis, float angle)
+		Quaternion& Quaternion::Rotate(Vector3 const& axis, f32 angle)
 		{
 			return *this *= Rotation(axis, angle);
 		}
 
-		Quaternion& Quaternion::Roll(float angle)
+		Quaternion& Quaternion::Roll(f32 angle)
 		{
 			return *this *= Rotation(Vector3::Forward(), angle);
 		}
 
-		Quaternion& Quaternion::Pitch(float angle)
+		Quaternion& Quaternion::Pitch(f32 angle)
 		{
 			return *this *= Rotation(Vector3::Right(), angle);
 		}
 
-		Quaternion& Quaternion::Yaw(float angle)
+		Quaternion& Quaternion::Yaw(f32 angle)
 		{
 			return *this *= Rotation(Vector3::Up(), angle);
 		}
@@ -71,26 +71,26 @@ namespace Aquaworks
 			return ToMatrix(*this);
 		}
 
-		Quaternion Quaternion::Rotation(Vector3 const& axis, float angle)
+		Quaternion Quaternion::Rotation(Vector3 const& axis, f32 angle)
 		{
-			float theta = angle / 2.0f;
-			float sin = Math::Sin(theta);
-			float cos = Math::Cos(theta);
+			f32 theta = angle / 2.0f;
+			f32 sin = Math::Sin(theta);
+			f32 cos = Math::Cos(theta);
 			return Quaternion(
 				axis.x * sin, axis.y * sin, axis.z * sin, cos);
 		}
 
 		Matrix Quaternion::ToMatrix(Quaternion const& q)
 		{
-			float x2 = 2 * q.x * q.x;
-			float y2 = 2 * q.y * q.y;
-			float z2 = 2 * q.z * q.z;
-			float xy = 2 * q.x * q.y;
-			float wz = 2 * q.w * q.z;
-			float xz = 2 * q.x * q.z;
-			float wy = 2 * q.w * q.y;
-			float yz = 2 * q.y * q.z;
-			float wx = 2 * q.w * q.x;
+			f32 x2 = 2 * q.x * q.x;
+			f32 y2 = 2 * q.y * q.y;
+			f32 z2 = 2 * q.z * q.z;
+			f32 xy = 2 * q.x * q.y;
+			f32 wz = 2 * q.w * q.z;
+			f32 xz = 2 * q.x * q.z;
+			f32 wy = 2 * q.w * q.y;
+			f32 yz = 2 * q.y * q.z;
+			f32 wx = 2 * q.w * q.x;
 
 			return Matrix(
 				1 - y2 - z2, xy + wz, xz - wy, 0,
@@ -108,12 +108,12 @@ namespace Aquaworks
 		{
 			Quaternion result;
 			Vector3& v = memory_cast<Vector3>(result);
-			float& t = result.w;
+			f32& t = result.w;
 
 			Vector3 v1 = memory_cast<Vector3>(q1);
 			Vector3 v2 = memory_cast<Vector3>(q2);
-			float t1 = q1.w;
-			float t2 = q2.w;
+			f32 t1 = q1.w;
+			f32 t2 = q2.w;
 
 			v = v2 * t1 + v1 * t2 + Vector3::Cross(v1, v2);
 			t = t1 * t2 - Vector3::Dot(v1, v2);

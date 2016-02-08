@@ -1,5 +1,7 @@
 # pragma once
 
+# include "../Typedef.hpp"
+
 namespace Aquaworks
 {
 	namespace Scene
@@ -36,7 +38,7 @@ namespace Aquaworks
 		public:
 
 			virtual void Initialize() = 0;
-			virtual void Update(float deltaTime) = 0;
+			virtual void Update(f32 deltaTime) = 0;
 			virtual void Render() const = 0;
 			virtual void Post() = 0;
 			virtual void Finalize() = 0;

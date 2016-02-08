@@ -94,6 +94,7 @@
     <ClCompile Include="Aquaworks\Actor\World.cpp" />
     <ClCompile Include="Aquaworks\Graphics\Renderer.cpp" />
     <ClCompile Include="Aquaworks\Scene\FadeState.cpp" />
+    <ClCompile Include="Aquaworks\Utility\Random.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Aquaworks\Physics\Collision.cpp" />
     <ClCompile Include="Aquaworks\Shapes\Capsule.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="Aquaworks\Utility\Math.hpp" />
     <ClInclude Include="Aquaworks\Utility\MemoryCast.hpp" />
     <ClInclude Include="Aquaworks\Utility\Optional.hpp" />
+    <ClInclude Include="Aquaworks\Utility\Random.hpp" />
     <ClInclude Include="Aquaworks\Utility\Range.hpp" />
     <ClInclude Include="Aquaworks\Utility\String.hpp" />
     <ClInclude Include="Aquaworks\Typedef.hpp" />

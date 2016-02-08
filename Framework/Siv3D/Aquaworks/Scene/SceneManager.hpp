@@ -57,7 +57,7 @@ namespace Aquaworks
 					identifier, Create<SceneType>(std::forward<Args>(args)...)));
 			}
 
-			void Update(float deltaTime)
+			void Update(f32 deltaTime)
 			{
 				for (auto it = m_stack.rbegin(); it != m_stack.rend(); ++it)
 				{
@@ -123,7 +123,7 @@ namespace Aquaworks
 
 		public:
 
-			virtual void Change(Identifier const& identifier, float t, bool isSwallow) override
+			virtual void Change(Identifier const& identifier, f32 t, bool isSwallow) override
 			{
 				PushOperation([this, identifier, t, isSwallow]
 				{
@@ -132,7 +132,7 @@ namespace Aquaworks
 				});
 			}
 
-			virtual void Replace(Identifier const& identifier, float t, bool isSwallow) override
+			virtual void Replace(Identifier const& identifier, f32 t, bool isSwallow) override
 			{
 				PushOperation([this, identifier, t, isSwallow]
 				{
@@ -141,7 +141,7 @@ namespace Aquaworks
 				});
 			}
 
-			virtual void Push(Identifier const& identifier, float t, bool isSwallow) override
+			virtual void Push(Identifier const& identifier, f32 t, bool isSwallow) override
 			{
 				PushOperation([this, identifier, t, isSwallow]
 				{
@@ -150,7 +150,7 @@ namespace Aquaworks
 				});
 			}
 
-			virtual void Pop(float t, bool isSwallow) override
+			virtual void Pop(f32 t, bool isSwallow) override
 			{
 				PushOperation([this, t, isSwallow]
 				{

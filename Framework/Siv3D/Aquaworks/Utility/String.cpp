@@ -45,47 +45,32 @@ namespace Aquaworks
 				return value;
 			}
 
-			std::wstring Create(long double value)
+			std::wstring Create(f64 value)
 			{
 				return std::to_wstring(value);
 			}
 
-			std::wstring Create(double value)
+			std::wstring Create(f32 value)
 			{
 				return std::to_wstring(value);
 			}
 
-			std::wstring Create(float value)
+			std::wstring Create(u64 value)
 			{
 				return std::to_wstring(value);
 			}
 
-			std::wstring Create(unsigned long long value)
+			std::wstring Create(s64 value)
 			{
 				return std::to_wstring(value);
 			}
 
-			std::wstring Create(long long value)
+			std::wstring Create(u32 value)
 			{
 				return std::to_wstring(value);
 			}
 
-			std::wstring Create(unsigned long value)
-			{
-				return std::to_wstring(value);
-			}
-
-			std::wstring Create(long value)
-			{
-				return std::to_wstring(value);
-			}
-
-			std::wstring Create(unsigned int value)
-			{
-				return std::to_wstring(value);
-			}
-
-			std::wstring Create(int value)
+			std::wstring Create(s32 value)
 			{
 				return std::to_wstring(value);
 			}

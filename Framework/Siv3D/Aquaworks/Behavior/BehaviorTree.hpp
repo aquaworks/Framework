@@ -27,7 +27,7 @@ namespace Aquaworks
 				m_entry->Initialize();
 			}
 
-			void Update(float deltaTime)
+			void Update(f32 deltaTime)
 			{
 				m_entry->Update(deltaTime);
 

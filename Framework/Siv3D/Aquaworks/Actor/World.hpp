@@ -1,5 +1,6 @@
 # pragma once
 
+# include "../Typedef.hpp"
 # include "IWorld.hpp"
 
 # include <unordered_map>
@@ -38,7 +39,7 @@ namespace Aquaworks
 
 		public:
 
-			void Update(float deltaTime);
+			void Update(f32 deltaTime);
 
 			void Collide();
 

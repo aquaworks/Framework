@@ -5,6 +5,8 @@
 
 # include <string>
 
+# include "../Typedef.hpp"
+
 namespace Aquaworks
 {
 	namespace Transform
@@ -54,7 +56,7 @@ namespace Aquaworks
 			Vector3(Vector3 const& v);
 
 			/// <summary>要素を指定して構築する</summary>
-			Vector3(float x, float y, float z);
+			Vector3(f32 x, f32 y, f32 z);
 
 			/// <summary>四次元ベクトルから構築する</summary>
 			Vector3(Vector4 const& v);
@@ -70,28 +72,28 @@ namespace Aquaworks
 			/// <summary>内積を返す</summary>
 			/// <param name="v1">ベクトル</param>
 			/// <param name="v2">ベクトル</param>
-			static float Dot(Vector3 const& v1, Vector3 const& v2);
+			static f32 Dot(Vector3 const& v1, Vector3 const& v2);
 
 			/// <summary>外積を返す</summary>
 			static Vector3 Cross(Vector3 const& v1, Vector3 const& v2);
 
 			/// <summary>長さの二乗を返す</summary>
 			/// <param name="v">ベクトル</param>
-			static float LengthSquared(Vector3 const& v);
+			static f32 LengthSquared(Vector3 const& v);
 
 			/// <summary>長さを返す</summary>
 			/// <param name="v">ベクトル</param>
-			static float Length(Vector3 const& v);
+			static f32 Length(Vector3 const& v);
 
 			/// <summary>正規化したベクトルを返す</summary>
 			/// <param name="v">ベクトル</param>
 			static Vector3 Normalize(Vector3 const& v);
 
 			/// <summary>任意軸で回転したベクトル返す</summary>
-			/// <param name="point">任意点</param>
+			/// <param name="pos32">任意点</param>
 			/// <param name="axis">回転軸</param>
 			/// <param name="angle">回転量</param>
-			static Vector3 Rotate(Vector3 const& point, Vector3 const& axis, float angle);
+			static Vector3 Rotate(Vector3 const& pos32, Vector3 const& axis, f32 angle);
 
 			/// <summary>投影したベクトルを返す</summary>
 			/// <param name="v">ベクトル</param>
@@ -99,30 +101,30 @@ namespace Aquaworks
 			static Vector3 Projection(Vector3 const& v, Vector3 const& target);
 
 			/// <summary>ベクトルのなす角を返す</summary>
-			static float Angle(Vector3 const& v1, Vector3 const& v2);
+			static f32 Angle(Vector3 const& v1, Vector3 const& v2);
 
 			/// <summary>球面線形補間したベクトルを返す</summary>
 			/// <param name="start">開始ベクトル</param>
 			/// <param name="end">終了ベクトル</param>
 			/// <param name="t">遷移率</param>
-			static Vector3 Slerp(Vector3 const& start, Vector3 const& end, float t);
+			static Vector3 Slerp(Vector3 const& start, Vector3 const& end, f32 t);
 
 		public:
 
 			union
 			{
-				float elm[3];
+				f32 elm[3];
 
-				float mat[1][3];
+				f32 mat[1][3];
 
 				struct
 				{
-					float r, g, b;
+					f32 r, g, b;
 				};
 
 				struct
 				{
-					float x, y, z;
+					f32 x, y, z;
 				};
 			};
 		};
@@ -141,11 +143,11 @@ namespace Aquaworks
 
 		Vector3& operator *= (Vector3& v1, Vector3 const& v2);
 
-		Vector3& operator *= (Vector3& v, float s);
+		Vector3& operator *= (Vector3& v, f32 s);
 
 		Vector3& operator /= (Vector3& v1, Vector3 const& v2);
 
-		Vector3& operator /= (Vector3& v, float s);
+		Vector3& operator /= (Vector3& v, f32 s);
 
 		Vector3 operator + (Vector3 const& v1, Vector3 const& v2);
 
@@ -153,13 +155,13 @@ namespace Aquaworks
 
 		Vector3 operator * (Vector3 const& v1, Vector3 const& v2);
 
-		Vector3 operator * (Vector3 const& v, float s);
+		Vector3 operator * (Vector3 const& v, f32 s);
 
-		Vector3 operator * (float s, Vector3 const& v);
+		Vector3 operator * (f32 s, Vector3 const& v);
 
 		Vector3 operator / (Vector3 const& v1, Vector3 const& v2);
 
-		Vector3 operator / (Vector3 const& v, float s);
+		Vector3 operator / (Vector3 const& v, f32 s);
 	}
 }
 

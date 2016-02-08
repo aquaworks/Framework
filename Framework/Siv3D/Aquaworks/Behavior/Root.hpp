@@ -29,7 +29,7 @@ namespace Aquaworks
 				m_entry->Initialize();
 			}
 
-			virtual void Update(float deltaTime) override
+			virtual void Update(f32 deltaTime) override
 			{
 				m_entry->Update(deltaTime);
 			}

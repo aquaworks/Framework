@@ -8,94 +8,94 @@ namespace Aquaworks
 	{
 		namespace Math
 		{
-			float ToRadian(float x)
+			f32 ToRadian(f32 x)
 			{
 				return x * Radian;
 			}
 
-			float ToDegree(float x)
+			f32 ToDegree(f32 x)
 			{
 				return x * Degree;
 			}
 
-			float Sin(float x)
+			f32 Sin(f32 x)
 			{
 				return std::sin(x);
 			}
 
-			float Cos(float x)
+			f32 Cos(f32 x)
 			{
 				return std::cos(x);
 			}
 
-			float Tan(float x)
+			f32 Tan(f32 x)
 			{
 				return std::tan(x);
 			}
 
-			float Asin(float x)
+			f32 Asin(f32 x)
 			{
 				return std::asin(x);
 			}
 
-			float Acos(float x)
+			f32 Acos(f32 x)
 			{
 				return std::acos(x);
 			}
 
-			float Atan(float x)
+			f32 Atan(f32 x)
 			{
 				return std::atan(x);
 			}
 
-			float Atan2(float y, float x)
+			f32 Atan2(f32 y, f32 x)
 			{
 				return std::atan2(y, x);
 			}
 
-			float Floor(float x)
+			f32 Floor(f32 x)
 			{
 				return std::floor(x);
 			}
 
-			float Ceiling(float x)
+			f32 Ceiling(f32 x)
 			{
 				return std::ceil(x);
 			}
 
-			float Round(float x)
+			f32 Round(f32 x)
 			{
 				return std::round(x);
 			}
 
-			float Sign(float x)
+			f32 Sign(f32 x)
 			{
 				return std::signbit(x) ? 1.0f : -1.0f;
 			}
 
-			float Pow(float x, float y)
+			f32 Pow(f32 x, f32 y)
 			{
 				return std::pow(x, y);
 			}
 
-			float Sqrt(float x)
+			f32 Sqrt(f32 x)
 			{
 				return std::sqrt(x);
 			}
 
-			float Smooth(float x, int y)
+			f32 Smooth(f32 x, int y)
 			{
-				float f = Math::Pow(10.0, -static_cast<float>(y));
+				f32 f = Math::Pow(10.0, -static_cast<f32>(y));
 				int i = (int)(x * f);
 				return i / f;
 			}
 
-			float Saturate(float x)
+			f32 Saturate(f32 x)
 			{
 				return Clamp(x, 0.0f, 1.0f);
 			}
 
-			float Clamp(float x, float y, float z)
+			f32 Clamp(f32 x, f32 y, f32 z)
 			{
 				return Math::Min({ Math::Max({ x, y }), z });
 			}

@@ -4,18 +4,18 @@ SamplerState sampler0 : register( s0 );
 
 struct VS_OUTPUT
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	f324 position : SV_POSITION;
+	f322 tex : TEXCOORD0;
+	f324 color : COLOR0;
 };
 
 cbuffer psConstants1 : register( b1 )
 {
-	float2 g_textureSize;
-	float2 g_offsetR;
-	float2 g_offsetG;
-	float2 g_offsetB;
-	float2 g_offsetA;
+	f322 g_textureSize;
+	f322 g_offsetR;
+	f322 g_offsetG;
+	f322 g_offsetB;
+	f322 g_offsetA;
 };
 /*
 struct ParamRGBSplit
@@ -29,15 +29,15 @@ struct ParamRGBSplit
 };
 */
 
-float4 PS(VS_OUTPUT input) : SV_Target
+f324 PS(VS_OUTPUT input) : SV_Target
 {
-	const float2 uv = input.tex;
-	const float2 texelSize = 1.0 / g_textureSize;
+	const f322 uv = input.tex;
+	const f322 texelSize = 1.0 / g_textureSize;
 
-	const float r = texture0.Sample(sampler0, uv + texelSize * g_offsetR).r;
-	const float g = texture0.Sample(sampler0, uv + texelSize * g_offsetG).g;
-	const float b = texture0.Sample(sampler0, uv + texelSize * g_offsetB).b;
-	const float a = texture0.Sample(sampler0, uv + texelSize * g_offsetA).a;
+	const f32 r = texture0.Sample(sampler0, uv + texelSize * g_offsetR).r;
+	const f32 g = texture0.Sample(sampler0, uv + texelSize * g_offsetG).g;
+	const f32 b = texture0.Sample(sampler0, uv + texelSize * g_offsetB).b;
+	const f32 a = texture0.Sample(sampler0, uv + texelSize * g_offsetA).a;
 
-	return float4(r, g, b, a);
+	return f324(r, g, b, a);
 }

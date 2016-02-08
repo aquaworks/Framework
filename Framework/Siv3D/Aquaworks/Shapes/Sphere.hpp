@@ -10,7 +10,7 @@ namespace Aquaworks
 		{
 		public:
 
-			Sphere(Transform::Pose const& origin, float radius);
+			Sphere(Transform::Pose const& origin, f32 radius);
 
 		public:
 
@@ -29,7 +29,7 @@ namespace Aquaworks
 
 		public:
 
-			float radius;
+			f32 radius;
 		};
 	}
 }
