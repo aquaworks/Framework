@@ -34,9 +34,7 @@ namespace Aquaworks
 
 		ShapePtr IShape::BoundingSphere() const
 		{
-			Transform::Pose pose;
-			pose.Move(origin.position);
-			return std::make_shared<Sphere>(pose, 0.0f);
+			return std::make_shared<Sphere>(Transform::Pose::Translate(origin.position), 0.0f);
 		}
 
 		bool IShape::Intersects(ShapePtr const& shape) const

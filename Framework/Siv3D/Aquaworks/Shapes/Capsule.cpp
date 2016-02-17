@@ -47,16 +47,13 @@ namespace Aquaworks
 
 		ShapePtr Capsule::BoundingSphere() const
 		{
-			Transform::Pose pose;
-
 			Transform::Matrix rotate = Transform::Quaternion::ToMatrix(origin.rotation);
 
 			Transform::Vector3 center = origin.position + (begin + end) / 2.0f;
-			pose.Move(center * rotate);
 
 			float r = Transform::Vector3::Length(end - begin) / 2.0f + radius;
 
-			return std::make_shared<Sphere>(pose, r);
+			return std::make_shared<Sphere>(Transform::Pose::Translate(center * rotate), r);
 		}
 
 		bool Capsule::Intersects(ShapePtr const& shape) const

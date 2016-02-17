@@ -334,12 +334,9 @@ namespace Aquaworks
 
 			Transform::Vector3 center = max + min;
 
-			Transform::Pose pose;
-			pose.Move(origin.position + center);
-
 			float r = Transform::Vector3::Length(max - center);
 
-			return std::make_shared<Sphere>(pose, r);
+			return std::make_shared<Sphere>(Transform::Pose::Translate(origin.position + center), r);
 		}
 
 		bool Mesh::Intersects(ShapePtr const& shape) const
