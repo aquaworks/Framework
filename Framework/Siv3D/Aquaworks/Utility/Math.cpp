@@ -1,4 +1,8 @@
 # include "Math.hpp"
+# include "MemoryCast.hpp"
+
+# include "../Transform/Quaternion.hpp"
+# include "../Transform/Matrix.hpp"
 
 # include <cmath>
 
@@ -98,6 +102,31 @@ namespace Aquaworks
 			float Clamp(float x, float y, float z)
 			{
 				return Math::Min({ Math::Max({ x, y }), z });
+			}
+
+			template <>
+			Transform::Quaternion Lerp(Transform::Quaternion const& begin, Transform::Quaternion const& end, float t)
+			{
+				Transform::Vector4 a =
+					memory_cast<Transform::Vector4>(begin);
+
+				Transform::Vector4 b =
+					memory_cast<Transform::Vector4>(end);
+
+				float omega = Math::Acos(Transform::Vector4::Dot(a, b));
+
+				if (omega == 0.0f)
+				{
+					return begin;
+				}
+
+				float sin = Math::Sin(omega);
+				
+				Transform::Vector4 result =
+					Math::Sin((1 - t) * omega) / sin * a +
+					Math::Sin(t * omega) / sin * b;
+
+				return memory_cast<Transform::Quaternion>(result);
 			}
 		}
 	}

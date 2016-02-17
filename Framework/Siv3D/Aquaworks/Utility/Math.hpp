@@ -5,6 +5,11 @@
 
 namespace Aquaworks
 {
+	namespace Transform
+	{
+		class Quaternion;
+	}
+
 	namespace Utility
 	{
 		namespace Math
@@ -202,6 +207,9 @@ namespace Aquaworks
 			{
 				return begin + (end - begin) * t;
 			}
+
+			template <>
+			Transform::Quaternion Lerp(Transform::Quaternion const& begin, Transform::Quaternion const& end, float t);
 		}
 	}
 }
