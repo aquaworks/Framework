@@ -3,6 +3,7 @@
 
 # include "../Transform/Quaternion.hpp"
 # include "../Transform/Matrix.hpp"
+# include "../Transform/Pose.hpp"
 
 # include <cmath>
 
@@ -127,6 +128,19 @@ namespace Aquaworks
 					Math::Sin(t * omega) / sin * b;
 
 				return memory_cast<Transform::Quaternion>(result);
+			}
+
+			template <>
+			Transform::Matrix Lerp(Transform::Matrix const& begin, Transform::Matrix const& end, float t)
+			{
+				Transform::Pose a = Transform::Matrix::Decompose(begin);
+				Transform::Pose b = Transform::Matrix::Decompose(end);
+
+				Transform::Vector3 translate = Lerp(a.position, b.position, t);
+				Transform::Quaternion rotate = Lerp(a.rotation, b.rotation, t);
+				Transform::Vector3 scale = Lerp(a.scaling, b.scaling, t);
+
+				return Transform::Matrix::Transformation(translate, rotate, scale);
 			}
 		}
 	}

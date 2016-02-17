@@ -8,6 +8,7 @@ namespace Aquaworks
 	namespace Transform
 	{
 		class Quaternion;
+		class Matrix;
 	}
 
 	namespace Utility
@@ -210,6 +211,9 @@ namespace Aquaworks
 
 			template <>
 			Transform::Quaternion Lerp(Transform::Quaternion const& begin, Transform::Quaternion const& end, float t);
+
+			template <>
+			Transform::Matrix Lerp(Transform::Matrix const& begin, Transform::Matrix const& end, float t);
 		}
 	}
 }

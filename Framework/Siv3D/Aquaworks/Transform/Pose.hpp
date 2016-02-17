@@ -20,32 +20,21 @@ namespace Aquaworks
 			Pose();
 
 			Pose(Pose const& transform);
-
 			Pose(Vector3 const& position, Quaternion const& rotation, Vector3 const& scaling);
-
 			Pose(Pose&& transform);
-
 			Pose& operator = (Pose const& transform);
 
 		public:
 
 			static Pose Affine(Vector3 const& position, Quaternion const& rotation, Vector3 const& scaling);
-
 		public:
 
-			Pose& Move(Vector3 const& translation);
-
-			Pose& Rotate(Quaternion const& rotation);
-
-			Pose& Scale(Vector3 const& scaling);
-
-			Pose Moved(Vector3 const& translation) const;
-
-			Pose Rotated(Quaternion const& rotation) const;
-
-			Pose Scaled(Vector3 const& scaling) const;
-
-		public:
+			static Pose Translate(Vector3 const& position);
+			static Pose Rotate(Quaternion const& rotation);
+			static Pose Scale(Vector3 const& scaling);
+			static Pose Translate(Pose const& pose, Vector3 const& position);
+			static Pose Rotate(Pose const& pose, Quaternion const& rotation);
+			static Pose Scale(Pose const& pose, Vector3 const& scaling);
 
 			static Matrix ToMatrix(Pose const& pose);
 

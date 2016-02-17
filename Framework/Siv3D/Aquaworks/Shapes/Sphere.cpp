@@ -33,7 +33,7 @@ namespace Aquaworks
 			pos.x = origin.position.x;
 			pos.y = origin.position.y;
 			pos.z = origin.position.z;
-			double r = radius;
+			double r = radius * origin.scaling.x;
 			s3d::Quaternion rotation;
 			rotation.component.m128_f32[0] = origin.rotation.x;
 			rotation.component.m128_f32[1] = origin.rotation.y;
@@ -41,7 +41,7 @@ namespace Aquaworks
 			rotation.component.m128_f32[3] = origin.rotation.w;
 			s3d::ColorF col { color.r, color.g, color.b, color.a };
 
-			s3d::Sphere(pos, r, rotation).draw(col);
+			s3d::Sphere(pos, r, rotation).drawForward(col);
 		}
 
 		ShapePtr Sphere::BoundingSphere() const

@@ -55,6 +55,7 @@ namespace Aquaworks
 		{
 			position = transform.position;
 			rotation = transform.rotation;
+			scaling = transform.scaling;
 			return *this;
 		}
 
@@ -63,34 +64,34 @@ namespace Aquaworks
 			return { position, rotation, scaling };
 		}
 
-		Pose& Pose::Move(Vector3 const& translation)
+		Pose Pose::Translate(Vector3 const& position)
 		{
-			return *this = Moved(translation);
+			return { position, Quaternion::Identity(), Vector3::One() };
 		}
 
-		Pose& Pose::Rotate(Quaternion const& rotation)
+		Pose Pose::Rotate(Quaternion const& rotation)
 		{
-			return *this = Rotated(rotation);
+			return { Vector3::Zero(), rotation, Vector3::One() };
 		}
 
-		Pose& Pose::Scale(Vector3 const& scaling)
+		Pose Pose::Scale(Vector3 const& scaling)
 		{
-			return *this = Scaled(scaling);
+			return { Vector3::Zero(), Quaternion::Identity(), scaling };
 		}
 
-		Pose Pose::Moved(Vector3 const& translation) const
+		Pose Pose::Translate(Pose const& pose, Vector3 const& position)
 		{
-			return { position + translation, rotation, scaling };
+			return Affine(pose.position + position, pose.rotation, pose.scaling);
 		}
 
-		Pose Pose::Rotated(Quaternion const& rotation) const
+		Pose Pose::Rotate(Pose const& pose, Quaternion const& rotation)
 		{
-			return { position, this->rotation * rotation, scaling };
+			return Affine(pose.position, pose.rotation * rotation, pose.scaling);
 		}
 
-		Pose Pose::Scaled(Vector3 const& scaling) const
+		Pose Pose::Scale(Pose const& pose, Vector3 const& scaling)
 		{
-			return { position, rotation, scaling * scaling };
+			return Affine(pose.position, pose.rotation, pose.scaling * scaling);
 		}
 
 		Matrix Pose::ToMatrix(Pose const& pose)

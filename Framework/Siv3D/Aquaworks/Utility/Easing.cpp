@@ -84,8 +84,7 @@ namespace Aquaworks
 			float s = 0.04774648292756859813f * Math::Asin(1.0f);
 
 			t -= 1.0f;
-			return -Math::Pow(2.0f, 10.0f * t) * Math::Sin((t - s) *
-				20.94395102393195529f);
+			return -Math::Pow(2.0f, 10.0f * t) * Math::Sin((t - s) * 20.94395102393195529f);
 		}
 
 		float Linear(float t)
